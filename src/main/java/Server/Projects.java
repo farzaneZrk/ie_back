@@ -27,9 +27,8 @@ public class Projects implements ViewBuilder{
             projectId = parts[2];
 
         if (projectId == null) {
-            System.out.println("i am here");
             for (Project project : mc.getProjects()) {
-                if(project.checkUserForProject(user)) {
+                if(project.checkUserForProject(user) && !project.isExpired()) {
                     dynamicData += "\t\t<tr>\n\t\t\t<td>";
                     dynamicData += project.getId();
                     dynamicData += "</td>\n\t\t\t<td>";
@@ -44,7 +43,7 @@ public class Projects implements ViewBuilder{
             if (dynamicData == "")
                 dynamicData += "\t\t<tr>\n\t\t\t<td>...</td>\n\t\t\t<td>...</td>\n\t\t\t<td>...</td>\n\t\t</tr>\n";
             response = mergeStaticAndDynamicResponse(dynamicData, "templates/projects.html");
-            System.out.println("i am out of there\n" + response);
+//            System.out.println(response);
         }
         else {
             Project thisProject = mc.findProject(projectId);
@@ -63,9 +62,11 @@ public class Projects implements ViewBuilder{
                     dynamicData += thisProject.getBudget();
                     dynamicData += "</li>\n";
                 }else
-                    dynamicData += "<h4>This Project is not available for you!</h4>";
+                    dynamicData = "<h4>This Project is not available for you!</h4>";
+                if (thisProject.isExpired())
+                    dynamicData = "<h4>This Project has been expired!</h4>";
                 response = mergeStaticAndDynamicResponse(dynamicData, "templates/project-single.html");
-                System.out.println("i am out of there\n" + response);
+//                System.out.println(response);
             }
             else {
                 this.give404(httpExchange);

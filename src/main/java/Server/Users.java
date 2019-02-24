@@ -13,7 +13,7 @@ public class Users implements ViewBuilder{
 
     @Override
     public void handle(HttpExchange httpExchange, ModelController mc) throws IOException {
-        String response = "";
+        String response;
         String dynamicData = "";
         String[] splittedPath = httpExchange.getRequestURI().getPath().split("/");
         String userId = null;
@@ -40,7 +40,7 @@ public class Users implements ViewBuilder{
             dynamicData += user.getBio();
             dynamicData += "</li>\n";
             response = mergeStaticAndDynamicResponse(dynamicData, "templates/user.html");
-            System.out.println("i am out of there\n" + response);
+//            System.out.println(response);
         }
         else {
             this.give404(httpExchange);

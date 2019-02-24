@@ -61,9 +61,9 @@ public class ModelController {
                     projectNode.path("description").asText(), projectNode.path("imageUrl").asText(), skillList,
                     projectNode.path("budget").asInt(), projectNode.path("deadline").asLong()));
         }
-        for(Project p : this.projects){
-            System.out.println("\n\n\n" + p);
-        }
+//        for(Project p : this.projects){
+//            System.out.println("\n\n\n" + p);
+//        }
     }
 
     public void addToSkillList(String skills) throws IOException {
@@ -74,7 +74,7 @@ public class ModelController {
             JsonNode skillNodes = elements.next();
             this.skills.add(skillNodes.path("name").asText());
         }
-        System.out.println(this.skills);
+//        System.out.println(this.skills);
 
     }
 

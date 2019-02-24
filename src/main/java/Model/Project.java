@@ -1,6 +1,8 @@
 package Model;
 
+import java.security.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -124,5 +126,13 @@ public class Project {
             }
         }
         return true;
+    }
+
+    public boolean isExpired() {
+        Date deadline = new Date(this.deadline * 1000);
+        Date current = new Date();
+        if (current.after(deadline))
+            return true;
+        return false;
     }
 }
