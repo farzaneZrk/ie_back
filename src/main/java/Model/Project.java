@@ -95,4 +95,17 @@ public class Project {
     public void setWinner(User winner) {
         this.winner = winner;
     }
+
+    @Override
+    public String toString() {
+        return "Project{" +
+                "id='" + id + '\n' +
+                ", title='" + title + '\n' +
+                ", descp='" + descp + '\n' +
+                ", picURL='" + picURL + '\n' +
+                ", skills=" + skills + '\n' +
+                ", budget=" + budget + '\n' +
+                ", deadline=" + deadline +
+                '}';
+    }
 }
