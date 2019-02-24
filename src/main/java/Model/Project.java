@@ -2,6 +2,8 @@ package Model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class Project {
     private String id;
@@ -110,6 +112,17 @@ public class Project {
     }
 
     public boolean checkUserForProject(User user) {
-        return false;
+        List<Skill> userSkillsList = user.getSkills();
+        if (userSkillsList.size() == 0)
+            return false;
+        for( Skill skill: this.skills) {
+            List<Skill> result = userSkillsList.stream()
+                    .filter(element -> Objects.equals(element.getName(), skill.getName()))
+                    .collect(Collectors.toList());
+            if (result.size() == 0 || result.get(0).getPoint() < skill.getPoint()) {
+                return false;
+            }
+        }
+        return true;
     }
 }

@@ -17,7 +17,7 @@ public class Projects implements ViewBuilder{
         String dynamicData = "";
         String projectId = null;
 
-        User user = mc.findUser("10");
+        User user = mc.findUser("1");
 
         String[] parts = httpExchange.getRequestURI().getPath().split("/");
         //System.out.println("parts: "+  parts[0]+ "," + parts[1]);

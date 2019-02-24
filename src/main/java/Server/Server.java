@@ -113,21 +113,22 @@ public class Server {
         //
         ModelController mc = server.getMC();
         List<Skill> skills = new ArrayList<>();
-        skills.add(new Skill("http", 10));
-        User u1 = new User("10", "omid", "amini", "job", "pic", "bio");
-        User u2 = new User("20", "farzane", "zirak!", "job2", "pic2", "bio2");
-        Project p1 = new Project("10", "job", "descp", "pic", new ArrayList<Skill>(skills), 10, 200);
-        Project p2 = new Project("20", "job2", "descp2", "pic2", skills, 20, 300);
+        skills.add(new Skill("HTML", 5));
+        skills.add(new Skill("Javascript", 4));
+        skills.add(new Skill("C++", 2));
+        skills.add(new Skill("Java", 3));
+        User u1 = new User("1", "علی", "شریف زاده", "برنامه نویس وب", "...", skills, "روی سنگ قبرم بنویسید: خدا بیامرز میخواست خیلی کارا بکنه ولی پول نداشت");
+//        Project p1 = new Project("10", "job", "descp", "pic", new ArrayList<Skill>(skills), 10, 200);
+//        Project p2 = new Project("20", "job2", "descp2", "pic2", skills, 20, 300);
 
         mc.addUser(u1);
-        mc.addUser(u2);
 
-        mc.addProject(p1);
-        skills.add(new Skill("css", 20));
-        mc.addProject(p2);
-
-        mc.addBid(new Bid(100, p1, u1));
-        mc.addBid(new Bid(200, p1, u2));
+//        mc.addProject(p1);
+//        skills.add(new Skill("css", 20));
+//        mc.addProject(p2);
+//
+//        mc.addBid(new Bid(100, p1, u1));
+//        mc.addBid(new Bid(200, p1, u2));
 
         try {
             server.startServer();
