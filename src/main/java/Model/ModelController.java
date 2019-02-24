@@ -8,12 +8,14 @@ public class ModelController {
     private List<Project> projects;
     private int nextUserId;
     private int nextProjectId;
+    private List<String> skills;
 
     public ModelController() {
         this.nextProjectId = 1;
         this.nextUserId = 1;
         this.users = new ArrayList<User>();
         this.projects = new ArrayList<Project>();
+        this.skills = new ArrayList<String>();
     }
 
     public User findUser(String id) {

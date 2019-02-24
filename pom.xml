@@ -4,12 +4,22 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <source>11</source>
-    <target>11</target>
-
     <groupId>IE_CA</groupId>
     <artifactId>ca2</artifactId>
     <version>1.0-SNAPSHOT</version>
+//  fucking bullshit
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.8.0</version>
+                    <configuration>
+                        <release>10</release> <!-- This was the problem. -->
+                    </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
 
 
 </project>

@@ -6,24 +6,31 @@ import java.util.List;
 public class modelt {
     public static void main(String[] args) {
         ModelController mc = new ModelController();
-
-        mc.addUser(new User(1, "omid", "amini", "job", "pic", "bio"));
-        mc.addUser(new User(2, "farzane", "zirak!", "job2", "pic2", "bio2"));
-
         List<Skill> skills = new ArrayList<Skill>();
         skills.add(new Skill("http", 10));
-        int a = mc.addProject(new Project(1, "job", "descp", "pic", skills, 10, 200));
-        skills.add(new Skill("css", 20));
-        int b = mc.addProject(new Project(2, "job2", "descp2", "pic2", skills, 20, 300));
+        User u1 = new User("10", "omid", "amini", "job", "pic", "bio");
+        User u2 = new User("20", "farzane", "zirak!", "job2", "pic2", "bio2");
+        Project p1 = new Project("10", "job", "descp", "pic", new ArrayList<Skill>(skills), 10, 200);
+        Project p2 = new Project("20", "job2", "descp2", "pic2", skills, 20, 300);
 
-        System.out.println(String.valueOf(a) + " " +  String.valueOf(b));
+        mc.addUser(u1);
+        mc.addUser(u2);
+
+        mc.addProject(p1);
+        skills.add(new Skill("css", 20));
+        mc.addProject(p2);
+
+        mc.addBid(new Bid(100, p1, u1));
+        mc.addBid(new Bid(200, p1, u2));
+
         System.out.println("users: ");
         for (User user: mc.getUsers())
             System.out.println(user.getId() + " " + user.getFirstName());
 
         System.out.println("projects: ");
         for (Project project: mc.getProjects())
-            System.out.println(project.getId()+ " " + project.getTitle());
+            System.out.println(project.getId()+ " " + project.getTitle() + " " + project.getSkills().toString() +
+                    " " + project.getBids().toString());
 
     }
 }
