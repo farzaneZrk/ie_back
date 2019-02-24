@@ -8,7 +8,7 @@ public class ModelController {
     private List<Project> projects;
     private int nextUserId;
     private int nextProjectId;
-    private List<String> skills;
+    private List<String> skills; // list of available skills
 
     public ModelController() {
         this.nextProjectId = 1;

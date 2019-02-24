@@ -20,6 +20,12 @@ public class Users implements ViewBuilder{
 
         if (userId != null){
             User user = mc.findUser(userId);
+            if (user == null) {
+                this.give404(httpExchange);
+                return;
+            }
+
+            //TODO: farzane change this
             response = "name: " + user.getFirstName() + " " + user.getLastName() + "\n" +
                     "job Title: " + user.getJobTitle() + "\n" +
                     "pic url: " + user.getPicURL() + "\n" +

@@ -19,6 +19,7 @@ public class Server {
     public ModelController mc;
 
     public Server(){
+        //TODO: get projects/skills list from remote server
         mc = new ModelController();
     }
 
@@ -73,6 +74,7 @@ public class Server {
 
     public static void main(String[] args) {
         Server server = new Server();
+        //
         ModelController mc = server.getMC();
         List<Skill> skills = new ArrayList<Skill>();
         skills.add(new Skill("http", 10));
