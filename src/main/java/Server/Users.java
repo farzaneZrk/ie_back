@@ -4,6 +4,8 @@ import Model.ModelController;
 import Model.User;
 import com.sun.net.httpserver.HttpExchange;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
@@ -12,6 +14,7 @@ public class Users implements ViewBuilder{
     @Override
     public void handle(HttpExchange httpExchange, ModelController mc) throws IOException {
         String response = "";
+        String dynamicData = "";
         String[] splittedPath = httpExchange.getRequestURI().getPath().split("/");
         String userId = null;
 
@@ -25,12 +28,19 @@ public class Users implements ViewBuilder{
                 return;
             }
 
-            //TODO: farzane change this
-            response = "name: " + user.getFirstName() + " " + user.getLastName() + "\n" +
-                    "job Title: " + user.getJobTitle() + "\n" +
-                    "pic url: " + user.getPicURL() + "\n" +
-                    "skills: " + user.getSkills().toString() + "\n" +
-                    "bio: " + user.getBio() + "\n";
+            dynamicData += "\t\t<li>id: ";
+            dynamicData += user.getId();
+            dynamicData += "</li>\n\t\t<li>first name: ";
+            dynamicData += user.getFirstName();
+            dynamicData += "</li>\n\t\t<li>last name: ";
+            dynamicData += user.getLastName();
+            dynamicData += "</li>\n\t\t<li>job title: ";
+            dynamicData += user.getJobTitle();
+            dynamicData += "</li>\n\t\t<li>bio: ";
+            dynamicData += user.getBio();
+            dynamicData += "</li>\n";
+            response = mergeStaticAndDynamicResponse(dynamicData, "templates/user.html");
+            System.out.println("i am out of there\n" + response);
         }
         else {
             this.give404(httpExchange);
@@ -38,9 +48,35 @@ public class Users implements ViewBuilder{
         }
 
 
-        httpExchange.sendResponseHeaders(200, response.length());
+        byte[] bs = response.getBytes("UTF-8");
+        httpExchange.sendResponseHeaders(200, bs.length);
         OutputStream os = httpExchange.getResponseBody();
-        os.write(response.getBytes());
+        os.write(bs);
         os.close();
+    }
+
+    private String mergeStaticAndDynamicResponse(String dynamicData, String tHTMLPath) {
+        StringBuilder template = new StringBuilder();
+        try {
+            File file = new File(tHTMLPath);
+            FileInputStream fis = new FileInputStream(file);
+            char current;
+            boolean fCurlyBrace = false;
+            while (fis.available() > 0) {
+                current = (char) fis.read();
+                if (current == '{') fCurlyBrace = true;
+                else if(current == '*' && fCurlyBrace){
+                    template.append(dynamicData);
+                    fCurlyBrace = false;
+                } else if(fCurlyBrace) {
+                    fCurlyBrace = false;
+                    template.append('{').append(current);
+                } else
+                    template.append(current);
+            }
+        } catch (IOException e) {
+            return "notFoundTemplate()";
+        }
+        return template.toString();
     }
 }

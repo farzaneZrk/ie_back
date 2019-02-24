@@ -9,7 +9,6 @@ public class User {
     private String firstName, lastName;
     private String jobTitle;
     private String picURL;
-    //TODO: add skills // done
     private List<Skill> skills;
     private String bio;
 

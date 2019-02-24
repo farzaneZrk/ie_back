@@ -108,4 +108,8 @@ public class Project {
                 ", deadline=" + deadline +
                 '}';
     }
+
+    public boolean checkUserForProject(User user) {
+        return false;
+    }
 }

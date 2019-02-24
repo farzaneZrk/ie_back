@@ -2,6 +2,7 @@ package Server;
 
 import Model.ModelController;
 import Model.Project;
+import Model.User;
 import com.sun.net.httpserver.HttpExchange;
 
 import java.io.File;
@@ -13,7 +14,10 @@ public class Projects implements ViewBuilder{
     @Override
     public void handle(HttpExchange httpExchange, ModelController mc) throws IOException {
         String response = "";
+        String dynamicData = "";
         String projectId = null;
+
+        User user = mc.findUser("10");
 
         String[] parts = httpExchange.getRequestURI().getPath().split("/");
         //System.out.println("parts: "+  parts[0]+ "," + parts[1]);
@@ -23,18 +27,22 @@ public class Projects implements ViewBuilder{
             projectId = parts[2];
 
         if (projectId == null) {
-            String dynamicData = "";
             System.out.println("i am here");
             for (Project project : mc.getProjects()) {
-                dynamicData += "\t\t<tr>\n\t\t\t<td>";
-                dynamicData += project.getId();
-                dynamicData += "</td>\n\t\t\t<td>";
-                dynamicData += project.getTitle();
-                dynamicData += "</td>\n\t\t\t<td>";
-                dynamicData += project.getBudget();
-                dynamicData += "</td>\n\t\t</tr>\n";
+                if(project.checkUserForProject(user)) {
+                    dynamicData += "\t\t<tr>\n\t\t\t<td>";
+                    dynamicData += project.getId();
+                    dynamicData += "</td>\n\t\t\t<td>";
+                    dynamicData += project.getTitle();
+                    dynamicData += "</td>\n\t\t\t<td>";
+                    dynamicData += project.getBudget();
+                    dynamicData += "</td>\n\t\t</tr>\n";
+//                break;
 //                response += project.getTitle() + "\n\n";
+                }
             }
+            if (dynamicData == "")
+                dynamicData += "\t\t<tr>\n\t\t\t<td>...</td>\n\t\t\t<td>...</td>\n\t\t\t<td>...</td>\n\t\t</tr>\n";
             response = mergeStaticAndDynamicResponse(dynamicData, "templates/projects.html");
             System.out.println("i am out of there\n" + response);
         }
@@ -42,23 +50,32 @@ public class Projects implements ViewBuilder{
             Project thisProject = mc.findProject(projectId);
             //TODO: check for project req and also handle login
             if (thisProject != null) {
-                response += "title: " + thisProject.getTitle() + "\n" +
-                        "skills: " + thisProject.getSkills().toString() + "\n" +
-                        "bids: " + thisProject.getBids().toString() + "\n" +
-                        "budget: " + thisProject.getBudget() + "\n" +
-                        "description: " + thisProject.getDescp() + "\n" +
-                        "pic url: " + thisProject.getPicURL() + "\n" +
-                        "deadline: " + thisProject.getDeadline() + "\n";
+                if(thisProject.checkUserForProject(user)) {
+                    dynamicData += "\t\t<li>id: ";
+                    dynamicData += thisProject.getId();
+                    dynamicData += "</li>\n\t\t<li>title: ";
+                    dynamicData += thisProject.getTitle();
+                    dynamicData += "</li>\n\t\t<li>description: ";
+                    dynamicData += thisProject.getDescp();
+                    dynamicData += "</li>\n\t\t<li>imageUrl: <img src=\"";
+                    dynamicData += thisProject.getPicURL();
+                    dynamicData += "\" style=\"width: 150px; height: 150px;\"></li>\n\t\t<li>budget: ";
+                    dynamicData += thisProject.getBudget();
+                    dynamicData += "</li>\n";
+                }else
+                    dynamicData += "<h4>This Project is not available for you!</h4>";
+                response = mergeStaticAndDynamicResponse(dynamicData, "templates/project-single.html");
+                System.out.println("i am out of there\n" + response);
             }
             else {
                 this.give404(httpExchange);
                 return;
             }
         }
-
-        httpExchange.sendResponseHeaders(200, response.length());
+        byte[] bs = response.getBytes("UTF-8");
+        httpExchange.sendResponseHeaders(200, bs.length);
         OutputStream os = httpExchange.getResponseBody();
-        os.write(response.getBytes());
+        os.write(bs);
         os.close();
     }
 
