@@ -4,6 +4,8 @@ import Model.ModelController;
 import Model.Project;
 import com.sun.net.httpserver.HttpExchange;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
@@ -21,8 +23,20 @@ public class Projects implements ViewBuilder{
             projectId = parts[2];
 
         if (projectId == null) {
-            for (Project project : mc.getProjects())
-                response += project.getTitle() + "\n";
+            String dynamicData = "";
+            System.out.println("i am here");
+            for (Project project : mc.getProjects()) {
+                dynamicData += "\t\t<tr>\n\t\t\t<td>";
+                dynamicData += project.getId();
+                dynamicData += "</td>\n\t\t\t<td>";
+                dynamicData += project.getTitle();
+                dynamicData += "</td>\n\t\t\t<td>";
+                dynamicData += project.getBudget();
+                dynamicData += "</td>\n\t\t</tr>\n";
+//                response += project.getTitle() + "\n\n";
+            }
+            response = mergeStaticAndDynamicResponse(dynamicData, "templates/projects.html");
+            System.out.println("i am out of there\n" + response);
         }
         else {
             Project thisProject = mc.findProject(projectId);
@@ -46,5 +60,30 @@ public class Projects implements ViewBuilder{
         OutputStream os = httpExchange.getResponseBody();
         os.write(response.getBytes());
         os.close();
+    }
+
+    private String mergeStaticAndDynamicResponse(String dynamicData, String tHTMLPath) {
+        StringBuilder template = new StringBuilder();
+        try {
+            File file = new File(tHTMLPath);
+            FileInputStream fis = new FileInputStream(file);
+            char current;
+            boolean fCurlyBrace = false;
+            while (fis.available() > 0) {
+                current = (char) fis.read();
+                if (current == '{') fCurlyBrace = true;
+                else if(current == '*' && fCurlyBrace){
+                    template.append(dynamicData);
+                    fCurlyBrace = false;
+                } else if(fCurlyBrace) {
+                    fCurlyBrace = false;
+                    template.append('{').append(current);
+                } else
+                    template.append(current);
+            }
+        } catch (IOException e) {
+            return "notFoundTemplate()";
+        }
+        return template.toString();
     }
 }
