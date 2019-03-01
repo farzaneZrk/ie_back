@@ -1,6 +1,6 @@
 package Server;
 
-import Model.ModelController;
+import Model.SkillController;
 import Model.User;
 import com.sun.net.httpserver.HttpExchange;
 
@@ -9,10 +9,12 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
+import static Model.UserController.findUser;
+
 public class Users implements ViewBuilder{
 
     @Override
-    public void handle(HttpExchange httpExchange, ModelController mc) throws IOException {
+    public void handle(HttpExchange httpExchange, SkillController mc) throws IOException {
         String response;
         String dynamicData = "";
         String[] splittedPath = httpExchange.getRequestURI().getPath().split("/");
@@ -22,7 +24,7 @@ public class Users implements ViewBuilder{
             userId = splittedPath[2];
 
         if (userId != null){
-            User user = mc.findUser(userId);
+            User user = findUser(userId);
             if (user == null) {
                 this.give404(httpExchange);
                 return;

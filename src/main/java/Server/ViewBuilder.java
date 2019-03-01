@@ -1,13 +1,13 @@
 package Server;
 
-import Model.ModelController;
+import Model.SkillController;
 import com.sun.net.httpserver.HttpExchange;
 
 import java.io.IOException;
 import java.io.OutputStream;
 
 public interface ViewBuilder {
-    public void handle(HttpExchange httpExchange, ModelController mc) throws IOException;
+    public void handle(HttpExchange httpExchange, SkillController mc) throws IOException;
     default public void give404(HttpExchange httpExchange) throws IOException{
         String response =
                 "<html>"

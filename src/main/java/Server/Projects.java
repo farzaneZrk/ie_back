@@ -1,6 +1,6 @@
 package Server;
 
-import Model.ModelController;
+import Model.SkillController;
 import Model.Project;
 import Model.User;
 import com.sun.net.httpserver.HttpExchange;
@@ -10,14 +10,18 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
+import static Model.ProjectController.findProject;
+import static Model.ProjectController.getProjectList;
+import static Model.UserController.findUser;
+
 public class Projects implements ViewBuilder{
     @Override
-    public void handle(HttpExchange httpExchange, ModelController mc) throws IOException {
+    public void handle(HttpExchange httpExchange, SkillController mc) throws IOException {
         String response = "";
         String dynamicData = "";
         String projectId = null;
 
-        User user = mc.findUser("1");
+        User user = findUser("1");
 
         String[] parts = httpExchange.getRequestURI().getPath().split("/");
         //System.out.println("parts: "+  parts[0]+ "," + parts[1]);
@@ -27,7 +31,7 @@ public class Projects implements ViewBuilder{
             projectId = parts[2];
 
         if (projectId == null) {
-            for (Project project : mc.getProjects()) {
+            for (Project project : getProjectList()) {
                 if(project.checkUserForProject(user) && !project.isExpired()) {
                     dynamicData += "\t\t<tr>\n\t\t\t<td>";
                     dynamicData += project.getId();
@@ -46,7 +50,7 @@ public class Projects implements ViewBuilder{
 //            System.out.println(response);
         }
         else {
-            Project thisProject = mc.findProject(projectId);
+            Project thisProject = findProject(projectId);
             //TODO: check for project req and also handle login
             if (thisProject != null) {
                 if(thisProject.checkUserForProject(user)) {

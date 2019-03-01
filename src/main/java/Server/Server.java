@@ -10,7 +10,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.net.InetSocketAddress;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
@@ -20,11 +19,13 @@ import java.util.StringTokenizer;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
+import static Model.ProjectController.addToProjectList;
+
 public class Server {
-    public ModelController mc;
+    public SkillController mc;
 
     public Server(){
-        mc = new ModelController();
+        mc = new SkillController();
         try {
             setUpProjectlist();
             setUpSkillList();
@@ -41,7 +42,7 @@ public class Server {
 
     private void setUpProjectlist() throws IOException {
         String projectsJson = getDataFromServer("http://142.93.134.194:8000/joboonja/project/");
-        mc.addToProjectList(projectsJson);
+        addToProjectList(projectsJson);
     }
 
     private String getDataFromServer(String urlPath) throws IOException {
@@ -65,7 +66,7 @@ public class Server {
         server.start();
     }
 
-    public ModelController getMC(){
+    public SkillController getMC(){
         return mc;
     }
 
@@ -112,7 +113,7 @@ public class Server {
     public static void main(String[] args) {
         Server server = new Server();
         //
-        ModelController mc = server.getMC();
+        SkillController mc = server.getMC();
         List<Skill> skills = new ArrayList<>();
         skills.add(new Skill("HTML", 5));
         skills.add(new Skill("Javascript", 4));
@@ -122,7 +123,7 @@ public class Server {
 //        Project p1 = new Project("10", "job", "descp", "pic", new ArrayList<Skill>(skills), 10, 200);
 //        Project p2 = new Project("20", "job2", "descp2", "pic2", skills, 20, 300);
 
-        mc.addUser(u1);
+//        mc.addUser(u1);
 
 //        mc.addProject(p1);
 //        skills.add(new Skill("css", 20));
