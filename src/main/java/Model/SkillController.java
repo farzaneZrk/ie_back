@@ -19,6 +19,7 @@ public class SkillController {
         skillList.add("Java");
         skillList.add("python");
         skillList.add("HTML");
+        skillList.add("Javascript");
 
     }
 

@@ -95,7 +95,7 @@ public class User {
 
     public void addSkill(Skill skill) {
         for (Skill s : skills) {
-            if (s.getName().equals(skill))
+            if (s.getName().equals(skill.getName()))
                 return;
         }
         this.skills.add(skill);

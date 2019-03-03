@@ -20,26 +20,19 @@ public class SingleUser extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        User thisUser = UserController.findUser("10");
+        User thisUser = UserController.findUser("1");
         request.setAttribute("thisUser", thisUser);
 
-        System.out.println("this is the uri: "+request.getRequestURI());
-        StringTokenizer tokenizer = new StringTokenizer(request.getRequestURI(), "/");
-        System.out.println("1"+tokenizer.nextToken());
-        System.out.println("2"+tokenizer.nextToken());
-
-        String id = tokenizer.nextToken();
-        System.out.println("this is Id" + id);
+        String[] splittedPath = request.getRequestURI().split("/");
+        String id = splittedPath[3];
 
         if (id.equals(thisUser.getId())){
-            System.out.println("in here");
             request.setAttribute("user", thisUser);
             request.setAttribute("skillList", SkillController.getSkillList());
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/user-single-logged-in.jsp");
             dispatcher.forward(request , response);
 //            request.getRequestDispatcher("user-single-logged-in.jsp").forward(request, response);
         }else {
-            System.out.println("this is the id:   " + id);
             User requestedUser = UserController.findUser(id);
             if (requestedUser == null) {
 //                request.getRequestDispatcher("user-not-found.jsp").forward(request, response);

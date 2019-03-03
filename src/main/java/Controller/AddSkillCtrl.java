@@ -19,7 +19,6 @@ public class AddSkillCtrl extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println(request.getParameter("choosedSkill"));
         String userID = request.getParameter("userID");
         User user = UserController.findUser(userID);
         user.addSkill(new Skill(request.getParameter("choosedSkill"), 0));

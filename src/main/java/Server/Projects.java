@@ -32,7 +32,7 @@ public class Projects implements ViewBuilder{
 
         if (projectId == null) {
             for (Project project : getProjectList()) {
-                if(project.checkUserForProject(user) && !project.isExpired()) {
+                if(project.checkUserForProject(user.getId()) && !project.isExpired()) {
                     dynamicData += "\t\t<tr>\n\t\t\t<td>";
                     dynamicData += project.getId();
                     dynamicData += "</td>\n\t\t\t<td>";
@@ -53,7 +53,7 @@ public class Projects implements ViewBuilder{
             Project thisProject = findProject(projectId);
             //TODO: check for project req and also handle login
             if (thisProject != null) {
-                if(thisProject.checkUserForProject(user)) {
+                if(thisProject.checkUserForProject(user.getId())) {
                     dynamicData += "\t\t<li>id: ";
                     dynamicData += thisProject.getId();
                     dynamicData += "</li>\n\t\t<li>title: ";

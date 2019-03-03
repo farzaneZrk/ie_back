@@ -113,9 +113,10 @@ public class Project {
                 '}';
     }
 
-    public boolean checkUserForProject(User user) {
+    public boolean checkUserForProject(String userId) {
+        User user = UserController.findUser(userId);
         List<Skill> userSkillsList = user.getSkills();
-        if (userSkillsList.size() == 0)
+        if (userSkillsList.size() == 0 && skills.size() != 0)
             return false;
         for( Skill skill: this.skills) {
             List<Skill> result = userSkillsList.stream()
@@ -131,8 +132,6 @@ public class Project {
     public boolean isExpired() {
         Date deadline = new Date(this.deadline * 1000);
         Date current = new Date();
-        if (current.after(deadline))
-            return true;
-        return false;
+        return current.after(deadline);
     }
 }

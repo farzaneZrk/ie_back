@@ -12,11 +12,18 @@ public class UserController {
         userList = new ArrayList<>();
         List<Skill> skills = new ArrayList<Skill>();
         skills.add(new Skill("http", 10));
-        skills.add(new Skill("c", 5));
         User u1 = new User("10", "omid", "amini", "job", "pic", skills,"bio");
-        User u2 = new User("20", "farzane", "zirak!", "job2", "pic2", skills, "bio2");
+        skills.add(new Skill("c", 5));
+        User u2 = new User("20", "farzane", "zirak", "job2", "pic2", skills, "bio2");
+        skills.clear();
+        skills.add(new Skill("HTML", 5));
+        skills.add(new Skill("Javascript", 4));
+        skills.add(new Skill("C++", 2));
+        skills.add(new Skill("Java", 3));
+        User u3 = new User("1", "علی", "شریف زاده", "برنامه نویس وب", "...", skills, "روی سنگ قبرم بنویسید: خدا بیامرز میخواست خیلی کارا بکنه ولی پول نداشت");
         userList.add(u1);
         userList.add(u2);
+        userList.add(u3);
     }
 
     public static List<User> getUserList() {

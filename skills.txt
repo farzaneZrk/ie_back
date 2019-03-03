@@ -1,0 +1,1 @@
+[{"name":"Android"},{"name":"C"},{"name":"C++"},{"name":"CSS"},{"name":"Django"},{"name":"HTML"},{"name":"Java"},{"name":"Javascript"},{"name":"Linux"},{"name":"MySQL"},{"name":"Node.js"},{"name":"Photoshop"},{"name":"PHP"},{"name":"Python"},{"name":"React"},{"name":"SEO"},{"name":"SQL"}]

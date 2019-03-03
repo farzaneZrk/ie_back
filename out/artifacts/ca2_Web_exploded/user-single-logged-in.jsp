@@ -29,7 +29,7 @@
         </li>
     </ul>
     Add Skill:
-    <form action="<c:url value="/addSkill"/>" method="POST">
+    <form action="<c:url value="/addSkill"/>" method="GET">
         <select name="choosedSkill">
             <c:forEach var="skill" items="${skillList}">
                 <option value="${skill}"><c:out value="${skill}"/></option>
