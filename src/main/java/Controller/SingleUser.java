@@ -1,5 +1,6 @@
 package Controller;
 
+import Model.SkillController;
 import Model.User;
 import Model.UserController;
 
@@ -15,6 +16,7 @@ import java.util.StringTokenizer;
 @WebServlet("/user/*")
 public class SingleUser extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -32,6 +34,7 @@ public class SingleUser extends HttpServlet {
         if (id.equals(thisUser.getId())){
             System.out.println("in here");
             request.setAttribute("user", thisUser);
+            request.setAttribute("skillList", SkillController.getSkillList());
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/user-single-logged-in.jsp");
             dispatcher.forward(request , response);
 //            request.getRequestDispatcher("user-single-logged-in.jsp").forward(request, response);

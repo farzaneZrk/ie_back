@@ -49,5 +49,13 @@ public class UserController {
         }
     }
 
+    public static void deleteUserSkill(String userID, String skillName) {
+        System.out.println("in delete user skills");
+        User user = findUser(userID);
+        if (user != null)
+            user.removeSkill(skillName);
+        System.out.println("in delete user skill, after if");
+    }
+
 
 }

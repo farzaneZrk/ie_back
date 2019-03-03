@@ -1,7 +1,5 @@
 package Controller;
 
-import Model.Skill;
-import Model.User;
 import Model.UserController;
 
 import javax.servlet.RequestDispatcher;
@@ -12,17 +10,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/endorse")
-public class EndorseCtrl extends HttpServlet {
+@WebServlet("/deleteSkill")
+public class DeleteSkillCtrl extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        String endorserID = request.getParameter("endorserID");
-        String endorsedID = request.getParameter("endorsedID");
+        String userID = request.getParameter("userID");
         String skillName = request.getParameter("skillName");
-        UserController.endorseUserSkill(endorserID, endorsedID, skillName);
-        request.getRequestDispatcher("user/" + endorsedID).forward(request, response);
+        UserController.deleteUserSkill(userID, skillName);
+
+//        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/user/" + userID);
+//        dispatcher.forward(request , response);
+        request.getRequestDispatcher("/user/" + userID).forward(request, response);
     }
 }

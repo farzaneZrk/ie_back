@@ -13,6 +13,17 @@ public class SkillController {
 
     static {
         skillList = new ArrayList<>();
+        skillList.add("matlab");
+        skillList.add("C++");
+        skillList.add("C");
+        skillList.add("Java");
+        skillList.add("python");
+        skillList.add("HTML");
+
+    }
+
+    public static List<String> getSkillList() {
+        return skillList;
     }
 
     public static void addToSkillList(String skills) throws IOException {

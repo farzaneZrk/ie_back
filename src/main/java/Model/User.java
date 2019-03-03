@@ -83,6 +83,10 @@ public class User {
 
 
     public void addSkill(Skill skill) {
+        for (Skill s : skills) {
+            if (s.getName().equals(skill))
+                return;
+        }
         this.skills.add(skill);
     }
 
@@ -92,5 +96,14 @@ public class User {
 
     public void setBio(String bio) {
         this.bio = bio;
+    }
+
+    public void removeSkill(String skillName) {
+        for (int i=0; i < skills.size(); i++) {
+            if (skills.get(i).getName().equals(skillName)) {
+                skills.remove(i);
+                return;
+            }
+        }
     }
 }
