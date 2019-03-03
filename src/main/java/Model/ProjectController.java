@@ -17,6 +17,13 @@ public class ProjectController {
     static {
         nextProjectId = 1;
         projectList = new ArrayList<>();
+        List<Skill> skills = new ArrayList<Skill>();
+        skills.add(new Skill("http", 10));
+        skills.add(new Skill("http", 10));
+        Project p1 = new Project("10", "job", "descp", "pic", new ArrayList<Skill>(skills), 10, 200);
+        Project p2 = new Project("20", "job2", "descp2", "pic2", skills, 20, 300);
+        projectList.add(p1);
+        projectList.add(p2);
 
     }
 

@@ -11,6 +11,7 @@ public class User {
     private String picURL;
     private List<Skill> skills;
     private String bio;
+    private List<String> biddedProject;
 
     public User(String id, String firstName, String lastName, String jobTitle, String picURL, List<Skill> skills, String bio) {
         this.id = id;
@@ -20,6 +21,7 @@ public class User {
         this.picURL = picURL;
         this.skills = new ArrayList<Skill>(skills);
         this.bio = bio;
+        this.biddedProject = new ArrayList<>();
     }
 
     public User(String id, String firstName, String lastName, String jobTitle, String picURL, String bio) {
@@ -30,6 +32,7 @@ public class User {
         this.picURL = picURL;
         this.bio = bio;
         this.skills = new ArrayList<Skill>();
+        this.biddedProject = new ArrayList<>();
     }
 
     public String getId() {
@@ -58,6 +61,14 @@ public class User {
 
     public List<Skill> getSkills() {
         return skills;
+    }
+
+    public List<String> getBiddedProject() {
+        return biddedProject;
+    }
+
+    public void setBiddedProject(List<String> biddedProject) {
+        this.biddedProject = biddedProject;
     }
 
     public void setSkills(List<Skill> skills) {
@@ -105,5 +116,17 @@ public class User {
                 return;
             }
         }
+    }
+
+    public void addBiddedProject(String projectId){
+        biddedProject.add(projectId);
+    }
+
+    public boolean hasBidded(String projectID){
+        for (String id: biddedProject) {
+            if(id.equals(projectID))
+                return true;
+        }
+        return false;
     }
 }
