@@ -13,7 +13,9 @@ public class UserController {
         List<Skill> skills = new ArrayList<Skill>();
         skills.add(new Skill("http", 10));
         User u1 = new User("10", "omid", "amini", "job", "pic", skills,"bio");
+        skills.clear();
         skills.add(new Skill("c", 5));
+        skills.add(new Skill("http", 10));
         User u2 = new User("20", "farzane", "zirak", "job2", "pic2", skills, "bio2");
         skills.clear();
         skills.add(new Skill("HTML", 5));
@@ -57,11 +59,9 @@ public class UserController {
     }
 
     public static void deleteUserSkill(String userID, String skillName) {
-        System.out.println("in delete user skills");
         User user = findUser(userID);
         if (user != null)
             user.removeSkill(skillName);
-        System.out.println("in delete user skill, after if");
     }
 
 
