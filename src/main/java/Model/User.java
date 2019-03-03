@@ -56,6 +56,15 @@ public class User {
         return bio;
     }
 
+    public List<Skill> getSkills() {
+        return skills;
+    }
+
+    public void setSkills(List<Skill> skills) {
+        this.skills = skills;
+    }
+
+
     public void setId(String id) {
         this.id = id;
     }
@@ -72,9 +81,6 @@ public class User {
         this.jobTitle = jobTitle;
     }
 
-    public List<Skill> getSkills() {
-        return skills;
-    }
 
     public void addSkill(Skill skill) {
         this.skills.add(skill);
