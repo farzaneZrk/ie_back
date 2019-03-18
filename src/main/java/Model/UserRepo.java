@@ -3,7 +3,7 @@ package Model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserController {
+public class UserRepo {
     private static int nextUserId;
     private static List<User> userList;
 

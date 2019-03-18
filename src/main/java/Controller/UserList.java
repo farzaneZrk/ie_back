@@ -1,7 +1,7 @@
 package Controller;
 
 import Model.User;
-import Model.UserController;
+import Model.UserRepo;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,7 +18,7 @@ public class UserList extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<User> userList = UserController.getUserList();
+        List<User> userList = UserRepo.getUserList();
         request.setAttribute("users", userList);
         request.getRequestDispatcher("userlist.jsp").forward(request, response);
     }

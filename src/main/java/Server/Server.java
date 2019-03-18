@@ -19,13 +19,13 @@ import java.util.StringTokenizer;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
-import static Model.ProjectController.addToProjectList;
+import static Model.ProjectRepo.addToProjectList;
 
 public class Server {
-    public SkillController mc;
+    public SkillRepo mc;
 
     public Server(){
-        mc = new SkillController();
+        mc = new SkillRepo();
         try {
             setUpProjectlist();
             setUpSkillList();
@@ -66,7 +66,7 @@ public class Server {
         server.start();
     }
 
-    public SkillController getMC(){
+    public SkillRepo getMC(){
         return mc;
     }
 
@@ -113,7 +113,7 @@ public class Server {
     public static void main(String[] args) {
         Server server = new Server();
         //
-        SkillController mc = server.getMC();
+        SkillRepo mc = server.getMC();
         List<Skill> skills = new ArrayList<>();
         skills.add(new Skill("HTML", 5));
         skills.add(new Skill("Javascript", 4));

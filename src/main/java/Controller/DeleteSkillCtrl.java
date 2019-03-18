@@ -1,8 +1,7 @@
 package Controller;
 
-import Model.UserController;
+import Model.UserRepo;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,7 +19,7 @@ public class DeleteSkillCtrl extends HttpServlet {
 
         String userID = request.getParameter("userID");
         String skillName = request.getParameter("skillName");
-        UserController.deleteUserSkill(userID, skillName);
+        UserRepo.deleteUserSkill(userID, skillName);
 
 //        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/user/" + userID);
 //        dispatcher.forward(request , response);

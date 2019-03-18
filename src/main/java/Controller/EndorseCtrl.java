@@ -1,10 +1,7 @@
 package Controller;
 
-import Model.Skill;
-import Model.User;
-import Model.UserController;
+import Model.UserRepo;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,7 +19,7 @@ public class EndorseCtrl extends HttpServlet {
         String endorserID = request.getParameter("endorserID");
         String endorsedID = request.getParameter("endorsedID");
         String skillName = request.getParameter("skillName");
-        UserController.endorseUserSkill(endorserID, endorsedID, skillName);
+        UserRepo.endorseUserSkill(endorserID, endorsedID, skillName);
         request.getRequestDispatcher("user/" + endorsedID).forward(request, response);
     }
 }

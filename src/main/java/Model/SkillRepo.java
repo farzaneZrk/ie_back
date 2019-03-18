@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class SkillController {
+public class SkillRepo {
     private static List<String> skillList; // list of available skillList
 
     static {

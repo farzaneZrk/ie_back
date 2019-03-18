@@ -1,6 +1,6 @@
 package Server;
 
-import Model.SkillController;
+import Model.SkillRepo;
 import Model.Project;
 import Model.User;
 import com.sun.net.httpserver.HttpExchange;
@@ -10,13 +10,13 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import static Model.ProjectController.findProject;
-import static Model.ProjectController.getProjectList;
-import static Model.UserController.findUser;
+import static Model.ProjectRepo.findProject;
+import static Model.ProjectRepo.getProjectList;
+import static Model.UserRepo.findUser;
 
 public class Projects implements ViewBuilder{
     @Override
-    public void handle(HttpExchange httpExchange, SkillController mc) throws IOException {
+    public void handle(HttpExchange httpExchange, SkillRepo mc) throws IOException {
         String response = "";
         String dynamicData = "";
         String projectId = null;

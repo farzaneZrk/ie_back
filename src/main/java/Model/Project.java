@@ -1,6 +1,5 @@
 package Model;
 
-import java.security.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -114,7 +113,7 @@ public class Project {
     }
 
     public boolean checkUserForProject(String userId) {
-        User user = UserController.findUser(userId);
+        User user = UserRepo.findUser(userId);
         List<Skill> userSkillsList = user.getSkills();
         if (userSkillsList.size() == 0 && skills.size() != 0)
             return false;

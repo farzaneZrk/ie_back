@@ -21,10 +21,10 @@ public class BidProjectCtrl extends HttpServlet {
         String bidamount = request.getParameter("bidAmount");
 
         String projectId = request.getParameter("projectID");
-        User user = UserController.findUser(request.getParameter("userID"));
+        User user = UserRepo.findUser(request.getParameter("userID"));
         user.addBiddedProject(projectId);
 
-        Project project = ProjectController.findProject(projectId);
+        Project project = ProjectRepo.findProject(projectId);
 
         if(project.getBudget() >= Integer.valueOf(bidamount)) {
             project.addBid(new Bid(Integer.valueOf(bidamount), project, user));

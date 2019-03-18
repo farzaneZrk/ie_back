@@ -4,15 +4,13 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.*;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import static Model.UserController.findUser;
+import static Model.UserRepo.findUser;
 
-public class ProjectController {
+public class ProjectRepo {
     private static int nextProjectId;
     private static List<Project> projectList;
 

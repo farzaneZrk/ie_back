@@ -1,6 +1,6 @@
 package Server;
 
-import Model.SkillController;
+import Model.SkillRepo;
 import Model.User;
 import com.sun.net.httpserver.HttpExchange;
 
@@ -9,12 +9,12 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import static Model.UserController.findUser;
+import static Model.UserRepo.findUser;
 
 public class Users implements ViewBuilder{
 
     @Override
-    public void handle(HttpExchange httpExchange, SkillController mc) throws IOException {
+    public void handle(HttpExchange httpExchange, SkillRepo mc) throws IOException {
         String response;
         String dynamicData = "";
         String[] splittedPath = httpExchange.getRequestURI().getPath().split("/");

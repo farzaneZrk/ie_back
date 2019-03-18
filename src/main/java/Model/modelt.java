@@ -5,7 +5,7 @@ import java.util.List;
 
 public class modelt {
     public static void main(String[] args) {
-        SkillController mc = new SkillController();
+        SkillRepo mc = new SkillRepo();
         List<Skill> skills = new ArrayList<Skill>();
         skills.add(new Skill("http", 10));
         User u1 = new User("10", "omid", "amini", "job", "pic", "bio");
