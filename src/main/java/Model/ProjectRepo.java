@@ -1,13 +1,14 @@
 package Model;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.io.*;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
+import static Model.SkillRepo.getDataFromServer;
 import static Model.UserRepo.findUser;
 
 public class ProjectRepo {
@@ -17,41 +18,9 @@ public class ProjectRepo {
     static {
         nextProjectId = 1;
         projectList = new ArrayList<>();
-        List<Skill> skills = new ArrayList<Skill>();
-        skills.add(new Skill("c", 10));
-        Project p1 = new Project("10", "job", "descp", "pic", skills, 10, 200);
-        List<Skill> skills2 = new ArrayList<Skill>();
-        skills2.add(new Skill("HTML", 3));
-        skills2.add(new Skill("Javascript", 3));
-        Project p2 = new Project("20", "job2", "descp2", "pic2", skills2, 20, 300);
-        Project p3 = new Project("30","وبسایت فروشگاهی مشابه دیجی کالا", "یک فروشگاه اینرنتی با قابلیت مدیریت حرفه ای  سبد خرید حرفه ای مقایسه محصولات ارسال پیامک و ایمیل گزارش گیری جامع قالب...", "https://cdn1.vectorstock.com/i/1000x1000/71/55/software-development-vector-5647155.jpg", skills2, 50000000, 419168000);
-        projectList.add(p1);
-        projectList.add(p2);
-        projectList.add(p3);
 
     }
 
-    private static void setUpProjectlist() throws IOException {
-        String projectsJson = getDataFromFile("projects.txt");
-        addToProjectList(projectsJson);
-    }
-
-    public static String getDataFromFile(String filePath) throws IOException {
-        System.out.println("in get data from file");
-        File file = new File(filePath);
-        System.out.println("1");
-        FileInputStream fis = new FileInputStream(file);
-        System.out.println("2");
-        byte[] data = new byte[(int) file.length()];
-        System.out.println("3");
-        fis.read(data);
-        System.out.println("4");
-        fis.close();
-        System.out.println("5");
-        String str = new String(data, "UTF-8");
-        System.out.println("6");
-        return  str;
-    }
 
     public static List<Project> getProjectList() {
         return projectList;
@@ -61,7 +30,6 @@ public class ProjectRepo {
         if (findProject(project.getId()) != null)
             return -1;
 
-//        project.setId(String.valueOf(this.nextProjectId++));
         projectList.add(project);
         return 0;
     }
@@ -73,47 +41,32 @@ public class ProjectRepo {
         return null;
     }
 
-    public static List<Skill> createSingleSkill(String command) throws IOException {
-        ObjectMapper mapper = new ObjectMapper();
-        JsonNode rootNode = mapper.readTree(command);
-        List<Skill> skillList = new ArrayList<>();
-        Skill skill = new Skill(rootNode.path("name").asText(), rootNode.path("points").asInt());
-        skillList.add(skill);
-        return skillList;
+    public static void setUpProjectlist() throws IOException {
+        String projectsJson = getDataFromServer("http://142.93.134.194:8000/joboonja/project/");
+        addToProjectList(projectsJson);
     }
 
-    public static List<Skill> createSkillList(JsonNode skillListNode){
+    public static List<Skill> createSkillList(JSONArray jsonSkillList){
         List<Skill> skillList = new ArrayList<>();
-        Iterator<JsonNode> elements = skillListNode.elements();
-        while(elements.hasNext()){
-            JsonNode skillNodes = elements.next();
-            JsonNode nameNode = skillNodes.path("name");
-            JsonNode pointsNode = skillNodes.path("points");
-            Skill skill = new Skill(nameNode.asText(),pointsNode.asInt());
+        for (int i = 0; i < jsonSkillList.length(); i++) {
+            JSONObject jsonobject = jsonSkillList.getJSONObject(i);
+            Skill skill = new Skill(jsonobject.getString("name"), jsonobject.getInt("point"));
             skillList.add(skill);
         }
         return skillList;
     }
 
-    public static void addToProjectList(String projects) throws IOException {
-        ObjectMapper mapper = new ObjectMapper();
-        JsonNode rootNode = mapper.readTree(projects);
-        Iterator<JsonNode> elements = rootNode.elements();
+    public static void addToProjectList(String projects) {
+        JSONArray jsonarray = new JSONArray(projects);
         List<Skill> skillList;
-        while(elements.hasNext()) {
-            JsonNode projectNode = elements.next();
-            if (!projectNode.toString().contains("[")) {
-                skillList = createSingleSkill(projectNode.path("skills").toString());
-            } else {
-                skillList = createSkillList(projectNode.path("skills"));
-            }
-            projectList.add(new Project(projectNode.path("id").asText(), projectNode.path("title").asText(),
-                    projectNode.path("description").asText(), projectNode.path("imageUrl").asText(), skillList,
-                    projectNode.path("budget").asInt(), projectNode.path("deadline").asLong()));
+        for (int i = 0; i < jsonarray.length(); i++) {
+            JSONObject jsonobject = jsonarray.getJSONObject(i);
+            JSONArray jsonSkillList = jsonobject.getJSONArray("skills");
+            skillList = createSkillList(jsonSkillList);
+            projectList.add(new Project(jsonobject.getString("id"), jsonobject.getString("title"),
+                    jsonobject.getString("description"), jsonobject.getString("imageUrl"), skillList,
+                    jsonobject.getInt("budget"),  jsonobject.getLong("budget")));
         }
-//        for(Project p : this.projectList){
-//            System.out.println("\n\n\n" + p);
-//        }
     }
 
     public static int addBid(Bid bid) {

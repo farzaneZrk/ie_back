@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 
 public class Project {
     private String id;
-    private String title, descp, picURL;
+    private String title, description, imageUrl;
     private List<Skill> skills;
     private List<Bid>  bids;
     private int budget;
@@ -18,8 +18,8 @@ public class Project {
     public Project(String id, String title, String descp, String picURL, List<Skill> skills, int budget, long deadline) {
         this.id = id;
         this.title = title;
-        this.descp = descp;
-        this.picURL = picURL;
+        this.description = descp;
+        this.imageUrl = picURL;
         this.skills = skills;
         this.bids = new ArrayList<Bid>();
         this.budget = budget;
@@ -43,20 +43,20 @@ public class Project {
         this.title = title;
     }
 
-    public String getDescp() {
-        return descp;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDescp(String descp) {
-        this.descp = descp;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public String getPicURL() {
-        return picURL;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public void setPicURL(String picURL) {
-        this.picURL = picURL;
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public List<Skill> getSkills() {
@@ -104,8 +104,8 @@ public class Project {
         return "Project{" +
                 "id='" + id + '\n' +
                 ", title='" + title + '\n' +
-                ", descp='" + descp + '\n' +
-                ", picURL='" + picURL + '\n' +
+                ", description='" + description + '\n' +
+                ", imageUrl='" + imageUrl + '\n' +
                 ", skills=" + skills + '\n' +
                 ", budget=" + budget + '\n' +
                 ", deadline=" + deadline +

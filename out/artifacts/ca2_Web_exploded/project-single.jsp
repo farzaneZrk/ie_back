@@ -14,8 +14,8 @@
     <ul>
         <li>id:  <c:out value="${project.id}"/></li>
         <li>title: <c:out value="${project.title}"/></li>
-        <li>description: <c:out value="${project.descp}"/></li>
-        <li>imageUrl: <img src="<c:out value="${project.picURL}"/>" style="width: 50px; height: 50px;"></li>
+        <li>description: <c:out value="${project.description}"/></li>
+        <li>imageUrl: <img src="<c:out value="${project.imageUrl}"/>" style="width: 50px; height: 50px;"></li>
         <li>budget: <c:out value="${project.budget}"/></li>
     </ul>
     <br><br>

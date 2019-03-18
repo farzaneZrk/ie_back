@@ -59,9 +59,9 @@ public class Projects implements ViewBuilder{
                     dynamicData += "</li>\n\t\t<li>title: ";
                     dynamicData += thisProject.getTitle();
                     dynamicData += "</li>\n\t\t<li>description: ";
-                    dynamicData += thisProject.getDescp();
+                    dynamicData += thisProject.getDescription();
                     dynamicData += "</li>\n\t\t<li>imageUrl: <img src=\"";
-                    dynamicData += thisProject.getPicURL();
+                    dynamicData += thisProject.getImageUrl();
                     dynamicData += "\" style=\"width: 150px; height: 150px;\"></li>\n\t\t<li>budget: ";
                     dynamicData += thisProject.getBudget();
                     dynamicData += "</li>\n";
