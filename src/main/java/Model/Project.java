@@ -108,9 +108,11 @@ public class Project {
                 ", imageUrl='" + imageUrl + '\n' +
                 ", skills=" + skills + '\n' +
                 ", budget=" + budget + '\n' +
-                ", deadline=" + deadline +
+                ", deadline=" + deadline + '\n' +
+                ", bids=" + bids +
                 '}';
     }
+
 
     public boolean checkUserForProject(String userId) {
         User user = UserRepo.findUser(userId);

@@ -18,6 +18,6 @@ public class SingleUser extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String[] splittedPath = request.getRequestURI().split("/");
         String id = splittedPath[3];
-        UserService.showUser(request, response, id);
+        UserService.showUser(request, response, id, "1");
     }
 }

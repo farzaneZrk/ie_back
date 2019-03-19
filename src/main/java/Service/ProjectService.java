@@ -3,16 +3,16 @@ package Service;
 import Model.*;
 import org.json.JSONObject;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+
+import static Service.UserService.prepareResponse;
 
 public class ProjectService {
     public static void showProject (HttpServletRequest request, HttpServletResponse response, String id)
@@ -23,23 +23,27 @@ public class ProjectService {
 
         Project project = ProjectRepo.findProject(id);
         if (project == null)
-            response.setStatus(HttpServletResponse.SC_NOT_FOUND); //page not found
+            prepareResponse(response, json, HttpServletResponse.SC_NOT_FOUND); //page not found
 
         else if (!project.checkUserForProject(thisUser.getId()))
-            response.setStatus(HttpServletResponse.SC_FORBIDDEN);//page forbidden
+            prepareResponse(response, json, HttpServletResponse.SC_FORBIDDEN);//page forbidden
 
-        else{
-            response.setStatus(HttpServletResponse.SC_OK);
-            json = new JSONObject(project);
-            json.put("hasBid",thisUser.hasBidded(id));
-            System.out.println(json);
+        else {
+            Map<String, Object> thisProject = new LinkedHashMap<>();
+            thisProject.put("id", project.getId());
+            thisProject.put("title", project.getTitle());
+            thisProject.put("budget", project.getBudget());
+            thisProject.put("description", project.getDescription());
+            thisProject.put("imageURL", project.getImageUrl());
+            thisProject.put("skills", project.getSkills());
+            thisProject.put("deadline", project.getDeadline());
+            thisProject.put("winner", project.getWinner());
+//            json = new JSONObject(project);
+            json = new JSONObject(thisProject);
+            json.put("hasBid", thisUser.hasBidded(id));
+
+            prepareResponse(response, json, HttpServletResponse.SC_OK);
         }
-
-        PrintWriter out = response.getWriter();
-        response.setContentType("application/json;charset=UTF-8");
-        response.setCharacterEncoding("UTF-8");
-        out.print(json);
-        out.flush();
     }
 
     public static void validateBid (HttpServletRequest request, HttpServletResponse response)
@@ -51,18 +55,19 @@ public class ProjectService {
 
         Project project = ProjectRepo.findProject(projectId);
 
+        Map<String, Object> resMap = new LinkedHashMap<>();
+
         if(project.getBudget() >= Integer.valueOf(bidamount)) {
             user.addBiddedProject(projectId);
             project.addBid(new Bid(Integer.valueOf(bidamount), project, user));
-            request.setAttribute("msg", "Your bid accepted.");
+            resMap.put("msg", "Your bid accepted.");
+            JSONObject json = new JSONObject(resMap);
+            prepareResponse(response, json, HttpServletResponse.SC_OK);
         }else {
-            request.setAttribute("msg", "Your bid rejected! Bid amount is more than the project budget.");
+            resMap.put("msg", "Your bid rejected! Bid amount is more than the project budget.");
+            JSONObject json = new JSONObject(resMap);
+            prepareResponse(response, json, 422);
         }
-
-        request.setAttribute("thisUser", user);
-        request.setAttribute("project", project);
-        RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/project-single.jsp");
-        dispatcher.forward(request , response);
     }
 
     public static void showAllProjects (HttpServletRequest request, HttpServletResponse response, String id)
@@ -86,13 +91,7 @@ public class ProjectService {
 
         JSONObject json = new JSONObject(responseMap);
 
-        PrintWriter out = response.getWriter();
-        response.setStatus(HttpServletResponse.SC_OK);
-        response.setContentType("application/json;charset=UTF-8");
-        response.setCharacterEncoding("UTF-8");
-        out.print(json.toString());
-        System.out.println(json);
-        out.flush();
+        prepareResponse(response, json, HttpServletResponse.SC_OK);
 
     }
 }

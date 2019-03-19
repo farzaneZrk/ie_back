@@ -12,9 +12,10 @@ import java.io.IOException;
 @WebServlet("/addSkill")
 public class AddSkillCtrl extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        UserService.addSkill(request, response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        UserService.addSkill(request, response);
+
     }
 }

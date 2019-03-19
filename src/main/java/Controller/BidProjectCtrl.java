@@ -12,10 +12,9 @@ import java.io.IOException;
 @WebServlet("/bidProject")
 public class BidProjectCtrl extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        ProjectService.validateBid(request, response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        ProjectService.validateBid(request, response);
     }
 }

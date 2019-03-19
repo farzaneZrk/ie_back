@@ -8,7 +8,7 @@ public class User {
     private String id;
     private String firstName, lastName;
     private String jobTitle;
-    private String picURL;
+    private String imageURL;
     private List<Skill> skills;
     private String bio;
     private List<String> biddedProject;
@@ -18,7 +18,7 @@ public class User {
         this.firstName = firstName;
         this.lastName = lastName;
         this.jobTitle = jobTitle;
-        this.picURL = picURL;
+        this.imageURL = picURL;
         this.skills = new ArrayList<Skill>(skills);
         this.bio = bio;
         this.biddedProject = new ArrayList<>();
@@ -29,7 +29,7 @@ public class User {
         this.firstName = firstName;
         this.lastName = lastName;
         this.jobTitle = jobTitle;
-        this.picURL = picURL;
+        this.imageURL = picURL;
         this.bio = bio;
         this.skills = new ArrayList<Skill>();
         this.biddedProject = new ArrayList<>();
@@ -51,8 +51,8 @@ public class User {
         return jobTitle;
     }
 
-    public String getPicURL() {
-        return picURL;
+    public String getImageURL() {
+        return imageURL;
     }
 
     public String getBio() {
@@ -93,16 +93,17 @@ public class User {
     }
 
 
-    public void addSkill(Skill skill) {
+    public boolean addSkill(Skill skill) {
         for (Skill s : skills) {
             if (s.getName().equals(skill.getName()))
-                return;
+                return false;
         }
         this.skills.add(skill);
+        return true;
     }
 
-    public void setPicURL(String picURL) {
-        this.picURL = picURL;
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
     }
 
     public void setBio(String bio) {

@@ -12,9 +12,9 @@ import java.io.IOException;
 @WebServlet("/endorse")
 public class EndorseCtrl extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        UserService.endorseUser(request, response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        UserService.endorseUser(request, response);
     }
 }
