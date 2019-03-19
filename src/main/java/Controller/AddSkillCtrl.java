@@ -1,8 +1,6 @@
 package Controller;
 
-import Model.Skill;
-import Model.User;
-import Model.UserRepo;
+import Service.UserService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,10 +15,6 @@ public class AddSkillCtrl extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String userID = request.getParameter("userID");
-        User user = UserRepo.findUser(userID);
-        user.addSkill(new Skill(request.getParameter("choosedSkill"), 0));
-        request.getRequestDispatcher("/user/" + userID).forward(request, response);
-
+        UserService.addSkill(request, response);
     }
 }

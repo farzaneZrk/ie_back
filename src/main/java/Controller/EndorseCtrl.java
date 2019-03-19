@@ -1,6 +1,6 @@
 package Controller;
 
-import Model.UserRepo;
+import Service.UserService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,11 +15,6 @@ public class EndorseCtrl extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        String endorserID = request.getParameter("endorserID");
-        String endorsedID = request.getParameter("endorsedID");
-        String skillName = request.getParameter("skillName");
-        UserRepo.endorseUserSkill(endorserID, endorsedID, skillName);
-        request.getRequestDispatcher("user/" + endorsedID).forward(request, response);
+        UserService.endorseUser(request, response);
     }
 }

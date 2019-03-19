@@ -1,11 +1,7 @@
 package Controller;
 
-import Model.Project;
-import Model.ProjectRepo;
-import Model.User;
-import Model.UserRepo;
+import Service.ProjectService;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,13 +18,6 @@ public class SingleProjectCtrl extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String[] splittedPath = request.getRequestURI().split("/");
         String id = splittedPath[3];
-
-        User thisUser = UserRepo.findUser("1");
-        request.setAttribute("thisUser", thisUser);
-
-        Project project = ProjectRepo.findProject(id);
-        request.setAttribute("project", project);
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/project-single.jsp");
-        dispatcher.forward(request , response);
+        ProjectService.showProject(request, response, id);
     }
 }

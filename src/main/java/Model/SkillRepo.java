@@ -16,14 +16,6 @@ public class SkillRepo {
 
     static {
         skillList = new ArrayList<>();
-        skillList.add("matlab");
-        skillList.add("C++");
-        skillList.add("C");
-        skillList.add("Java");
-        skillList.add("python");
-        skillList.add("HTML");
-        skillList.add("Javascript");
-
     }
 
     public static void addSkillToSkillList(String newSkill){
@@ -59,7 +51,6 @@ public class SkillRepo {
             JSONObject jsonobject = jsonarray.getJSONObject(i);
             String name = jsonobject.getString("name");
             SkillRepo.addSkillToSkillList(name);
-            System.out.println(name);
         }
 
     }

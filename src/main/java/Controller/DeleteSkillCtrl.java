@@ -1,6 +1,6 @@
 package Controller;
 
-import Model.UserRepo;
+import Service.UserService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,13 +16,6 @@ public class DeleteSkillCtrl extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        String userID = request.getParameter("userID");
-        String skillName = request.getParameter("skillName");
-        UserRepo.deleteUserSkill(userID, skillName);
-
-//        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/user/" + userID);
-//        dispatcher.forward(request , response);
-        request.getRequestDispatcher("/user/" + userID).forward(request, response);
+        UserService.removeSkill(request, response);
     }
 }
