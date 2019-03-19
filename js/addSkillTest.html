@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta page pageEncoding="UTF-8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="content-type" content="text/html";charset="utf-8" />
+    <title>user</title>
+
+    <style>
+        @font-face {
+            font-family: "IRANSansWeb";
+            src: url(/assets/fonts/iransans-fonts/iransans/ttf/IRANSansWeb.ttf);
+        }
+        * {
+        font-family: "IRANSansWeb";
+        }
+        table {
+            text-align: center;
+            margin: 0 auto;
+            margin-top: 5%;
+        }
+        td {
+            min-width: 300px;
+            margin: 5px 5px 5px 5px;
+            text-align: center;
+            padding: 1px;
+        }
+    </style>
+
+</head>
+<body>
+    <p id="response"></p>
+    <ul>
+        <li id="id">id:     </li>
+        <li id="first-name">first name:     </li>
+        <li id="last-name">last name:    </li>
+        <li id="job-title">jobTitle:    </li>
+        <li id="bio">bio:   </li>
+        <li>
+        	skills:
+        	<ul id="skill-list">
+        	</ul>
+        </li>
+    </ul>
+    <script>
+        var xhttp = new XMLHttpRequest();
+        var x = "";
+        var i;
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                var myObj = JSON.parse(this.responseText);
+                document.getElementById("id").innerHTML += myObj.id;
+                document.getElementById("first-name").innerHTML += myObj.firstName;
+                document.getElementById("last-name").innerHTML += myObj.lastName;
+                document.getElementById("job-title").innerHTML += myObj.jobTitle;
+                document.getElementById("bio").innerHTML += myObj.bio;
+
+                for (i in myObj.skills) {
+                    x += "<li>" + myObj.skills[i].name + ":" + myObj.skills[i].point + "<form action=\"\" method=\"\"><button>Delete</button></form></li>";
+                }
+                document.getElementById("skill-list").innerHTML = x;   
+
+                // x = "<tr><th>id</th><th>title</th><th>budget</th></tr>";
+                // for (i in myObj.projects) {
+                //     x += "<tr><td>" + myObj.projects[i].id + "</td><td>" + myObj.projects[i].title + "</td><td>" + myObj.projects[i].budget + "</td></tr>";
+                //     }
+                // document.getElementById("projects-tables").innerHTML += x;   
+            }
+        };
+        xhttp.open("GET", "http://localhost:8080/ca2_Web_exploded/user/1", true);
+        xhttp.send();
+    </script>
+    Add Skill:
+    <!-- <form action="loadXMLDoc()" method="POST"> -->
+    	<select name="skillName">
+    		<option value="CSS">CSS</option>
+    		<option value="C++">C++</option>
+    		<!-- ... -->
+    	</select>
+		<button type="button" onclick="loadDoc()">Add</button>
+    <!-- </form> -->
+
+    <h4 id="msg" style="color:green"></h4>
+    
+    <script>
+        function loadDoc() {
+          var xhttp = new XMLHttpRequest();
+          xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                var myObj = JSON.parse(this.responseText);
+                document.getElementById("msg").innerHTML = myObj.msg;
+            }
+          };
+          xhttp.open("POST", "http://localhost:8080/ca2_Web_exploded/addSkill", true);
+          xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+          xhttp.send("choosedSkill=CSS&userID=1");
+        }
+    </script>
+</body>
+</html>

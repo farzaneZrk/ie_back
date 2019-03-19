@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta page pageEncoding="UTF-8">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <meta http-equiv="content-type" content="text/html";charset="utf-8" />
+        <link rel="icon" href="assets/logo/logo v1.png" type="image/gif" sizes="16x16">
+        <title>Projects List</title>
+
+        <style>
+            @font-face {
+                font-family: "IRANSansWeb";
+                src: url(/assets/fonts/iransans-fonts/iransans/ttf/IRANSansWeb.ttf);
+            }
+            * {
+            font-family: "IRANSansWeb";
+            }
+            table {
+                text-align: center;
+                margin: 0 auto;
+                margin-top: 5%;
+            }
+            td {
+                min-width: 300px;
+                margin: 5px 5px 5px 5px;
+                text-align: center;
+                padding: 1px;
+            }
+        </style>
+
+    </head>
+    <body>
+
+    <div dir="rtl">
+        <table id="projects-tables">
+        </table>
+    </div>
+
+
+    <script>
+        var xhttp = new XMLHttpRequest();
+        var x = "";
+        var i;
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                var myObj = JSON.parse(this.responseText);
+                x = "<tr><th>id</th><th>title</th><th>budget</th></tr>";
+                for (i in myObj.projects) {
+                    x += "<tr><td>" + myObj.projects[i].id + "</td><td>" + myObj.projects[i].title + "</td><td>" + myObj.projects[i].budget + "</td></tr>";
+                    }
+                document.getElementById("projects-tables").innerHTML += x;
+            }
+        };
+        xhttp.open("GET", "http://localhost:8080/ca2_Web_exploded/projects", true);
+        xhttp.send();
+    </script>
+
+    <!-- <h2>Using the XMLHttpRequest Object</h2>
+
+<div id="demo">
+<button type="button" onclick="loadXMLDoc()">Change Content</button>
+</div>
+
+<script>
+function loadXMLDoc() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("demo").innerHTML =
+      this.responseText;
+    }
+  };
+  xhttp.open("GET", "http://localhost:8080/ca2_Web_exploded/projects", true);
+  xhttp.send();
+}
+</script> -->
+
+
+    </body>
+</html>
+
