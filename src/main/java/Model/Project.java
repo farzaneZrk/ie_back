@@ -10,7 +10,7 @@ public class Project {
     private String id;
     private String title, description, imageUrl;
     private List<Skill> skills;
-    private List<Bid>  bids;
+    private List<Bid> bids;
     private int budget;
     private long deadline;
     private User winner;
@@ -114,6 +114,10 @@ public class Project {
 
     public boolean checkUserForProject(String userId) {
         User user = UserRepo.findUser(userId);
+        return qualifyUser(user);
+    }
+
+    public boolean qualifyUser(User user){
         List<Skill> userSkillsList = user.getSkills();
         if (userSkillsList.size() == 0 && skills.size() != 0)
             return false;
