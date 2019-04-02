@@ -33,8 +33,9 @@ public class MyListener implements ServletContextListener,
         try {
             ProjectRepo.setUpProjectlist();
             SkillRepo.setUpSkillList();
+            System.out.println("get initial data successfully");
         } catch (IOException e) {
-            System.out.println("can't connect to server 142.93.134.194:8000 to get data.");
+            System.out.println("!!!!can't connect to server 142.93.134.194:8000 to get data!!!!");
         }
     }
 

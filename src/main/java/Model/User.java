@@ -110,13 +110,14 @@ public class User {
         this.bio = bio;
     }
 
-    public void removeSkill(String skillName) {
+    public int removeSkill(String skillName) {
         for (int i=0; i < skills.size(); i++) {
             if (skills.get(i).getName().equals(skillName)) {
                 skills.remove(i);
-                return;
+                return 1;
             }
         }
+        return 0;
     }
 
     public void addBiddedProject(String projectId){

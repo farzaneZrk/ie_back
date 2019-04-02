@@ -50,8 +50,8 @@ public class ProjectService {
             throws ServletException, IOException {
         String bidamount = request.getParameter("bidAmount");
 
-        String projectId = request.getParameter("projectID");
-        User user = UserRepo.findUser(request.getParameter("userID"));
+        String projectId = request.getParameter("projectId");
+        User user = UserRepo.findUser(request.getParameter("userId"));
 
         Project project = ProjectRepo.findProject(projectId);
 
@@ -70,9 +70,9 @@ public class ProjectService {
         }
     }
 
-    public static void showAllProjects (HttpServletRequest request, HttpServletResponse response, String id)
+    public static void showAllProjects (HttpServletRequest request, HttpServletResponse response, String thisUserId)
             throws ServletException, IOException {
-        User thisUser = UserRepo.findUser(id);
+        User thisUser = UserRepo.findUser(thisUserId);
         List<Map<String, Object>> projects = new ArrayList<>();
 
         for (Project project: ProjectRepo.getProjectList()) {

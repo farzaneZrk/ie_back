@@ -48,20 +48,26 @@ public class UserRepo {
         return 0;
     }
 
-    public static void endorseUserSkill(String endorserID, String userID, String skillName){
+    public static int endorseUserSkill(String endorserID, String userID, String skillName){
         User user = findUser(userID);
         for (Skill skill : user.getSkills()) {
             if (skill.getName().equals(skillName)) {
-                skill.endorse(endorserID);
-                return;
+                if (!skill.hasEndorsed(endorserID)) {
+                    skill.endorse(endorserID);
+                    return 1;
+                }
+                else return 0;
             }
         }
+        return -1;
     }
 
-    public static void deleteUserSkill(String userID, String skillName) {
+    public static int deleteUserSkill(String userID, String skillName) {
         User user = findUser(userID);
-        if (user != null)
-            user.removeSkill(skillName);
+        if (user != null) {
+            return user.removeSkill(skillName);
+        }
+        return 0;
     }
 
 
