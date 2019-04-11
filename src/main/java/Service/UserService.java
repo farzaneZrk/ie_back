@@ -62,6 +62,8 @@ public class UserService {
             throws ServletException, IOException {
         String userID = request.getParameter("id");
         String skillName = request.getParameter("skillName");
+        System.out.println(skillName);
+        System.out.println(userID);
         User user = UserRepo.findUser(userID);
         Map<String, Object> resMap = new LinkedHashMap<>();
 
@@ -71,6 +73,7 @@ public class UserService {
             response.setHeader("description", "Unprocessable Entity");
             JSONObject json = new JSONObject(resMap);
             prepareResponse(response, json, HttpServletResponse.SC_OK);
+            return;
         }
 
         if(user.addSkill(new Skill(skillName, 0))){
@@ -89,7 +92,6 @@ public class UserService {
         String userID = request.getParameter("id");
         String skillName = request.getParameter("skillName");
         Map<String, Object> resMap = new LinkedHashMap<>();
-        UserRepo.deleteUserSkill(userID, skillName);
         if (UserRepo.deleteUserSkill(userID, skillName) == 1)
             resMap.put("msg", skillName +  " removed from your skills successfully.");
         else {
