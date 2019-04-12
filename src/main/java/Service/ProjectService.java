@@ -82,6 +82,10 @@ public class ProjectService {
                 thisProject.put("id", (Object) project.getId());
                 thisProject.put("title", (Object) project.getTitle());
                 thisProject.put("budget", (Object) project.getBudget());
+                thisProject.put("imageURL", (Object) project.getImageUrl());
+                thisProject.put("deadline", (Object) project.getDeadline());
+                thisProject.put("description", (Object) project.getDescription());
+                thisProject.put("skills", project.getSkills());
                 projects.add(thisProject);
             }
         }
