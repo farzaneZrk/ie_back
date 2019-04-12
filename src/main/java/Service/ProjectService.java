@@ -37,7 +37,9 @@ public class ProjectService {
             thisProject.put("imageURL", project.getImageUrl());
             thisProject.put("skills", project.getSkills());
             thisProject.put("deadline", project.getDeadline());
+            thisProject.put("isExpired", project.isExpired());
             thisProject.put("winner", project.getWinner());
+            System.out.println(thisProject);
 //            json = new JSONObject(project);
             json = new JSONObject(thisProject);
             json.put("hasBid", thisUser.hasBidded(id));

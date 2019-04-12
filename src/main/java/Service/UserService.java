@@ -49,11 +49,16 @@ public class UserService {
         String endorserID = request.getParameter("endorserId");
         String endorsedID = request.getParameter("endorsedId");
         String skillName = request.getParameter("skillName");
+        System.out.println(endorsedID);
+        System.out.println(skillName);
+        System.out.println(endorserID);
         Map<String, Object> resMap = new LinkedHashMap<>();
         if (UserRepo.endorseUserSkill(endorserID, endorsedID, skillName) == 1)
             resMap.put("msg", skillName +  " skill endorsed successfully.");
-        else
-            resMap.put("msg", "you have endorsed " + skillName +  " skill of this user before!");
+        else {
+            resMap.put("msg", "you have endorsed " + skillName + " skill of this user before!");
+            resMap.put("errorCode", "200");
+        }
         JSONObject json = new JSONObject(resMap);
         prepareResponse(response, json, HttpServletResponse.SC_OK);
     }
@@ -69,6 +74,7 @@ public class UserService {
 
         if (skillName == null){
             resMap.put("msg", "error occurred! You have to choose a skill first.");
+            resMap.put("errorCode", "422");
             response.setHeader("errorCode", "422");
             response.setHeader("description", "Unprocessable Entity");
             JSONObject json = new JSONObject(resMap);
@@ -83,6 +89,9 @@ public class UserService {
             return;
         }
         resMap.put("msg", request.getParameter("skillName") +  " is already in your skills.");
+        resMap.put("errorCode", "200");
+        response.setHeader("errorCode", "200");
+        response.setHeader("description", "Repeated Entity");
         JSONObject json = new JSONObject(resMap);
         prepareResponse(response, json, HttpServletResponse.SC_OK);
     }
@@ -96,6 +105,7 @@ public class UserService {
             resMap.put("msg", skillName +  " removed from your skills successfully.");
         else {
             resMap.put("msg", "An error occurred! please specify an existing skill.");
+            resMap.put("errorCode", "422");
             response.setHeader("errorCode", "422");
             response.setHeader("description", "Unprocessable Entity");
         }

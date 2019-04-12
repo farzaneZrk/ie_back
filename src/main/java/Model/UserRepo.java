@@ -11,12 +11,12 @@ public class UserRepo {
         nextUserId = 1;
         userList = new ArrayList<>();
         List<Skill> skills = new ArrayList<Skill>();
-        skills.add(new Skill("http", 10));
-        User u1 = new User("10", "omid", "amini", "job", "pic", skills,"bio");
+        skills.add(new Skill("HTML", 10));
+        User u1 = new User("10", "sina", "kachoei", "job", "pic", skills,"biobiobiobiobiob iobiobiobiobiob iobiobiobiobiobio biobiobio biobiobiob iobiobiobio biobio");
         skills.clear();
         skills.add(new Skill("c", 5));
-        skills.add(new Skill("http", 10));
-        User u2 = new User("20", "farzane", "zirak", "job2", "pic2", skills, "bio2");
+        skills.add(new Skill("Java", 10));
+        User u2 = new User("20", "farzane", "zirak", "student", "pic2", skills, "bio2bio2b io2bio2bi o2bio2bio 2bio2bio2 bio2bio2b io2bio2 bio2bi o2bio2bi o2bio2bio2 bio2bio2");
         skills.clear();
         skills.add(new Skill("HTML", 5));
         skills.add(new Skill("Javascript", 4));

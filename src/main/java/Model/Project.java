@@ -91,8 +91,11 @@ public class Project {
         this.deadline = deadline;
     }
 
-    public User getWinner() {
-        return winner;
+    public String getWinner() {
+        if (winner == null){
+            return "no one";
+        }
+        return (winner.getFirstName() + " " + winner.getLastName());
     }
 
     public void setWinner(User winner) {
