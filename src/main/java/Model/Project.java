@@ -93,7 +93,7 @@ public class Project {
 
     public String getWinner() {
         if (winner == null){
-            return "no one";
+            return "no one!";
         }
         return (winner.getFirstName() + " " + winner.getLastName());
     }
