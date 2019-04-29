@@ -10,8 +10,8 @@ public class modelt {
         skills.add(new Skill("http", 10));
         User u1 = new User("10", "omid", "amini", "job", "pic", "bio");
         User u2 = new User("20", "farzane", "zirak!", "job2", "pic2", "bio2");
-        Project p1 = new Project("10", "job", "descp", "pic", new ArrayList<Skill>(skills), 10, 200);
-        Project p2 = new Project("20", "job2", "descp2", "pic2", skills, 20, 300);
+//        Project p1 = new Project("10", "job", "descp", "pic", new ArrayList<Skill>(skills), 10, 200);
+//        Project p2 = new Project("20", "job2", "descp2", "pic2", skills, 20, 300);
 
 //        mc.addUser(u1);
 //        mc.addUser(u2);

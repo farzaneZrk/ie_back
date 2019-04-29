@@ -65,7 +65,7 @@ public class ProjectRepo {
             skillList = createSkillList(jsonSkillList);
             projectList.add(new Project(jsonobject.getString("id"), jsonobject.getString("title"),
                     jsonobject.getString("description"), jsonobject.getString("imageUrl"), skillList,
-                    jsonobject.getInt("budget"),  jsonobject.getLong("deadline")));
+                    jsonobject.getInt("budget"),  jsonobject.getLong("deadline"), jsonobject.getLong("creationDate")));
         }
     }
 

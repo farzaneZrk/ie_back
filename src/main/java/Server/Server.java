@@ -1,13 +1,11 @@
 package Server;
 
-import Model.Project;
 import Model.Skill;
 import Model.SkillRepo;
 import Model.User;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
-import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -119,8 +117,8 @@ public class Server {
         skills.add(new Skill("C++", 2));
         skills.add(new Skill("Java", 3));
         User u1 = new User("1", "علی", "شریف زاده", "برنامه نویس وب", "...", skills, "روی سنگ قبرم بنویسید: خدا بیامرز میخواست خیلی کارا بکنه ولی پول نداشت");
-        Project p1 = new Project("10", "job", "descp", "pic", new ArrayList<Skill>(skills), 10, 200);
-        Project p2 = new Project("20", "job2", "descp2", "pic2", skills, 20, 300);
+//        Project p1 = new Project("10", "job", "descp", "pic", new ArrayList<Skill>(skills), 10, 200, );
+//        Project p2 = new Project("20", "job2", "descp2", "pic2", skills, 20, 300);
 //
 ////        mc.addUser(u1);
 //
@@ -156,29 +154,29 @@ public class Server {
         thisUser.put("id", (Object) u1.getId());
 //        thisUser.put("skills", (Object) u1.getSkills());
 
-        Map<String, Object> thisProject = new LinkedHashMap<>();
-        thisProject.put("title", (Object) p1.getTitle());
-        thisProject.put("id", (Object) p1.getId());
-
-        Map<String, Object> thisProject2 = new LinkedHashMap<>();
-        thisProject2.put("title", (Object) p2.getTitle());
-        thisProject2.put("id", (Object) p2.getId());
-
-        List<Map<String, Object>> projects = new ArrayList<>();
-        projects.add(thisProject);
-        projects.add(thisProject2);
-
-
-
-        Map<String, Object> obj = new LinkedHashMap<>();
-        obj.put("thisUser", (Object) thisUser);
-        obj.put("projects", (Object) projects);
+//        Map<String, Object> thisProject = new LinkedHashMap<>();
+//        thisProject.put("title", (Object) p1.getTitle());
+//        thisProject.put("id", (Object) p1.getId());
+//
+//        Map<String, Object> thisProject2 = new LinkedHashMap<>();
+//        thisProject2.put("title", (Object) p2.getTitle());
+//        thisProject2.put("id", (Object) p2.getId());
+//
+//        List<Map<String, Object>> projects = new ArrayList<>();
+//        projects.add(thisProject);
+//        projects.add(thisProject2);
 
 
 
-        JSONObject json = new JSONObject(obj);
+//        Map<String, Object> obj = new LinkedHashMap<>();
+//        obj.put("thisUser", (Object) thisUser);
+//        obj.put("projects", (Object) projects);
+
+
+
+//        JSONObject json = new JSONObject(obj);
 //        json.getJSONObject("thisUser").remove("skills");
-        System.out.println(json);
+//        System.out.println(json);
 
 
 

@@ -13,9 +13,10 @@ public class Project {
     private List<Bid> bids;
     private int budget;
     private long deadline;
+    private long creationTime;
     private User winner;
 
-    public Project(String id, String title, String descp, String picURL, List<Skill> skills, int budget, long deadline) {
+    public Project(String id, String title, String descp, String picURL, List<Skill> skills, int budget, long deadline, long creationTime) {
         this.id = id;
         this.title = title;
         this.description = descp;
@@ -24,6 +25,7 @@ public class Project {
         this.bids = new ArrayList<Bid>();
         this.budget = budget;
         this.deadline = deadline;
+        this.creationTime = creationTime;
         this.winner = null;
     }
 

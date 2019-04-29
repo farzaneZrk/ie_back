@@ -1,0 +1,68 @@
+CREATE TABLE Skillnames(
+name varchar(31) primary key
+);
+
+CREATE TABLE Users(
+    userId nvarchar(2047) PRIMARY KEY,
+    firstname varchar(255),
+    lastname varchar(255),
+    jobTitle varchar(255),
+    imageURL varchar(2083),
+    bio text
+);
+
+CREATE TABLE UserSkills(
+    name varchar(31),
+    point integer,
+    userId nvarchar(2047),
+    PRIMARY KEY (name, userId),
+    FOREIGN KEY(userId) REFERENCES Users(userId),
+    FOREIGN KEY(name) REFERENCES Skillnames(name)
+);
+
+CREATE TABLE Endorses(
+    skillname varchar(31),
+    endorserId nvarchar(2047),
+    endorsedId nvarchar(2047),
+    FOREIGN KEY(skillname) REFERENCES UserSkills(skillname),
+    FOREIGN KEY(endorserId) REFERENCES Users(userId),
+    FOREIGN KEY(endorsedId) REFERENCES Users(userId)
+);
+
+CREATE TABLE Projects(
+    projectId nvarchar(2047) PRIMARY KEY,
+    title varchar(511),
+    description text,
+    imageURL varchar(2083),
+    budget integer,
+    winner varchar(511)
+);
+
+CREATE TABLE ProjectSkills(
+    name varchar(31),
+    point integer,
+    projectId nvarchar(2047),
+    PRIMARY KEY (name, projectId),
+    FOREIGN KEY(projectId) REFERENCES Projects(projectId),
+    FOREIGN KEY(name) REFERENCES Skillnamesl(name)
+);
+
+CREATE TABLE Bids(
+    amount integer,
+    userId nvarchar(2047),
+    projectId nvarchar(2047),
+    PRIMARY KEY (projectId, userId),
+    FOREIGN KEY(userId) REFERENCES Users(userId),
+    FOREIGN KEY(projectId) REFERENCES Projects(projectId)
+);
+
+INSERT INTO Skillnames(name) VALUES('Java');
+INSERT INTO Skillnames(name) VALUES('Javascript');
+INSERT INTO Skillnames(name) VALUES('C++');
+INSERT INTO Skillnames(name) VALUES('HTML');
+INSERT INTO Users(userId, firstname, lastname, jobTitle, imageURL, bio)
+VALUES('1', 'علی', 'شریف زاده','برنامه نویس وب', '...', 'روی سنگ قبرم بنویسید: خدا بیامرز میخواست خیلی کارا بکنه ولی پول نداشت');
+INSERT INTO UserSkills(name, point, userId) VALUES('Java', 3, '1');
+INSERT INTO UserSkills(name, point, userId) VALUES('Javascript', 4, '1');
+INSERT INTO UserSkills(name, point, userId) VALUES('C++', 2, '1');
+INSERT INTO UserSkills(name, point, userId) VALUES('HTNL', 5, '1');
