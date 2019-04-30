@@ -1,47 +1,27 @@
 package Model;
 
-import java.sql.DriverManager;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import Database.DataSource;
+
+import java.sql.*;
 
 public class DataBaseConnectionTest {
 
-    private Connection connect() {
-        // SQLite connection string
-        String url = "jdbc:sqlite:ie_db.db";
-        Connection conn = null;
-        try {
-            conn = DriverManager.getConnection(url);
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-        return conn;
-    }
-
 
     public void selectAll() {
-        String sql = "SELECT * FROM Users";
+        String sql = "SELECT * FROM Skillnames";
 
-        try {
-            Connection conn = this.connect();
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(sql);
+        try (Connection conn = DataSource.getConnection();
+             PreparedStatement pst = conn.prepareStatement( sql );
+             ResultSet rs = pst.executeQuery()) {
 
-            // loop through the result set
-            while (rs.next()) {
-                System.out.println(rs.getString("firstname") + "\n");
+            while ( rs.next() ) {
+                System.out.println(rs.getString("name") + "\n");
             }
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
     }
 
-
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
         DataBaseConnectionTest app = new DataBaseConnectionTest();
         app.selectAll();
