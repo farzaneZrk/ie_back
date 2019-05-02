@@ -57,6 +57,10 @@ public class Project {
         return imageUrl;
     }
 
+    public long getCreationTime(){
+        return creationTime;
+    }
+
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
