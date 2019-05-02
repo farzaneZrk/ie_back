@@ -50,6 +50,7 @@ public class SkillRepo {
         JSONArray jsonarray = new JSONArray(skills);
         SkillMapperImp skillMapperImp = new SkillMapperImp();
         for (int i = 0; i < jsonarray.length(); i++) {
+            System.out.println("in for in skill repo");
             JSONObject jsonobject = jsonarray.getJSONObject(i);
             String name = jsonobject.getString("name");
 //            SkillRepo.addSkillToSkillList(name);
