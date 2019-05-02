@@ -1,5 +1,6 @@
 package Model;
 
+import Mapper.Skill.SkillMapperImp;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -47,10 +48,12 @@ public class SkillRepo {
 
     public static void addToSkillList(String skills) throws IOException {
         JSONArray jsonarray = new JSONArray(skills);
+        SkillMapperImp skillMapperImp = new SkillMapperImp();
         for (int i = 0; i < jsonarray.length(); i++) {
             JSONObject jsonobject = jsonarray.getJSONObject(i);
             String name = jsonobject.getString("name");
-            SkillRepo.addSkillToSkillList(name);
+//            SkillRepo.addSkillToSkillList(name);
+            skillMapperImp.insert(new Skill(name, 0));
         }
 
     }
