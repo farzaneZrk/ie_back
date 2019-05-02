@@ -66,4 +66,4 @@ VALUES('1', 'علی', 'شریف زاده','برنامه نویس وب', '...', '
 INSERT INTO UserSkills(name, point, userId) VALUES('Java', 3, '1');
 INSERT INTO UserSkills(name, point, userId) VALUES('Javascript', 4, '1');
 INSERT INTO UserSkills(name, point, userId) VALUES('C++', 2, '1');
-INSERT INTO UserSkills(name, point, userId) VALUES('HTNL', 5, '1');
+INSERT INTO UserSkills(name, point, userId) VALUES('HTML', 5, '1');
