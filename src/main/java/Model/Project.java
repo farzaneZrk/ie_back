@@ -16,6 +16,31 @@ public class Project {
     private long creationTime;
     private User winner;
 
+    public Project(String id, String title, String description, String imageUrl, List<Skill> skills, List<Bid> bids, int budget, long deadline, long creationTime, User winner) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.imageUrl = imageUrl;
+        this.skills = skills;
+        this.bids = bids;
+        this.budget = budget;
+        this.deadline = deadline;
+        this.creationTime = creationTime;
+        this.winner = winner;
+    }
+
+    public Project(String id, String title, String description, String imageUrl, List<Skill> skills, int budget, long deadline, long creationTime, User winner) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.imageUrl = imageUrl;
+        this.skills = skills;
+        this.budget = budget;
+        this.deadline = deadline;
+        this.creationTime = creationTime;
+        this.winner = winner;
+    }
+
     public Project(String id, String title, String descp, String picURL, List<Skill> skills, int budget, long deadline, long creationTime) {
         this.id = id;
         this.title = title;
