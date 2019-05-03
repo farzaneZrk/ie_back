@@ -13,7 +13,7 @@ public class C3poDataSource {
     static {
         try {
             cpds.setDriverClass("org.sqlite.JDBC");
-            cpds.setJdbcUrl("jdbc:sqlite:/Users/farzane/Documents/University/IE/IE_joint/IE_DB.db");
+            cpds.setJdbcUrl("jdbc:sqlite:/home/sina/Desktop/DataBaseBack/IE_backend/ie_db.db");
         } catch (PropertyVetoException e) {
             // handle the exception
         }
