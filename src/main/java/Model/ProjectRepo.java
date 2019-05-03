@@ -1,12 +1,15 @@
 package Model;
 
 
+import Mapper.Skill.SkillMapperImp;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import Mapper.Project.ProjectMapperImp;
 
 import static Model.SkillRepo.getDataFromServer;
 import static Model.UserRepo.findUser;
@@ -66,7 +69,8 @@ public class ProjectRepo {
 //            projectList.add(new Project(jsonobject.getString("id"), jsonobject.getString("title"),
 //                    jsonobject.getString("description"), jsonobject.getString("imageUrl"), skillList,
 //                    jsonobject.getInt("budget"),  jsonobject.getLong("deadline"), jsonobject.getLong("creationDate")));
-//            System.out.println(((SkillMapperImp) projectDataMapper).getAll());
+
+            ((SkillMapperImp) projectDataMapper).getAll();
 
         }
     }

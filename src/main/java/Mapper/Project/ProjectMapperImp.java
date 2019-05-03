@@ -56,7 +56,7 @@ public class ProjectMapperImp extends DataMapperImp<Project, String> implements 
         stmt.setLong(7, subject.getCreationTime());
         stmt.setLong(8, subject.getDeadline());
 
-        System.out.println("oops! in do insert with name " + subject.getName());
+//        System.out.println("oops! in do insert with name " + subject.getName());
         return subject.getId();
     }
 
