@@ -36,7 +36,8 @@ CREATE TABLE Projects(
     imageURL varchar(2083),
     budget integer,
     winner varchar(511),
-    creationDate datetime
+    creationDate datetime,
+    deadline integer
 );
 
 CREATE TABLE ProjectSkills(

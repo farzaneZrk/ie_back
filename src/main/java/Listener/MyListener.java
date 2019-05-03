@@ -10,7 +10,9 @@ import javax.servlet.http.HttpSessionBindingEvent;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 import java.io.IOException;
+import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 @WebListener()
 public class MyListener implements ServletContextListener,
@@ -38,8 +40,8 @@ public class MyListener implements ServletContextListener,
         } catch (IOException e) {
             System.out.println("!!!!can't connect to server 142.93.134.194:8000 to get data!!!!");
         }
-//        scheduler = Executors.newSingleThreadScheduledExecutor();
-//        scheduler.scheduleAtFixedRate(new FiveMinJobTask(), 0, 5, TimeUnit.MINUTES);
+        scheduler = Executors.newSingleThreadScheduledExecutor();
+        scheduler.scheduleAtFixedRate(new FiveMinJobTask(), 0, 5, TimeUnit.MINUTES);
 //        scheduler.scheduleAtFixedRate(new FiveMinJobTask(), 0, 1, TimeUnit.SECONDS);
 
 
