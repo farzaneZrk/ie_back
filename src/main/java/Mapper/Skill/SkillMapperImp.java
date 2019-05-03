@@ -1,13 +1,12 @@
 package Mapper.Skill;
 
 import Mapper.DataMapperImp;
-import Model.Skill;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class SkillMapperImp extends DataMapperImp<Skill, String> implements SkillDataMapper {
+public class SkillMapperImp extends DataMapperImp<String, String> implements SkillDataMapper {
 
     protected String findStatement() {
         return "SELECT *" +
@@ -19,29 +18,19 @@ public class SkillMapperImp extends DataMapperImp<Skill, String> implements Skil
         return "SELECT * FROM Skillnames";
     }
 
-    public static final String COLUMNS = " name ";
 
-    public Skill find(String id) {
-        return (Skill) abstractFind(id);
-    }
-
-    public Skill find(long id) {
-        return find(new Long(id));
-    }
-
-    protected Skill doLoad(String id, ResultSet rs) throws SQLException {
+    protected String doLoad(String id, ResultSet rs) throws SQLException {
         String name = rs.getString(1);
-        return new Skill(name, 0);
+        return name;
     }
     protected String insertStatement() {
         return "INSERT INTO Skillnames (name)" +
                 "VALUES (?);";
     }
-    protected String doInsert(Skill abstractSubject, PreparedStatement stmt) throws SQLException {
+    protected String doInsert(String abstractSubject, PreparedStatement stmt) throws SQLException {
         System.out.println("oops! in do insert");
-        Skill subject = (Skill) abstractSubject;
-        stmt.setString(1, subject.getName());
-        System.out.println("oops! in do insert with name " + subject.getName());
-        return subject.getName();
+        stmt.setString(1, abstractSubject);
+        System.out.println("oops! in do insert with name " + abstractSubject);
+        return abstractSubject;
     }
 }

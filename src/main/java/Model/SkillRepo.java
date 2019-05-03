@@ -3,29 +3,23 @@ package Model;
 import Mapper.Skill.SkillDataMapper;
 import Mapper.Skill.SkillMapperImp;
 import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.ArrayList;
 import java.util.List;
 
 public class SkillRepo {
-    private static List<String> skillList; // list of available skillList
+    private static SkillDataMapper skillDataMapper;
 
     static {
-        skillList = new ArrayList<>();
-    }
-
-    public static void addSkillToSkillList(String newSkill){
-        skillList.add(newSkill);
+        skillDataMapper = new SkillMapperImp();
     }
 
     public static List<String> getSkillList() {
-        return skillList;
+        return ((SkillMapperImp) skillDataMapper).getAll();
     }
 
     public static String getDataFromServer(String urlPath) throws IOException {
@@ -51,15 +45,15 @@ public class SkillRepo {
         System.out.println("oops! at first of addToSkillList");
         JSONArray jsonarray = new JSONArray(skills);
         SkillDataMapper skillDataMapper = new SkillMapperImp();
-        for (int i = 0; i < jsonarray.length(); i++) {
-            System.out.println("in for in skill repo");
-            JSONObject jsonobject = jsonarray.getJSONObject(i);
-            String name = jsonobject.getString("name");
-            System.out.println("oops! in for with name " + name);
-//            SkillRepo.addSkillToSkillList(name);
-        }
-        System.out.println("oops! end of add to skill list");
-//        System.out.println(((SkillMapperImp) skillDataMapper).getAll());
+//        for (int i = 0; i < jsonarray.length(); i++) {
+//            System.out.println("in for in skill repo");
+//            JSONObject jsonobject = jsonarray.getJSONObject(i);
+//            String name = jsonobject.getString("name");
+//            System.out.println("oops! in for with name " + name);
+////            SkillRepo.addSkillToSkillList(name);
+//        }
+//        System.out.println("oops! end of add to skill list");
+        System.out.println(((SkillMapperImp) skillDataMapper).getAll());
 
     }
 
