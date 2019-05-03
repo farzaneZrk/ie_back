@@ -45,6 +45,7 @@ public class SkillRepo {
         System.out.println("oops! at first of addToSkillList");
         JSONArray jsonarray = new JSONArray(skills);
         SkillDataMapper skillDataMapper = new SkillMapperImp();
+<<<<<<< HEAD
 //        for (int i = 0; i < jsonarray.length(); i++) {
 //            System.out.println("in for in skill repo");
 //            JSONObject jsonobject = jsonarray.getJSONObject(i);
@@ -54,5 +55,29 @@ public class SkillRepo {
 //        }
 //        System.out.println("oops! end of add to skill list");
         System.out.println(((SkillMapperImp) skillDataMapper).getAll());
+
+||||||| merged common ancestors
+        for (int i = 0; i < jsonarray.length(); i++) {
+            System.out.println("in for in skill repo");
+            JSONObject jsonobject = jsonarray.getJSONObject(i);
+            String name = jsonobject.getString("name");
+            System.out.println("oops! in for with name " + name);
+//            SkillRepo.addSkillToSkillList(name);
+        }
+        System.out.println("oops! end of add to skill list");
+//        System.out.println(((SkillMapperImp) skillDataMapper).getAll());
+
+=======
+//        for (int i = 0; i < jsonarray.length(); i++) {
+//            System.out.println("in for in skill repo");
+//            JSONObject jsonobject = jsonarray.getJSONObject(i);
+//            String name = jsonobject.getString("name");
+//            System.out.println("oops! in for with name " + name);
+//            SkillRepo.addSkillToSkillList(name);
+//        }
+//        System.out.println("oops! end of add to skill list");
+        System.out.println(((SkillMapperImp) skillDataMapper).getAll());
+>>>>>>> c43b986d66e1751510cd8056f1f4d2a45a6a4be0
     }
+
 }

@@ -1,0 +1,25 @@
+  1 # Binaries
+  2 *.7z
+  3 *.dmg
+  4 *.gz
+  5 *.iso
+  6 *.jar
+  7 *.rar
+  8 *.tar
+  9 *.zip
+ 10 *.war
+ 11 *.ear
+ 12 *.sar
+ 13 *.class
+ 14
+ 15 # Maven
+ 16 target/
+ 17
+ 18 # IntelliJ project files
+ 19 *.iml
+ 20 *.iws
+ 21 *.ipr
+ 22 .idea/
+ 23
+ 24 # OS
+ 25 .DS_Store
