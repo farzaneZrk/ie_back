@@ -63,9 +63,11 @@ public class ProjectRepo {
             JSONObject jsonobject = jsonarray.getJSONObject(i);
             JSONArray jsonSkillList = jsonobject.getJSONArray("skills");
             skillList = createSkillList(jsonSkillList);
-            projectList.add(new Project(jsonobject.getString("id"), jsonobject.getString("title"),
-                    jsonobject.getString("description"), jsonobject.getString("imageUrl"), skillList,
-                    jsonobject.getInt("budget"),  jsonobject.getLong("deadline"), jsonobject.getLong("creationDate")));
+//            projectList.add(new Project(jsonobject.getString("id"), jsonobject.getString("title"),
+//                    jsonobject.getString("description"), jsonobject.getString("imageUrl"), skillList,
+//                    jsonobject.getInt("budget"),  jsonobject.getLong("deadline"), jsonobject.getLong("creationDate")));
+//            System.out.println(((SkillMapperImp) projectDataMapper).getAll());
+
         }
     }
 

@@ -9,7 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public abstract class ProjectMapperImp extends DataMapperImp<Project, String> implements ProjectDataMapper {
+public class ProjectMapperImp extends DataMapperImp<Project, String> implements ProjectDataMapper {
     protected String findStatement() {
         return "SELECT *" +
                 " FROM Projects" +
@@ -37,22 +37,10 @@ public abstract class ProjectMapperImp extends DataMapperImp<Project, String> im
         }
     }
 
-    protected Project insertProject() {
-        ResultSet rs = null;
-        PreparedStatement insertStatement = null;
-        try (Connection conn = C3poDataSource.getConnection()) {
-            insertStatement = conn.prepareStatement(insertStatement());
-            rs = insertStatement.executeQuery();
-            return (Project) loadAll(rs);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
 
     protected String insertStatement() {
-        return "INSERT INTO Projects (projectId,title,description,imageURL,budget,winner,creationDate)" +
-                "VALUES (?, ?, ?, ?, ?, ?, ?);";
+        return "INSERT INTO Projects (projectId,title,description,imageURL,budget,winner,creationDate, deadline)" +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
     }
 
 
@@ -60,18 +48,30 @@ public abstract class ProjectMapperImp extends DataMapperImp<Project, String> im
 //        System.out.println("oops! in do insert");
         Project subject = abstractSubject;
         stmt.setString(1, subject.getId());
-        stmt.setString(1, subject.getTitle());
-        stmt.setString(1, subject.getDescription());
-        stmt.setString(1, subject.getImageUrl());
-        stmt.setInt(1, subject.getBudget());
-        stmt.setString(1, subject.getWinner());
-        stmt.setLong(1, subject.getCreationTime());
+        stmt.setString(2, subject.getTitle());
+        stmt.setString(3, subject.getDescription());
+        stmt.setString(4, subject.getImageUrl());
+        stmt.setInt(5, subject.getBudget());
+        stmt.setString(6, subject.getWinner());
+        stmt.setLong(7, subject.getCreationTime());
+        stmt.setLong(8, subject.getDeadline());
 
-//        System.out.println("oops! in do insert with name " + subject.getName());
+        System.out.println("oops! in do insert with name " + subject.getName());
         return subject.getId();
     }
 
 
+//    public String insertProjects() {
+//        PreparedStatement insertStatement = null;
+//        try (Connection conn = C3poDataSource.getConnection()) {
+//            insertStatement = conn.prepareStatement(insertStatement());
+//            insertStatement.executeQuery();
+//            String id = doInsert(subject, insertStatement);
+//
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
 
 }
