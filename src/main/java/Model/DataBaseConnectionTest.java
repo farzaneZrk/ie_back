@@ -1,11 +1,8 @@
 package Model;
 
-import Database.DataSource;
-import Model.Project;
-import Model.User;
+import Database.C3poDataSource;
 
 import java.sql.*;
-import java.util.List;
 
 public class DataBaseConnectionTest {
 
@@ -13,7 +10,7 @@ public class DataBaseConnectionTest {
         String url = "jdbc:sqlite:ie_db.db";
         Connection conn = null;
         try {
-            conn = DataSource.getConnection();
+            conn = C3poDataSource.getConnection();
 //            PreparedStatement pst = conn.prepareStatement( sql );
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -26,7 +23,7 @@ public class DataBaseConnectionTest {
         String sql = "SELECT * FROM Users";
 
         try {
-            Connection conn = DataSource.getConnection();
+            Connection conn = C3poDataSource.getConnection();
             PreparedStatement pst = conn.prepareStatement(sql);
             ResultSet rs = pst.executeQuery(sql);
 

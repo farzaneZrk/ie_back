@@ -12,4 +12,9 @@
             <AppenderRef ref="STDOUT"/>
         </Root>
     </Loggers>
+    <Resource name="jdbc/sqlite" auth="Container" type="javax.sql.DataSource"
+              maxActive="100" maxIdle="30" maxWait="10000"
+              url="jdbc:sqlite:ie_db.db"/>
+
+
 </Configuration>

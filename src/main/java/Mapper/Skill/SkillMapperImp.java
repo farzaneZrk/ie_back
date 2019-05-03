@@ -2,19 +2,22 @@ package Mapper.Skill;
 
 import Mapper.DataMapperImp;
 import Model.Skill;
-import org.json.JSONArray;
-import org.json.JSONObject;
 
-import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class SkillMapperImp extends DataMapperImp<Skill, String> implements SkillDataMapper {
 
-    protected String findStatement() { return "SELECT " + COLUMNS +
+    protected String findStatement() {
+        return "SELECT *" +
             " FROM Skillnames" +
-            " WHERE id = ?"; }
+            " WHERE name = ?";
+    }
+
+    protected String selectAllStatement() {
+        return "SELECT * FROM Skillnames";
+    }
 
     public static final String COLUMNS = " name ";
 
@@ -26,28 +29,19 @@ public class SkillMapperImp extends DataMapperImp<Skill, String> implements Skil
         return find(new Long(id));
     }
 
-    protected Skill doLoad(Long id, ResultSet rs) throws SQLException {
-        String name = rs.getString(2);
-        int point = rs.getInt(3);
-        return new Skill(name, point);
+    protected Skill doLoad(String id, ResultSet rs) throws SQLException {
+        String name = rs.getString(1);
+        return new Skill(name, 0);
     }
     protected String insertStatement() {
         return "INSERT INTO Skillnames (name)" +
                 "VALUES (?);";
     }
     protected String doInsert(Skill abstractSubject, PreparedStatement stmt) throws SQLException {
+        System.out.println("oops! in do insert");
         Skill subject = (Skill) abstractSubject;
         stmt.setString(1, subject.getName());
+        System.out.println("oops! in do insert with name " + subject.getName());
         return subject.getName();
-    }
-
-    public void setUpSkillList() throws IOException {
-        String skills = getDataFromServer("http://142.93.134.194:8000/joboonja/skill/");
-        JSONArray jsonarray = new JSONArray(skills);
-        for (int i = 0; i < jsonarray.length(); i++) {
-            JSONObject jsonobject = jsonarray.getJSONObject(i);
-            String name = jsonobject.getString("name");
-            insert(new Skill(name, 0));
-        }
     }
 }

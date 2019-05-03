@@ -9,7 +9,7 @@ public class FiveMinJobTask implements Runnable {
     @Override
     public void run() {
         // Do your hourly job here.
-        System.out.println("Job trigged by scheduler");
+        System.out.println("Projects have been updated after 5 minutes !\n");
         String skillsJson = null;
         try {
             ProjectRepo.setUpProjectlist();
