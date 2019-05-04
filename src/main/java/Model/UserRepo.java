@@ -76,5 +76,10 @@ public class UserRepo {
         return res;
     }
 
+    public static void addBiddedProject(User user, String projectId){
+        user.addBiddedProject(projectId);
+        userDataMapper.updateUser(user);
+    }
+
 
 }

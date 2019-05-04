@@ -1,7 +1,6 @@
 package Model;
 
 
-import Mapper.Project.ProjectDataMapper;
 import Mapper.Project.ProjectMapperImp;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -14,33 +13,27 @@ import static Model.SkillRepo.getDataFromServer;
 import static Model.UserRepo.findUser;
 
 public class ProjectRepo {
-    private static int nextProjectId;
-    private static List<Project> projectList;
+    private static ProjectMapperImp projectDataMapper;
 
     static {
-        nextProjectId = 1;
-        projectList = new ArrayList<>();
-
+        projectDataMapper = new ProjectMapperImp();
     }
 
-
     public static List<Project> getProjectList() {
-        return projectList;
+        return projectDataMapper.getAll();
     }
 
     public static int addProject(Project project) {
         if (findProject(project.getId()) != null)
             return -1;
-
-        projectList.add(project);
+        projectDataMapper.insert(project);
         return 0;
     }
 
     public static Project findProject(String id) {
-        for (Project project: projectList)
-            if (project.getId().equals(id))
-                return project;
-        return null;
+        Project res = projectDataMapper.abstractFind(id);
+        System.out.println("project in findProject    " + res);
+        return res;
     }
 
     public static void setUpProjectlist() throws IOException {
@@ -65,14 +58,15 @@ public class ProjectRepo {
             JSONObject jsonobject = jsonarray.getJSONObject(i);
             JSONArray jsonSkillList = jsonobject.getJSONArray("skills");
             skillList = createSkillList(jsonSkillList);
-//            projectList.add(new Project(jsonobject.getString("id"), jsonobject.getString("title"),
-//                    jsonobject.getString("description"), jsonobject.getString("imageUrl"), skillList,
-//                    jsonobject.getInt("budget"),  jsonobject.getLong("deadline"), jsonobject.getLong("creationDate")));
 
-            ProjectDataMapper projectDataMapper = new ProjectMapperImp();
-            ((ProjectMapperImp) projectDataMapper).insert(new Project(jsonobject.getString("id"), jsonobject.getString("title"),
+            projectDataMapper.insert(
+                new Project(
+                    jsonobject.getString("id"), jsonobject.getString("title"),
                     jsonobject.getString("description"), jsonobject.getString("imageUrl"),
-                    jsonobject.getInt("budget"),  jsonobject.getLong("deadline"), jsonobject.getLong("creationDate")));
+                    skillList, jsonobject.getInt("budget"),  jsonobject.getLong("deadline"),
+                    jsonobject.getLong("creationDate")
+                )
+            );
 
         }
     }
@@ -87,6 +81,7 @@ public class ProjectRepo {
             return -2;
 
         project.addBid(bid);
+        projectDataMapper.inserProjectBid(project, bid);
         return 0;
     }
 }

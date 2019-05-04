@@ -1,5 +1,6 @@
 package Listener;
 
+import Model.ProjectRepo;
 import Model.SkillRepo;
 
 import javax.servlet.ServletContextEvent;
@@ -33,8 +34,8 @@ public class MyListener implements ServletContextListener,
          You can initialize servlet context related data here.
       */
         try {
-//            ProjectRepo.setUpProjectlist();
             System.out.println("oops! first of the listener");
+            ProjectRepo.setUpProjectlist();
             SkillRepo.setUpSkillList();
 //            UserRepo.testusermapper();
             System.out.println("get initial data successfully");

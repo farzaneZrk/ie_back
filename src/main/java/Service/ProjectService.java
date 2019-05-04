@@ -25,8 +25,8 @@ public class ProjectService {
         if (project == null)
             prepareResponse(response, json, HttpServletResponse.SC_NOT_FOUND); //page not found
 
-        else if (!project.checkUserForProject(thisUser.getId()))
-            prepareResponse(response, json, HttpServletResponse.SC_FORBIDDEN);//page forbidden
+//        else if (!project.checkUserForProject(thisUser.getId()))
+//            prepareResponse(response, json, HttpServletResponse.SC_FORBIDDEN);//page is forbidden
 
         else {
             Map<String, Object> thisProject = new LinkedHashMap<>();
@@ -60,8 +60,10 @@ public class ProjectService {
         Map<String, Object> resMap = new LinkedHashMap<>();
 
         if(project.getBudget() >= Integer.valueOf(bidamount)) {
-            user.addBiddedProject(projectId);
-            project.addBid(new Bid(Integer.valueOf(bidamount), project, user));
+//            user.addBiddedProject(projectId);
+//            project.addBid(new Bid(Integer.valueOf(bidamount), project, user));
+            UserRepo.addBiddedProject(user, projectId);
+            ProjectRepo.addBid(new Bid(Integer.valueOf(bidamount), project, user));
             resMap.put("msg", "Your bid accepted.");
             JSONObject json = new JSONObject(resMap);
             prepareResponse(response, json, HttpServletResponse.SC_OK);
@@ -79,7 +81,7 @@ public class ProjectService {
 
         for (Project project: ProjectRepo.getProjectList()) {
 //            if (project.qualifyUser(thisUser) && !project.isExpired()){
-            if (project.qualifyUser(thisUser)){
+//            if (project.qualifyUser(thisUser)){
                 Map<String, Object> thisProject = new LinkedHashMap<>();
                 thisProject.put("id", (Object) project.getId());
                 thisProject.put("title", (Object) project.getTitle());
@@ -89,7 +91,7 @@ public class ProjectService {
                 thisProject.put("description", (Object) project.getDescription());
                 thisProject.put("skills", project.getSkills());
                 projects.add(thisProject);
-            }
+//            }
         }
 
         Map<String, Object> responseMap = new LinkedHashMap<>();

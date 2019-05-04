@@ -1,12 +1,15 @@
 package Mapper.User;
 
+import Database.C3poDataSource;
 import Mapper.DataMapperImp;
 import Model.Skill;
 import Model.User;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserDataMapperImp extends DataMapperImp<User, String> implements UserDataMapper {
@@ -26,6 +29,12 @@ public class UserDataMapperImp extends DataMapperImp<User, String> implements Us
                 "VALUES (?, ?, ?, ?, ?, ?);";
     }
 
+    private String findUserBids(){
+        return "SELECT projectId " +
+                "FROM Bids " +
+                "WHERE UserId = ?";
+    }
+
     public static final String COLUMNS = "userId, firstname, lastname, jobTitle, imageURL, bio";
 
     protected User doLoad(String id, ResultSet rs) throws SQLException {
@@ -35,7 +44,6 @@ public class UserDataMapperImp extends DataMapperImp<User, String> implements Us
         String imageURL = rs.getString(5);
         String bio = rs.getString(6);
 
-        UserSkillMapper userSkillMapper = new UserSkillMapper();
         List<Skill> skills = userSkillMapper.getUserSkills(id);
 
         User res = new User(id, firstname, lastname, jobTitle, imageURL, skills, bio);
@@ -44,6 +52,23 @@ public class UserDataMapperImp extends DataMapperImp<User, String> implements Us
         // todo: handle bidded projects;
 
         return res;
+    }
+
+    private List<String> getUserBidList(String id){
+        String findUserBids = this.findUserBids();
+        try (Connection conn = C3poDataSource.getConnection()) {
+            PreparedStatement pstmt = conn.prepareStatement(findUserBids);
+            pstmt.setString(1, id);
+            ResultSet rs = pstmt.executeQuery();
+
+            List<String> result = new ArrayList<>();
+            while (rs.next())
+                result.add(rs.getString(1));
+            return result;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     protected String doInsert(User abstractSubject, PreparedStatement stmt) throws SQLException {
@@ -55,7 +80,6 @@ public class UserDataMapperImp extends DataMapperImp<User, String> implements Us
         stmt.setString(5, abstractSubject.getImageURL());
         stmt.setString(6, abstractSubject.getBio());
 
-        UserSkillMapper userSkillMapper = new UserSkillMapper();
         userSkillMapper.insertUserSkills(abstractSubject.getId(), abstractSubject.getSkills());
 
         return abstractSubject.getId();
@@ -79,6 +103,10 @@ public class UserDataMapperImp extends DataMapperImp<User, String> implements Us
         loadedMap.replace(user.getId(), user);
         userSkillMapper.insertUserSkill(user.getId(), new Skill(skill, 0));
         System.out.println("at the end of addUserSkill " + loadedMap.get(user.getId()));
+    }
+
+    public void updateUser(User user){
+        loadedMap.replace(user.getId(), user);
     }
 
 }
