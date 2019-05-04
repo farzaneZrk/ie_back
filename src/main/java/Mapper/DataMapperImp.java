@@ -16,7 +16,9 @@ public abstract class DataMapperImp<T, I> implements DataMapper<T, I> {
     protected Map<I, T> loadedMap = new HashMap<>();
     abstract protected String findStatement();
 
-    protected T abstractFind(String id) {
+    public T abstractFind(String id) {
+        if (loadedMap.containsKey(id)) return loadedMap.get(id);
+
         T result = loadedMap.get(id);
         if (result != null) return result;
         PreparedStatement findStatement = null;
@@ -34,6 +36,8 @@ public abstract class DataMapperImp<T, I> implements DataMapper<T, I> {
         }
     }
 
+    // todo: handle updates;
+
     public List getAll() {
         ResultSet rs = null;
         PreparedStatement selectAllStatement = null;
@@ -46,22 +50,6 @@ public abstract class DataMapperImp<T, I> implements DataMapper<T, I> {
             return null;
         }
     }
-
-    protected List loadAll(ResultSet rs) throws SQLException {
-        List result = new ArrayList();
-        while (rs.next())
-            result.add(load(rs));
-        return result;
-    }
-
-    protected T load(ResultSet rs) throws SQLException {
-        String id = rs.getString(1);
-        if (loadedMap.containsKey(id)) return loadedMap.get(id);
-        T result = doLoad(id, rs);
-        loadedMap.put((I)id, result);
-        return result;
-    }
-    abstract protected T doLoad(String id, ResultSet rs) throws SQLException;
 
     public String insert(T subject) {
         System.out.println("oops! insert called");
@@ -79,8 +67,25 @@ public abstract class DataMapperImp<T, I> implements DataMapper<T, I> {
         }
 
     }
+
+    protected List<T> loadAll(ResultSet rs) throws SQLException {
+        List<T> result = new ArrayList();
+        while (rs.next())
+            result.add(load(rs));
+        return result;
+    }
+
+    protected T load(ResultSet rs) throws SQLException {
+        String id = rs.getString(1);
+        if (loadedMap.containsKey(id)) return loadedMap.get(id);
+        T result = doLoad(id, rs);
+        loadedMap.put((I)id, result);
+        return result;
+    }
+
+
+    abstract protected T doLoad(String id, ResultSet rs) throws SQLException;
     abstract protected String insertStatement();
     abstract protected String selectAllStatement();
-    abstract protected String doInsert(T subject, PreparedStatement insertStatement)
-            throws SQLException;
+    abstract protected String doInsert(T subject, PreparedStatement insertStatement) throws SQLException;
 }

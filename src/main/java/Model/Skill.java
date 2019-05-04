@@ -8,6 +8,12 @@ public class Skill {
     private int point;
     private List<String> endorserList;
 
+    public Skill(String name, int point, List<String> endorserList) {
+        this.name = name;
+        this.point = point;
+        this.endorserList = endorserList;
+    }
+
     public Skill(String name, int point) {
         this.name = name;
         this.point = point;
@@ -56,8 +62,18 @@ public class Skill {
         return endorserList.contains(id);
     }
 
+//    @Override
+//    public String toString() {
+//        return this.name + ":" + String.valueOf(this.point);
+//    }
+
+
     @Override
     public String toString() {
-        return this.name + ":" + String.valueOf(this.point);
+        return "Skill{" +
+                "name='" + name + '\'' +
+                ", point=" + point +
+                ", endorserList=" + endorserList +
+                '}';
     }
 }

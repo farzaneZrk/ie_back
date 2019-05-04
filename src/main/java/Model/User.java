@@ -124,6 +124,15 @@ public class User {
         biddedProject.add(projectId);
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "id='" + id + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", skills=" + skills +
+                '}';
+    }
+
     public boolean hasBidded(String projectID){
         for (String id: biddedProject) {
             if(id.equals(projectID))

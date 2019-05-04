@@ -24,6 +24,7 @@ CREATE TABLE Endorses(
     skillname varchar(31),
     endorserId nvarchar(2047),
     endorsedId nvarchar(2047),
+    PRIMARY KEY (skillname, endorserId, endorsedId),
     FOREIGN KEY(skillname) REFERENCES UserSkills(skillname),
     FOREIGN KEY(endorserId) REFERENCES Users(userId),
     FOREIGN KEY(endorsedId) REFERENCES Users(userId)

@@ -13,13 +13,13 @@ import java.util.List;
 
 public class ProjectMapperImp extends DataMapperImp<Project, String> implements ProjectDataMapper {
     protected String findStatement() {
-        return "SELECT" + COLUMNS +
+        return "SELECT " + COLUMNS +
                 " FROM Projects" +
                 " WHERE projectId = ?";
     }
 
     protected String selectAllStatement() {
-        return "SELECT" + COLUMNS + "FROM Projects";
+        return "SELECT " + COLUMNS + " FROM Projects";
     }
 
     public static final String COLUMNS = "projectId, title, description, imageURL, budget, winner, creationDate, deadline ";

@@ -1,6 +1,7 @@
 package Listener;
 
 import Model.SkillRepo;
+import Model.UserRepo;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -34,6 +35,7 @@ public class MyListener implements ServletContextListener,
 //            ProjectRepo.setUpProjectlist();
             System.out.println("oops! first of the listener");
             SkillRepo.setUpSkillList();
+//            UserRepo.testusermapper();
             System.out.println("get initial data successfully");
         } catch (IOException e) {
             System.out.println("!!!!can't connect to server 142.93.134.194:8000 to get data!!!!");

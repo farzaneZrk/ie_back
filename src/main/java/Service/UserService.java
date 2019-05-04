@@ -82,7 +82,8 @@ public class UserService {
             return;
         }
 
-        if(user.addSkill(new Skill(skillName, 0))){
+        if(UserRepo.addSkill(user, (new Skill(skillName, 0)))){
+//        if(user.addSkill(new Skill(skillName, 0))){
             resMap.put("msg", skillName +  " added to your skills successfully.");
             JSONObject json = new JSONObject(resMap);
             prepareResponse(response, json, HttpServletResponse.SC_OK);
