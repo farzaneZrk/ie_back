@@ -40,6 +40,16 @@ public class Project {
         this.creationTime = creationTime;
         this.winner = winner;
     }
+    public Project(String id, String title, String description, String imageUrl, int budget, long deadline, long creationTime) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.imageUrl = imageUrl;
+        this.budget = budget;
+        this.deadline = deadline;
+        this.creationTime = creationTime;
+    }
+
 
     public Project(String id, String title, String descp, String picURL, List<Skill> skills, int budget, long deadline, long creationTime) {
         this.id = id;

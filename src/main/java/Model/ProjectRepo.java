@@ -1,6 +1,8 @@
 package Model;
 
 
+import Mapper.Project.ProjectDataMapper;
+import Mapper.Project.ProjectMapperImp;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -66,7 +68,11 @@ public class ProjectRepo {
 //            projectList.add(new Project(jsonobject.getString("id"), jsonobject.getString("title"),
 //                    jsonobject.getString("description"), jsonobject.getString("imageUrl"), skillList,
 //                    jsonobject.getInt("budget"),  jsonobject.getLong("deadline"), jsonobject.getLong("creationDate")));
-//            System.out.println(((SkillMapperImp) projectDataMapper).getAll());
+
+            ProjectDataMapper projectDataMapper = new ProjectMapperImp();
+            ((ProjectMapperImp) projectDataMapper).insert(new Project(jsonobject.getString("id"), jsonobject.getString("title"),
+                    jsonobject.getString("description"), jsonobject.getString("imageUrl"),
+                    jsonobject.getInt("budget"),  jsonobject.getLong("deadline"), jsonobject.getLong("creationDate")));
 
         }
     }

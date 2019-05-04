@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProjectMapperImp extends DataMapperImp<Project, String> implements ProjectDataMapper {
@@ -37,32 +38,13 @@ public class ProjectMapperImp extends DataMapperImp<Project, String> implements 
         return new Project(id, title, description, imageURL, skills, budget, deadline, creationDate);
     }
 
-    protected String selectNonUpdatedStatement(){
-        return "SELECT max(creationDate) FROM Projects";
-    }
-
-    protected Project findCreationDate() {
-        ResultSet rs = null;
-        PreparedStatement selectNonUpdatedStatement = null;
-        try (Connection conn = C3poDataSource.getConnection()) {
-            selectNonUpdatedStatement = conn.prepareStatement(selectNonUpdatedStatement());
-            rs = selectNonUpdatedStatement.executeQuery();
-            return (Project) loadAll(rs);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-
     protected String insertStatement() {
-        return "INSERT INTO Projects (projectId,title,description,imageURL,budget,winner,creationDate, deadline)" +
+        return "INSERT OR IGNORE INTO Projects (projectId,title,description,imageURL,budget,winner,creationDate, deadline)" +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
     }
 
 
     protected String doInsert(Project abstractSubject, PreparedStatement stmt) throws SQLException {
-//        System.out.println("oops! in do insert");
         Project subject = abstractSubject;
         stmt.setString(1, subject.getId());
         stmt.setString(2, subject.getTitle());
@@ -73,22 +55,6 @@ public class ProjectMapperImp extends DataMapperImp<Project, String> implements 
         stmt.setLong(7, subject.getCreationTime());
         stmt.setLong(8, subject.getDeadline());
 
-        System.out.println("oops! in do insert with name " + subject.getTitle());
         return subject.getId();
     }
-
-
-//    public String insertProjects() {
-//        PreparedStatement insertStatement = null;
-//        try (Connection conn = C3poDataSource.getConnection()) {
-//            insertStatement = conn.prepareStatement(insertStatement());
-//            insertStatement.executeQuery();
-//            String id = doInsert(subject, insertStatement);
-//
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//    }
-
-
 }
