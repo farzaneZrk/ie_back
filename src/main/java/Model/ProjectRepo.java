@@ -84,4 +84,8 @@ public class ProjectRepo {
         projectDataMapper.inserProjectBid(project, bid);
         return 0;
     }
+
+    public static List<Project> searchProjects(String searchKey){
+        return projectDataMapper.selectMatchedProjects(searchKey);
+    }
 }

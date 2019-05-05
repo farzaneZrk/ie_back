@@ -104,4 +104,13 @@ public class ProjectService {
         prepareResponse(response, json, HttpServletResponse.SC_OK);
 
     }
+
+    public static void findProjectBySearchKey(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String searchKey = request.getParameter("searchKey");
+        Map<String, Object> resMap = new LinkedHashMap<>();
+        resMap.put("msg", "request is gotten.");
+        resMap.put("searchKey", searchKey);
+        JSONObject json = new JSONObject(resMap);
+        prepareResponse(response, json, HttpServletResponse.SC_OK);
+    }
 }

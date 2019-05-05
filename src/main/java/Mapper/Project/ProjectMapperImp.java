@@ -45,10 +45,15 @@ public class ProjectMapperImp extends DataMapperImp<Project, String> implements 
                 " WHERE projectId = ?";
     }
 
+    protected String searchProjectsStatement() {
+        return "SELECT " + COLUMNS +
+                " FROM Projects" +
+                " WHERE title LIKE ? OR description LIKE ?";
+    }
+
     public static final String COLUMNS = "projectId, title, description, imageURL, budget, winner, creationDate, deadline ";
 
     protected Project doLoad(String id, ResultSet rs) throws SQLException {
-        System.out.println("doload in in project mapper");
         String title = rs.getString(2);
         String description = rs.getString(3);
         String imageURL = rs.getString(4);
@@ -62,7 +67,6 @@ public class ProjectMapperImp extends DataMapperImp<Project, String> implements 
     }
 
     private List<Bid> getProjectBids(String id){
-        System.out.println("getProjectBids ");
         String findBidStatement = this.findBidStatement();
         try (Connection conn = C3poDataSource.getConnection()) {
             PreparedStatement pstmt = conn.prepareStatement(findBidStatement);
@@ -126,6 +130,21 @@ public class ProjectMapperImp extends DataMapperImp<Project, String> implements 
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
+        }
+    }
+
+    public List<Project> selectMatchedProjects(String searchKey){
+        String searchProjectsStatement = this.searchProjectsStatement();
+        try (Connection conn = C3poDataSource.getConnection()) {
+            PreparedStatement pstmt = conn.prepareStatement(searchProjectsStatement);
+            pstmt.setString(1, '%' + searchKey + '%');
+            pstmt.setString(2, '%' + searchKey + '%');
+            ResultSet rs = pstmt.executeQuery();
+
+            return loadAll(rs);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
         }
     }
 }
