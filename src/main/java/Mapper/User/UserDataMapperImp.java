@@ -32,7 +32,7 @@ public class UserDataMapperImp extends DataMapperImp<User, String> implements Us
     private String findUserBids(){
         return "SELECT projectId " +
                 "FROM Bids " +
-                "WHERE UserId = ?";
+                "WHERE userId = ?";
     }
 
     public static final String COLUMNS = "userId, firstname, lastname, jobTitle, imageURL, bio";
@@ -46,10 +46,10 @@ public class UserDataMapperImp extends DataMapperImp<User, String> implements Us
 
         List<Skill> skills = userSkillMapper.getUserSkills(id);
 
-        User res = new User(id, firstname, lastname, jobTitle, imageURL, skills, bio);
-        System.out.println("oops! " + res);
+        List<String> biddedProjects = getUserBidList(id);
 
-        // todo: handle bidded projects;
+        User res = new User(id, firstname, lastname, jobTitle, imageURL, skills, bio, biddedProjects);
+        System.out.println("oops! " + res);
 
         return res;
     }

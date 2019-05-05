@@ -17,6 +17,7 @@ import static Service.UserService.prepareResponse;
 public class ProjectService {
     public static void showProject (HttpServletRequest request, HttpServletResponse response, String id)
             throws ServletException, IOException {
+        System.out.println("in showProject");
         User thisUser = UserRepo.findUser("1");
         request.setAttribute("thisUser", thisUser);
         JSONObject json = new JSONObject("{}");
@@ -76,6 +77,7 @@ public class ProjectService {
 
     public static void showAllProjects (HttpServletRequest request, HttpServletResponse response, String thisUserId)
             throws ServletException, IOException {
+        System.out.println("in showAllProject");
         User thisUser = UserRepo.findUser(thisUserId);
         List<Map<String, Object>> projects = new ArrayList<>();
 

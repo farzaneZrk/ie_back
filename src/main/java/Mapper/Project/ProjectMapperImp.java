@@ -48,6 +48,7 @@ public class ProjectMapperImp extends DataMapperImp<Project, String> implements 
     public static final String COLUMNS = "projectId, title, description, imageURL, budget, winner, creationDate, deadline ";
 
     protected Project doLoad(String id, ResultSet rs) throws SQLException {
+        System.out.println("doload in in project mapper");
         String title = rs.getString(2);
         String description = rs.getString(3);
         String imageURL = rs.getString(4);
@@ -61,6 +62,7 @@ public class ProjectMapperImp extends DataMapperImp<Project, String> implements 
     }
 
     private List<Bid> getProjectBids(String id){
+        System.out.println("getProjectBids ");
         String findBidStatement = this.findBidStatement();
         try (Connection conn = C3poDataSource.getConnection()) {
             PreparedStatement pstmt = conn.prepareStatement(findBidStatement);

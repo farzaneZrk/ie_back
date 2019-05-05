@@ -7,19 +7,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3a195e5c-ecec-40d6-83e8-07f9d3c945ef" name="Default Changelist" comment="data source first implementation is done">
-      <change afterPath="$PROJECT_DIR$/src/main/java/Controller/ProjectsSearch.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Mapper/Project/ProjectSkillMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/cfc456d2-f881-44d2-93ac-7d8a9bc01ab6.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/cfc456d2-f881-44d2-93ac-7d8a9bc01ab6.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ie_db.db" beforeDir="false" afterPath="$PROJECT_DIR$/ie_db.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Listener/MyListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Listener/MyListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Controller/ProjectsCtrl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Controller/ProjectsCtrl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Mapper/Project/ProjectMapperImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Mapper/Project/ProjectMapperImp.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Mapper/User/UserDataMapperImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Mapper/User/UserDataMapperImp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Model/Project.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/Project.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Model/ProjectRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/ProjectRepo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Model/UserRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/UserRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/User.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Service/ProjectService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Service/ProjectService.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -81,14 +73,14 @@
     <favorites_list name="IE_joint" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.74896693">
+    <splitter split-orientation="horizontal" split-proportion="0.4892704">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/main/java/Mapper/Project/ProjectMapperImp.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="108">
-                  <caret line="59" column="111" selection-start-line="59" selection-start-column="111" selection-end-line="59" selection-end-column="111" />
+                <state relative-caret-position="260">
+                  <caret line="64" column="43" selection-start-line="64" selection-start-column="43" selection-end-line="64" selection-end-column="43" />
                   <folding>
                     <element signature="method#doInsert#0;class#ProjectMapperImp#0" />
                     <element signature="method#insertBid#0;class#ProjectMapperImp#0" />
@@ -110,8 +102,8 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/main/java/Service/ProjectService.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="365">
-                  <caret line="65" column="26" selection-start-line="65" selection-start-column="26" selection-end-line="65" selection-end-column="26" />
+                <state relative-caret-position="64">
+                  <caret line="79" column="38" selection-start-line="79" selection-start-column="38" selection-end-line="79" selection-end-column="38" />
                   <folding>
                     <element signature="imports" expanded="true" />
                   </folding>
@@ -203,8 +195,17 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/main/java/Model/User.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="75">
-                  <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+                <state relative-caret-position="162">
+                  <caret line="138" column="18" selection-start-line="151" selection-start-column="6" selection-end-line="158" selection-end-column="7" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="true">
+            <entry file="das://658b1092-9dd8-4b20-a7b3-7dffc39fd3f7/schema/main/table/Bids">
+              <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+                <state>
+                  <filtering enabled="true" />
                 </state>
               </provider>
             </entry>
@@ -212,12 +213,11 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/main/java/Model/UserRepo.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="420">
-                  <caret line="78" column="68" selection-start-line="78" selection-start-column="68" selection-end-line="78" selection-end-column="68" />
+                <state relative-caret-position="270">
+                  <caret line="31" column="23" selection-start-line="31" selection-start-column="23" selection-end-line="31" selection-end-column="23" />
                   <folding>
                     <element signature="imports" expanded="true" />
                     <element signature="method#testusermapper#0;class#UserRepo#0" />
-                    <element signature="method#findUser#0;class#UserRepo#0" />
                     <element signature="method#addUser#0;class#UserRepo#0" />
                     <element signature="method#endorseUserSkill#0;class#UserRepo#0" />
                     <element signature="method#deleteUserSkill#0;class#UserRepo#0" />
@@ -228,11 +228,11 @@
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="true">
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/main/java/Mapper/User/UserDataMapperImp.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="348">
-                  <caret line="61" selection-start-line="61" selection-end-line="61" />
+                <state relative-caret-position="384">
+                  <caret line="49" lean-forward="true" selection-start-line="49" selection-end-line="49" />
                   <folding>
                     <element signature="imports" expanded="true" />
                     <element signature="method#doInsert#0;class#UserDataMapperImp#0" />
@@ -240,6 +240,15 @@
                     <element signature="method#removeUserSkill#0;class#UserDataMapperImp#0" />
                     <element signature="method#addUserSkill#0;class#UserDataMapperImp#0" />
                   </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/main/java/Controller/ProjectsCtrl.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="285">
+                  <caret line="26" lean-forward="true" selection-start-line="26" selection-end-line="26" />
                 </state>
               </provider>
             </entry>
@@ -286,9 +295,9 @@
       <find>userId</find>
       <find>projectList</find>
       <find>user</find>
-      <find>findSkills</find>
       <find>bids</find>
       <find>bid</find>
+      <find>findSkills</find>
     </findStrings>
     <replaceStrings>
       <replace>4.3.0</replace>
@@ -309,7 +318,6 @@
         <option value="$PROJECT_DIR$/web/WEB-INF/web.xml" />
         <option value="$PROJECT_DIR$/src/main/java/Controller/UserList.java" />
         <option value="$PROJECT_DIR$/src/main/java/Controller/ProjectListCtrl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/Controller/ProjectsCtrl.java" />
         <option value="$PROJECT_DIR$/src/main/java/Controller/BidProjectCtrl.java" />
         <option value="$PROJECT_DIR$/src/main/java/Controller/AddSkillCtrl.java" />
         <option value="$PROJECT_DIR$/src/main/java/Controller/UsersCtrl.java" />
@@ -336,7 +344,6 @@
         <option value="$PROJECT_DIR$/src/main/java/Mapper/DataMapperImp.java" />
         <option value="$APPLICATION_CONFIG_DIR$/consoles/.datagrid/cell" />
         <option value="$PROJECT_DIR$/DBCommands.txt" />
-        <option value="$PROJECT_DIR$/src/main/java/Model/User.java" />
         <option value="$PROJECT_DIR$/src/main/java/Model/Skill.java" />
         <option value="$PROJECT_DIR$/src/main/java/Mapper/User/UserSkillMapper.java" />
         <option value="$PROJECT_DIR$/src/main/java/Service/UserService.java" />
@@ -349,10 +356,12 @@
         <option value="$PROJECT_DIR$/src/main/java/Model/Project.java" />
         <option value="$PROJECT_DIR$/src/main/java/Mapper/Project/ProjectSkillMapper.java" />
         <option value="$PROJECT_DIR$/src/main/java/Model/ProjectRepo.java" />
-        <option value="$PROJECT_DIR$/src/main/java/Service/ProjectService.java" />
         <option value="$PROJECT_DIR$/src/main/java/Model/UserRepo.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Controller/ProjectsCtrl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Service/ProjectService.java" />
         <option value="$PROJECT_DIR$/src/main/java/Mapper/Project/ProjectMapperImp.java" />
         <option value="$PROJECT_DIR$/src/main/java/Mapper/User/UserDataMapperImp.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Model/User.java" />
       </list>
     </option>
   </component>
@@ -489,7 +498,7 @@
     <property name="Repository.Attach.Sources" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1557003766032" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1557048946211" />
     <property name="database.console.LAST_STATE" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
@@ -680,7 +689,7 @@
       <workItem from="1556883855070" duration="404000" />
       <workItem from="1556891912054" duration="4246000" />
       <workItem from="1556898983155" duration="1772000" />
-      <workItem from="1556956628572" duration="9364000" />
+      <workItem from="1556956628572" duration="12544000" />
     </task>
     <task id="LOCAL-00001" summary="data source first implementation is done">
       <created>1556659632919</created>
@@ -700,7 +709,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="199562000" />
+    <option name="totallyTimeSpent" value="202742000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -731,7 +740,7 @@
       <window_info anchor="bottom" id="Version Control" order="4" weight="0.32891566" />
       <window_info anchor="bottom" id="Message" order="5" />
       <window_info anchor="bottom" id="Find" order="6" weight="0.32891566" />
-      <window_info active="true" anchor="bottom" id="Run" order="7" sideWeight="0.8462089" visible="true" weight="0.2987952" />
+      <window_info anchor="bottom" id="Run" order="7" sideWeight="0.8462089" visible="true" weight="0.2987952" />
       <window_info anchor="bottom" id="Debug" order="8" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="9" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="10" weight="0.4" />
@@ -754,7 +763,7 @@
       <window_info anchor="right" id="Ant Build" order="9" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="10" weight="0.25" />
       <window_info anchor="right" id="Maven" order="11" weight="0.3297568" />
-      <window_info anchor="right" id="Database" order="12" visible="true" weight="0.30758226" />
+      <window_info active="true" anchor="right" id="Database" order="12" visible="true" weight="0.15522175" />
     </layout>
     <layout-to-restore>
       <window_info id="Designer" order="0" />
@@ -1035,13 +1044,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Controller/ProjectsCtrl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="19" column="32" lean-forward="true" selection-start-line="19" selection-start-column="32" selection-end-line="19" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Listener/MyListener.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
@@ -1053,26 +1055,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="268">
           <caret line="237" column="12" selection-start-line="237" selection-start-column="12" selection-end-line="237" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Controller/BidProjectCtrl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" column="27" lean-forward="true" selection-start-line="14" selection-start-column="27" selection-end-line="14" selection-end-column="27" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Service/ProjectService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="365">
-          <caret line="65" column="26" selection-start-line="65" selection-start-column="26" selection-end-line="65" selection-end-column="26" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1103,13 +1085,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Model/Bid.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="11" selection-start-line="7" selection-start-column="11" selection-end-line="7" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Model/Project.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="219">
@@ -1121,57 +1096,6 @@
             <element signature="method#Project#3;class#Project#0" />
             <element signature="e#3102#3103#0" expanded="true" />
             <element signature="e#3136#3137#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Mapper/Project/ProjectMapperImp.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="59" column="111" selection-start-line="59" selection-start-column="111" selection-end-line="59" selection-end-column="111" />
-          <folding>
-            <element signature="method#doInsert#0;class#ProjectMapperImp#0" />
-            <element signature="method#insertBid#0;class#ProjectMapperImp#0" />
-            <element signature="method#insertBid#0;class#ProjectMapperImp#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Model/User.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Mapper/User/UserSkillMapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="246">
-          <caret line="64" column="4" selection-start-line="64" selection-start-column="4" selection-end-line="80" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#removeUserSkill#0;class#UserSkillMapper#0" />
-            <element signature="method#getUserSkills#0;class#UserSkillMapper#0" />
-            <element signature="method#insertUserSkills#0;class#UserSkillMapper#0" />
-            <element signature="method#insertUserSkill#0;class#UserSkillMapper#0" />
-            <element signature="method#insertEndorse#0;class#UserSkillMapper#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Model/UserRepo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="78" column="68" selection-start-line="78" selection-start-column="68" selection-end-line="78" selection-end-column="68" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#testusermapper#0;class#UserRepo#0" />
-            <element signature="method#findUser#0;class#UserRepo#0" />
-            <element signature="method#addUser#0;class#UserRepo#0" />
-            <element signature="method#endorseUserSkill#0;class#UserRepo#0" />
-            <element signature="method#deleteUserSkill#0;class#UserRepo#0" />
-            <element signature="method#addSkill#0;class#UserRepo#0" />
-            <element signature="method#addBiddedProject#0;class#UserRepo#0" />
           </folding>
         </state>
       </provider>
@@ -1190,17 +1114,87 @@
         </state>
       </provider>
     </entry>
-    <entry file="das://658b1092-9dd8-4b20-a7b3-7dffc39fd3f7/schema/main/table/Bids">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/Model/Bid.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="11" selection-start-line="7" selection-start-column="11" selection-end-line="7" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Model/UserRepo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="31" column="23" selection-start-line="31" selection-start-column="23" selection-end-line="31" selection-end-column="23" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#testusermapper#0;class#UserRepo#0" />
+            <element signature="method#addUser#0;class#UserRepo#0" />
+            <element signature="method#endorseUserSkill#0;class#UserRepo#0" />
+            <element signature="method#deleteUserSkill#0;class#UserRepo#0" />
+            <element signature="method#addSkill#0;class#UserRepo#0" />
+            <element signature="method#addBiddedProject#0;class#UserRepo#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Controller/BidProjectCtrl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="14" column="27" lean-forward="true" selection-start-line="14" selection-start-column="27" selection-end-line="14" selection-end-column="27" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Mapper/User/UserSkillMapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="246">
+          <caret line="64" column="4" selection-start-line="64" selection-start-column="4" selection-end-line="80" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#removeUserSkill#0;class#UserSkillMapper#0" />
+            <element signature="method#getUserSkills#0;class#UserSkillMapper#0" />
+            <element signature="method#insertUserSkills#0;class#UserSkillMapper#0" />
+            <element signature="method#insertUserSkill#0;class#UserSkillMapper#0" />
+            <element signature="method#insertEndorse#0;class#UserSkillMapper#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Service/ProjectService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="64">
+          <caret line="79" column="38" selection-start-line="79" selection-start-column="38" selection-end-line="79" selection-end-column="38" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Mapper/Project/ProjectMapperImp.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="260">
+          <caret line="64" column="43" selection-start-line="64" selection-start-column="43" selection-end-line="64" selection-end-column="43" />
+          <folding>
+            <element signature="method#doInsert#0;class#ProjectMapperImp#0" />
+            <element signature="method#insertBid#0;class#ProjectMapperImp#0" />
+            <element signature="method#insertBid#0;class#ProjectMapperImp#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Controller/ProjectsCtrl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="26" lean-forward="true" selection-start-line="26" selection-end-line="26" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Mapper/User/UserDataMapperImp.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="348">
-          <caret line="61" selection-start-line="61" selection-end-line="61" />
+        <state relative-caret-position="384">
+          <caret line="49" lean-forward="true" selection-start-line="49" selection-end-line="49" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#doInsert#0;class#UserDataMapperImp#0" />
@@ -1208,6 +1202,20 @@
             <element signature="method#removeUserSkill#0;class#UserDataMapperImp#0" />
             <element signature="method#addUserSkill#0;class#UserDataMapperImp#0" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Model/User.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="138" column="18" selection-start-line="151" selection-start-column="6" selection-end-line="158" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://658b1092-9dd8-4b20-a7b3-7dffc39fd3f7/schema/main/table/Bids">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
         </state>
       </provider>
     </entry>

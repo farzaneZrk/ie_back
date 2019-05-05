@@ -13,6 +13,17 @@ public class User {
     private String bio;
     private List<String> biddedProject;
 
+    public User(String id, String firstName, String lastName, String jobTitle, String imageURL, List<Skill> skills, String bio, List<String> biddedProject) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.jobTitle = jobTitle;
+        this.imageURL = imageURL;
+        this.skills = skills;
+        this.bio = bio;
+        this.biddedProject = biddedProject;
+    }
+
     public User(String id, String firstName, String lastName, String jobTitle, String picURL, List<Skill> skills, String bio) {
         this.id = id;
         this.firstName = firstName;
@@ -129,9 +140,23 @@ public class User {
         return "User{" +
                 "id='" + id + '\'' +
                 ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", jobTitle='" + jobTitle + '\'' +
+                ", imageURL='" + imageURL + '\'' +
                 ", skills=" + skills +
+                ", bio='" + bio + '\'' +
+                ", biddedProject=" + biddedProject +
                 '}';
     }
+
+//    @Override
+//    public String toString() {
+//        return "User{" +
+//                "id='" + id + '\'' +
+//                ", firstName='" + firstName + '\'' +
+//                ", skills=" + skills +
+//                '}';
+//    }
 
     public boolean hasBidded(String projectID){
         for (String id: biddedProject) {
