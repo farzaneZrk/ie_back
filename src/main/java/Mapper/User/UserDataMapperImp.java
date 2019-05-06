@@ -35,6 +35,13 @@ public class UserDataMapperImp extends DataMapperImp<User, String> implements Us
                 "WHERE userId = ?";
     }
 
+    protected String searchUserStatement() {
+        return "SELECT " + COLUMNS +
+                " FROM Users" +
+                " WHERE firstname LIKE ? OR lastname LIKE ?";
+    }
+
+
     public static final String COLUMNS = "userId, firstname, lastname, jobTitle, imageURL, bio";
 
     protected User doLoad(String id, ResultSet rs) throws SQLException {
@@ -107,6 +114,21 @@ public class UserDataMapperImp extends DataMapperImp<User, String> implements Us
 
     public void updateUser(User user){
         loadedMap.replace(user.getId(), user);
+    }
+
+    public List<User> selectMatchedUsers(String searchKey){
+        String searchUserStatement = this.searchUserStatement();
+        try (Connection conn = C3poDataSource.getConnection()) {
+            PreparedStatement pstmt = conn.prepareStatement(searchUserStatement);
+            pstmt.setString(1, '%' + searchKey + '%');
+            pstmt.setString(2, '%' + searchKey + '%');
+            ResultSet rs = pstmt.executeQuery();
+
+            return loadAll(rs);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
 }

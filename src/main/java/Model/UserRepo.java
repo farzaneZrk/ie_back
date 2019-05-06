@@ -81,5 +81,9 @@ public class UserRepo {
         userDataMapper.updateUser(user);
     }
 
+    public static List<User> searchUser(String searchKey){
+        System.out.println("@@@@@@@@@@@@@@@@");
+        return userDataMapper.selectMatchedUsers(searchKey);
+    }
 
 }

@@ -107,10 +107,25 @@ public class ProjectService {
 
     public static void findProjectBySearchKey(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String searchKey = request.getParameter("searchKey");
-        Map<String, Object> resMap = new LinkedHashMap<>();
-        resMap.put("msg", "request is gotten.");
-        resMap.put("searchKey", searchKey);
-        JSONObject json = new JSONObject(resMap);
+//        List<Project> searchedProject = ProjectRepo.searchProjects(searchKey);
+        List<Map<String, Object>> projects = new ArrayList<>();
+
+        for (Project project: ProjectRepo.searchProjects(searchKey)) {
+            Map<String, Object> thisProject = new LinkedHashMap<>();
+            thisProject.put("id", (Object) project.getId());
+            thisProject.put("title", (Object) project.getTitle());
+            thisProject.put("budget", (Object) project.getBudget());
+            thisProject.put("imageURL", (Object) project.getImageUrl());
+            thisProject.put("deadline", (Object) project.getDeadline());
+            thisProject.put("description", (Object) project.getDescription());
+            thisProject.put("skills", project.getSkills());
+            projects.add(thisProject);        }
+
+
+        Map<String, Object> responseMap = new LinkedHashMap<>();
+        responseMap.put("projects", projects);
+
+        JSONObject json = new JSONObject(responseMap);
         prepareResponse(response, json, HttpServletResponse.SC_OK);
     }
 }

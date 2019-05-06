@@ -147,4 +147,29 @@ public class UserService {
         System.out.println(json);
         out.flush();
     }
+
+    public static void findUserBySearchKey(HttpServletRequest request, HttpServletResponse response, String thisUserId)
+            throws ServletException, IOException {
+
+        String searchKey = request.getParameter("searchKey");
+        List<Map<String, Object>> users = new ArrayList<>();
+        System.out.println("MANAM\n");
+        for (User user: UserRepo.searchUser(searchKey)) {
+            if (user.getId().equals(thisUserId)) {
+                continue;
+            }
+            Map<String, Object> currUser = new LinkedHashMap<>();
+            currUser.put("id", user.getId());
+            currUser.put("name",(user.getFirstName() + ' ' + user.getLastName()));
+            currUser.put("job_title", user.getJobTitle());
+            users.add(currUser);
+        }
+
+        Map<String, Object> responseMap = new LinkedHashMap<>();
+        responseMap.put("users", users);
+
+        JSONObject json = new JSONObject(responseMap);
+        prepareResponse(response, json, HttpServletResponse.SC_OK);
+    }
+
 }

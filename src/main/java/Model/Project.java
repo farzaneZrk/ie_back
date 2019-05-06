@@ -179,7 +179,7 @@ public class Project {
     }
 
     public boolean isExpired() {
-        Date deadline = new Date(this.deadline * 1000);
+        Date deadline = new Date(this.deadline);
         Date current = new Date();
         return current.after(deadline);
     }
