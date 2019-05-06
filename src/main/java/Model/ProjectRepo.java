@@ -90,4 +90,12 @@ public class ProjectRepo {
 
     }
 
+    public static int getNumberOfProjects(){
+        return projectDataMapper.findNumberOfProjects();
+    }
+
+    public static int getNumberOfSearchedProjects(String searchKey){
+        return projectDataMapper.findNumberOfSearchedProjects(searchKey);
+    }
+
 }

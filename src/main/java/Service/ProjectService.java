@@ -80,7 +80,6 @@ public class ProjectService {
         System.out.println("in showAllProject");
         User thisUser = UserRepo.findUser(thisUserId);
         List<Map<String, Object>> projects = new ArrayList<>();
-
         for (Project project: ProjectRepo.getProjectList()) {
 //            if (project.qualifyUser(thisUser) && !project.isExpired()){
 //            if (project.qualifyUser(thisUser)){
@@ -95,19 +94,18 @@ public class ProjectService {
                 projects.add(thisProject);
 //            }
         }
-
+        int projectNumber = ProjectRepo.getNumberOfProjects();
         Map<String, Object> responseMap = new LinkedHashMap<>();
         responseMap.put("projects", (Object) projects);
+        responseMap.put("projectNumber", projectNumber);
 
         JSONObject json = new JSONObject(responseMap);
 
         prepareResponse(response, json, HttpServletResponse.SC_OK);
-
     }
 
     public static void findProjectBySearchKey(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String searchKey = request.getParameter("searchKey");
-//        List<Project> searchedProject = ProjectRepo.searchProjects(searchKey);
         List<Map<String, Object>> projects = new ArrayList<>();
 
         for (Project project: ProjectRepo.searchProjects(searchKey)) {
@@ -119,11 +117,16 @@ public class ProjectService {
             thisProject.put("deadline", (Object) project.getDeadline());
             thisProject.put("description", (Object) project.getDescription());
             thisProject.put("skills", project.getSkills());
-            projects.add(thisProject);        }
+            projects.add(thisProject);
+        }
 
+
+
+        int projectNumber = ProjectRepo.getNumberOfSearchedProjects(searchKey);
 
         Map<String, Object> responseMap = new LinkedHashMap<>();
         responseMap.put("projects", projects);
+        responseMap.put("projectNumber", projectNumber);
 
         JSONObject json = new JSONObject(responseMap);
         prepareResponse(response, json, HttpServletResponse.SC_OK);
