@@ -31,7 +31,7 @@ public class Projects implements ViewBuilder{
             projectId = parts[2];
 
         if (projectId == null) {
-            for (Project project : getProjectList()) {
+            for (Project project : getProjectList(1,2)) {
                 if(project.checkUserForProject(user.getId()) && !project.isExpired()) {
                     dynamicData += "\t\t<tr>\n\t\t\t<td>";
                     dynamicData += project.getId();

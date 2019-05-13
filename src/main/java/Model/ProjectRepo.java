@@ -19,8 +19,8 @@ public class ProjectRepo {
         projectDataMapper = new ProjectMapperImp();
     }
 
-    public static List<Project> getProjectList() {
-        return projectDataMapper.getAll();
+    public static List<Project> getProjectList(int limit, int offset) {
+        return projectDataMapper.selectProjectsByOffset(limit, offset);
     }
 
     public static int addProject(Project project) {
@@ -85,8 +85,8 @@ public class ProjectRepo {
         return 0;
     }
 
-    public static List<Project> searchProjects(String searchKey) {
-        return projectDataMapper.selectMatchedProjects(searchKey);
+    public static List<Project> searchProjects(String searchKey, int limit, int offset) {
+        return projectDataMapper.selectMatchedProjects(searchKey, limit, offset);
 
     }
 

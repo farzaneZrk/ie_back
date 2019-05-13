@@ -13,6 +13,5 @@ import java.io.IOException;
 public class ProjectsSearch extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ProjectService.findProjectBySearchKey(request, response);
-
     }
 }

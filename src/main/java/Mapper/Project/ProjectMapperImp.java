@@ -37,7 +37,7 @@ public class ProjectMapperImp extends DataMapperImp<Project, String> implements 
     protected String findProjectsByOffset(){
         return "SELECT " + COLUMNS +
                 " FROM Projects "+
-                " LIMIT ?, OFFSET ?;";
+                " LIMIT ? OFFSET ?;";
     }
 
     protected String findProjectsNumber(){
@@ -63,9 +63,11 @@ public class ProjectMapperImp extends DataMapperImp<Project, String> implements 
     }
 
     protected String searchProjectsStatement() {
-        return "SELECT " +
+        return "SELECT " + COLUMNS +
                 " FROM Projects" +
-                " WHERE title LIKE ? OR description LIKE ?";
+                " WHERE title LIKE ? OR description LIKE ? " +
+                " LIMIT ? OFFSET ?;";
+
     }
 
     public static final String COLUMNS = "projectId, title, description, imageURL, budget, winner, creationDate, deadline ";
@@ -150,12 +152,14 @@ public class ProjectMapperImp extends DataMapperImp<Project, String> implements 
         }
     }
 
-    public List<Project> selectMatchedProjects(String searchKey){
+    public List<Project> selectMatchedProjects(String searchKey, int projectPerPage, int pageNumber){
         String searchProjectsStatement = this.searchProjectsStatement();
         try (Connection conn = C3poDataSource.getConnection()) {
             PreparedStatement pstmt = conn.prepareStatement(searchProjectsStatement);
             pstmt.setString(1, '%' + searchKey + '%');
             pstmt.setString(2, '%' + searchKey + '%');
+            pstmt.setInt(3, projectPerPage);
+            pstmt.setInt(4, (pageNumber-1)*projectPerPage);
             ResultSet rs = pstmt.executeQuery();
 
             return loadAll(rs);
@@ -174,7 +178,6 @@ public class ProjectMapperImp extends DataMapperImp<Project, String> implements 
             int result = 0;
             while (rs.next()){
                 result = rs.getInt(1);
-                System.out.println("zahr" + result);
             }
             return result;
         } catch (SQLException e) {

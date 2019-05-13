@@ -77,12 +77,12 @@ public class ProjectService {
 
     public static void showAllProjects (HttpServletRequest request, HttpServletResponse response, String thisUserId)
             throws ServletException, IOException {
-        System.out.println("in showAllProject");
-        User thisUser = UserRepo.findUser(thisUserId);
+
+        int offset = Integer.valueOf(request.getParameter("pageNumber"));
+        int limit = Integer.valueOf(request.getParameter("projectPerPage"));
+
         List<Map<String, Object>> projects = new ArrayList<>();
-        for (Project project: ProjectRepo.getProjectList()) {
-//            if (project.qualifyUser(thisUser) && !project.isExpired()){
-//            if (project.qualifyUser(thisUser)){
+        for (Project project: ProjectRepo.getProjectList(limit, offset)) {
                 Map<String, Object> thisProject = new LinkedHashMap<>();
                 thisProject.put("id", (Object) project.getId());
                 thisProject.put("title", (Object) project.getTitle());
@@ -97,6 +97,7 @@ public class ProjectService {
         int projectNumber = ProjectRepo.getNumberOfProjects();
         Map<String, Object> responseMap = new LinkedHashMap<>();
         responseMap.put("projects", (Object) projects);
+        responseMap.put("elementsBeginIndex", offset*limit + limit);
         responseMap.put("projectNumber", projectNumber);
 
         JSONObject json = new JSONObject(responseMap);
@@ -108,7 +109,9 @@ public class ProjectService {
         String searchKey = request.getParameter("searchKey");
         List<Map<String, Object>> projects = new ArrayList<>();
 
-        for (Project project: ProjectRepo.searchProjects(searchKey)) {
+        int offset = Integer.valueOf(request.getParameter("pageNumber"));
+        int limit = Integer.valueOf(request.getParameter("projectPerPage"));
+        for (Project project: ProjectRepo.searchProjects(searchKey, limit, offset)) {
             Map<String, Object> thisProject = new LinkedHashMap<>();
             thisProject.put("id", (Object) project.getId());
             thisProject.put("title", (Object) project.getTitle());
@@ -124,8 +127,11 @@ public class ProjectService {
 
         int projectNumber = ProjectRepo.getNumberOfSearchedProjects(searchKey);
 
+
+
         Map<String, Object> responseMap = new LinkedHashMap<>();
         responseMap.put("projects", projects);
+        responseMap.put("elementsBeginIndex", offset*limit + limit);
         responseMap.put("projectNumber", projectNumber);
 
         JSONObject json = new JSONObject(responseMap);
