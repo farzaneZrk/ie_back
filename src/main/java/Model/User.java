@@ -15,6 +15,19 @@ public class User {
     private String bio;
     private List<String> biddedProject;
 
+    public User(String id, String firstName, String lastName, String username, String passWord, String jobTitle, String imageURL, List<Skill> skills, String bio, List<String> biddedProject) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.username = username;
+        this.passWord = passWord;
+        this.jobTitle = jobTitle;
+        this.imageURL = imageURL;
+        this.skills = skills;
+        this.bio = bio;
+        this.biddedProject = biddedProject;
+    }
+
     public User(String id, String firstName, String lastName, String username, String passWord, String jobTitle, String imageURL, String bio) {
         this.id = id;
         this.firstName = firstName;

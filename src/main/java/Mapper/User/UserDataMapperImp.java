@@ -55,7 +55,7 @@ public class UserDataMapperImp extends DataMapperImp<User, String> implements Us
     }
 
 
-    public static final String COLUMNS = "userId, firstname, lastname, username, jobTitle, imageURL, bio";
+    public static final String COLUMNS = "userId, firstname, lastname, jobTitle, imageURL, bio, username, password";
 
     public boolean findUserByUsername(String username) throws SQLException {
         String findByUsernameSt = this.findByUsernameStatement();
@@ -82,12 +82,14 @@ public class UserDataMapperImp extends DataMapperImp<User, String> implements Us
         String jobTitle = rs.getString(4);
         String imageURL = rs.getString(5);
         String bio = rs.getString(6);
+        String username = rs.getString(7);
+        String password = rs.getString(8);
 
         List<Skill> skills = userSkillMapper.getUserSkills(id);
 
         List<String> biddedProjects = getUserBidList(id);
 
-        User res = new User(id, firstname, lastname, jobTitle, imageURL, skills, bio, biddedProjects);
+        User res = new User(id, firstname, lastname, username, password, jobTitle, imageURL, skills, bio, biddedProjects);
         System.out.println("oops! " + res);
 
         return res;
