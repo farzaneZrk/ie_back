@@ -11,7 +11,7 @@ import java.io.IOException;
 
 
 @WebServlet("/searchUsers")
-public class usersSearch extends HttpServlet {
+public class UsersSearch extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         UserService.findUserBySearchKey(request,response,"1");
         System.out.println("sss");

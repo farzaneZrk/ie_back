@@ -76,6 +76,7 @@ public abstract class DataMapperImp<T, I> implements DataMapper<T, I> {
     }
 
     protected T load(ResultSet rs) throws SQLException {
+        System.out.println();
         String id = rs.getString(1);
         if (loadedMap.containsKey(id)) return loadedMap.get(id);
         T result = doLoad(id, rs);

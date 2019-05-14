@@ -2,6 +2,7 @@ package Model;
 
 import Mapper.User.UserDataMapperImp;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,8 +22,8 @@ public class UserRepo {
         skills.add(new Skill("c", 5));
         skills.add(new Skill("Java", 10));
         User u2 = new User("20", "فرزانه", "زیرک", "دانشجو", "pic2", skills, " بسیاری افراد آموزش مجازی را بدلیل نداشتن تعامل و ارتباط محتوا آن را بیشتر مکمل آموزش حضوری میداند لذا لازم به توضیح است که سامانه آی کورسرا با استفاده از تولید محتواهای تعاملی با امکان شرکت در مباحث آموزشی به صورت غیرهمزمان و پاسخ به سوالات استاد فضای آموزش حضوری را در قالب محتوای الکترونیک شبیه سازی میکند");
-        ((UserDataMapperImp) userDataMapper).insert(u1);
-        ((UserDataMapperImp) userDataMapper).insert(u2);
+//        ((UserDataMapperImp) userDataMapper).insert(u1);
+//        ((UserDataMapperImp) userDataMapper).insert(u2);
     }
 
     public static List<User> getUserList() {
@@ -36,9 +37,19 @@ public class UserRepo {
     }
 
     public static int addUser(User user){
-        if (findUser(user.getId()) != null)
+//        while (findUser(user.getId()) != null) {
+//            Random rand = new Random();
+//            String id = String.valueOf(rand.nextInt(50));
+//            user.setId(id);
+//        }
+//        try {
+        String id = userDataMapper.insert(user);
+        if (id == null)
             return -1;
-        userDataMapper.insert(user);
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//            return -1;
+//        }
         return 0;
     }
 
@@ -84,6 +95,10 @@ public class UserRepo {
     public static List<User> searchUser(String searchKey){
         System.out.println("@@@@@@@@@@@@@@@@");
         return userDataMapper.selectMatchedUsers(searchKey);
+    }
+
+    public static boolean checkUsername(String username) throws SQLException {
+        return userDataMapper.findUserByUsername(username);
     }
 
 }

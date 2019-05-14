@@ -7,11 +7,24 @@ import java.util.List;
 public class User {
     private String id;
     private String firstName, lastName;
+    private String username;
+    private String passWord;
     private String jobTitle;
     private String imageURL;
     private List<Skill> skills;
     private String bio;
     private List<String> biddedProject;
+
+    public User(String id, String firstName, String lastName, String username, String passWord, String jobTitle, String imageURL, String bio) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.username = username;
+        this.passWord = passWord;
+        this.jobTitle = jobTitle;
+        this.imageURL = imageURL;
+        this.bio = bio;
+    }
 
     public User(String id, String firstName, String lastName, String jobTitle, String imageURL, List<Skill> skills, String bio, List<String> biddedProject) {
         this.id = id;
@@ -44,6 +57,14 @@ public class User {
         this.bio = bio;
         this.skills = new ArrayList<Skill>();
         this.biddedProject = new ArrayList<>();
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassWord() {
+        return passWord;
     }
 
     public String getId() {
@@ -103,6 +124,13 @@ public class User {
         this.jobTitle = jobTitle;
     }
 
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPassWord(String passWord) {
+        this.passWord = passWord;
+    }
 
     public boolean addSkill(Skill skill) {
         for (Skill s : skills) {

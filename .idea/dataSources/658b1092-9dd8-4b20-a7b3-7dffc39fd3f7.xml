@@ -238,46 +238,64 @@ userId</ColNames>
       <Position>3</Position>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <column id="59" parent="12" name="jobTitle">
+    <column id="59" parent="12" name="username">
       <Position>4</Position>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <column id="60" parent="12" name="imageURL">
+    <column id="60" parent="12" name="jobTitle">
       <Position>5</Position>
+      <DataType>varchar(255)|0s</DataType>
+    </column>
+    <column id="61" parent="12" name="imageURL">
+      <Position>6</Position>
       <DataType>varchar(2083)|0s</DataType>
     </column>
-    <column id="61" parent="12" name="bio">
-      <Position>6</Position>
+    <column id="62" parent="12" name="bio">
+      <Position>7</Position>
       <DataType>text|0s</DataType>
     </column>
-    <index id="62" parent="12" name="sqlite_autoindex_Users_1">
+    <column id="63" parent="12" name="password">
+      <Position>8</Position>
+      <DataType>varchar(511)|0s</DataType>
+    </column>
+    <index id="64" parent="12" name="sqlite_autoindex_Users_1">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>userId</ColNames>
       <ColumnCollations></ColumnCollations>
       <Unique>1</Unique>
     </index>
-    <key id="63" parent="12">
+    <index id="65" parent="12" name="sqlite_autoindex_Users_2">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>username</ColNames>
+      <ColumnCollations></ColumnCollations>
+      <Unique>1</Unique>
+    </index>
+    <key id="66" parent="12">
       <ColNames>userId</ColNames>
       <Primary>1</Primary>
       <UnderlyingIndexName>sqlite_autoindex_Users_1</UnderlyingIndexName>
     </key>
-    <column id="64" parent="13" name="type">
+    <key id="67" parent="12">
+      <ColNames>username</ColNames>
+      <UnderlyingIndexName>sqlite_autoindex_Users_2</UnderlyingIndexName>
+    </key>
+    <column id="68" parent="13" name="type">
       <Position>1</Position>
       <DataType>text|0s</DataType>
     </column>
-    <column id="65" parent="13" name="name">
+    <column id="69" parent="13" name="name">
       <Position>2</Position>
       <DataType>text|0s</DataType>
     </column>
-    <column id="66" parent="13" name="tbl_name">
+    <column id="70" parent="13" name="tbl_name">
       <Position>3</Position>
       <DataType>text|0s</DataType>
     </column>
-    <column id="67" parent="13" name="rootpage">
+    <column id="71" parent="13" name="rootpage">
       <Position>4</Position>
       <DataType>int|0s</DataType>
     </column>
-    <column id="68" parent="13" name="sql">
+    <column id="72" parent="13" name="sql">
       <Position>5</Position>
       <DataType>text|0s</DataType>
     </column>

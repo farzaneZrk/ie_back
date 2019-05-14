@@ -3,6 +3,7 @@ package Service;
 import Model.Skill;
 import Model.User;
 import Model.UserRepo;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.json.JSONObject;
 
 import javax.servlet.ServletException;
@@ -10,10 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.sql.SQLException;
+import java.util.*;
 
 public class UserService {
     public static void showUser(HttpServletRequest request, HttpServletResponse response, String id, String thisUserId)
@@ -169,6 +168,42 @@ public class UserService {
         responseMap.put("users", users);
 
         JSONObject json = new JSONObject(responseMap);
+        prepareResponse(response, json, HttpServletResponse.SC_OK);
+    }
+
+    public static void addUser(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        Random rand = new Random();
+        String id = String.valueOf(rand.nextInt(10000000));
+//        String id = "1";
+        String password = DigestUtils.sha256Hex(request.getParameter("password"));
+        User newUser = new User(id, request.getParameter("firstname"), request.getParameter("lastname"),
+                request.getParameter("username"), password, request.getParameter("jobTitle"),
+                request.getParameter("imageURL"), request.getParameter("bio"));
+        Map<String, Object> resMap = new LinkedHashMap<>();
+        if(UserRepo.addUser(newUser) == 0){
+            // success
+            resMap.put("msg", "ok");
+            resMap.put("errorCode", "200");
+        }
+        else{
+            resMap.put("msg", "this username has been chosen");
+            resMap.put("errorCode", "422");
+        }
+        JSONObject json = new JSONObject(resMap);
+        prepareResponse(response, json, HttpServletResponse.SC_OK);
+    }
+
+    public static void checkUsername(HttpServletRequest request, HttpServletResponse response) throws
+            SQLException, ServletException, IOException {
+        System.out.println("in check username with " + request.getParameter("username"));
+        boolean res = UserRepo.checkUsername(request.getParameter("username"));
+        Map<String, Object> resMap = new LinkedHashMap<>();
+        if(res)
+            resMap.put("isValid", true);
+        else
+            resMap.put("isValid", false);
+        JSONObject json = new JSONObject(resMap);
         prepareResponse(response, json, HttpServletResponse.SC_OK);
     }
 

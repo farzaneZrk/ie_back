@@ -6,9 +6,12 @@ CREATE TABLE Users(
     userId nvarchar(2047) PRIMARY KEY,
     firstname varchar(255),
     lastname varchar(255),
+    username varchar(255),
     jobTitle varchar(255),
     imageURL varchar(2083),
-    bio text
+    bio text,
+    password varchar(511),
+    UNIQUE(username)
 );
 
 CREATE TABLE UserSkills(
@@ -63,9 +66,32 @@ INSERT INTO Skillnames(name) VALUES('Java');
 INSERT INTO Skillnames(name) VALUES('Javascript');
 INSERT INTO Skillnames(name) VALUES('C++');
 INSERT INTO Skillnames(name) VALUES('HTML');
-INSERT INTO Users(userId, firstname, lastname, jobTitle, imageURL, bio)
-VALUES('1', 'علی', 'شریف زاده','برنامه نویس وب', '...', 'روی سنگ قبرم بنویسید: خدا بیامرز میخواست خیلی کارا بکنه ولی پول نداشت');
+INSERT INTO Users(userId, firstname, lastname, jobTitle, imageURL, bio, username, password)
+VALUES('1', 'علی', 'شریف زاده','برنامه نویس وب', '...', 'روی سنگ قبرم بنویسید: خدا بیامرز میخواست خیلی کارا بکنه ولی پول نداشت', 'کاربر پیش‌فرض', 'sth');
 INSERT INTO UserSkills(name, point, userId) VALUES('Java', 3, '1');
 INSERT INTO UserSkills(name, point, userId) VALUES('Javascript', 4, '1');
 INSERT INTO UserSkills(name, point, userId) VALUES('C++', 2, '1');
 INSERT INTO UserSkills(name, point, userId) VALUES('HTML', 5, '1');
+
+
+INSERT INTO Users(userId, firstname, lastname, jobTitle, imageURL, bio)
+VALUES('2', 'علی', 'علوی','برنامه نویس', '...', 'خستم');
+
+INSERT INTO UserSkills(name, point, userId) VALUES('PHP', 3, '2');
+INSERT INTO UserSkills(name, point, userId) VALUES('Node.js', 5, '2');
+INSERT INTO UserSkills(name, point, userId) VALUES('Django', 8, '2');
+
+INSERT INTO Users(userId, firstname, lastname, jobTitle, imageURL, bio)
+VALUES('3', 'قلی', 'قلوی','توسعه دهنده فرانت‌اند', '...', 'برنامه‌نویس تنها');
+
+INSERT INTO UserSkills(name, point, userId) VALUES('Javascript', 21, '3');
+INSERT INTO UserSkills(name, point, userId) VALUES('React', 15, '3');
+INSERT INTO UserSkills(name, point, userId) VALUES('Photoshop', 12, '3');
+
+INSERT INTO Users(userId, firstname, lastname, jobTitle, imageURL, bio)
+VALUES('4', 'ولی', 'ولوی','هکر', '...', 'حواست بهم باشه');
+
+INSERT INTO UserSkills(name, point, userId) VALUES('C', 33, '4');
+INSERT INTO UserSkills(name, point, userId) VALUES('SEO', 13, '4');
+INSERT INTO UserSkills(name, point, userId) VALUES('Java', 35, '4');
+INSERT INTO UserSkills(name, point, userId) VALUES('Python', 34, '4');

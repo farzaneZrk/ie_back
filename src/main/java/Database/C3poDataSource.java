@@ -13,8 +13,9 @@ public class C3poDataSource {
     static {
         try {
             cpds.setDriverClass("org.sqlite.JDBC");
-            cpds.setJdbcUrl("jdbc:sqlite:/home/sina/Desktop/DataBaseBack/IE_backend/ie_db.db");
-//            cpds.setJdbcUrl("jdbc:sqlite:/Users/farzane/Documents/University/IE/IE_joint/ie_db.db");
+//            cpds.setJdbcUrl("jdbc:sqlite:/home/sina/Desktop/DataBaseBack/IE_backend/ie_db.db");
+            cpds.setJdbcUrl("jdbc:sqlite:/Users/farzane/Documents/University/IE/IE_joint/ie_db.db");
+            cpds.setMaxPoolSize(10);
         } catch (PropertyVetoException e) {
             // handle the exception
         }
