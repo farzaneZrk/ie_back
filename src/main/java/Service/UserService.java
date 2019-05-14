@@ -243,4 +243,24 @@ public class UserService {
         prepareResponse(response, json, HttpServletResponse.SC_OK);
     }
 
+    public static void loginUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String username = request.getParameter("username");
+        String password = DigestUtils.sha256Hex(request.getParameter("password"));
+        int res = UserRepo.checkUserPass(username, password);
+        Map<String, Object> resMap = new LinkedHashMap<>();
+        if (res == -2){
+            resMap.put("msg", "this username does not exist");
+            resMap.put("errorCode", "404");
+        }
+        else if(res == -1){
+            resMap.put("msg", "username or password is not correct");
+            resMap.put("errorCode", "403");
+        }
+        else{
+            resMap.put("msg", "ok");
+            // todo: user and pass are ok, handle jwt here
+        }
+        JSONObject json = new JSONObject(resMap);
+        prepareResponse(response, json, HttpServletResponse.SC_OK);
+    }
 }

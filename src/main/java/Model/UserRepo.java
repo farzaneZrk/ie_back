@@ -101,4 +101,19 @@ public class UserRepo {
         return userDataMapper.findUserByUsername(username);
     }
 
+    public static int checkUserPass(String username, String password) {
+        try {
+            if(!UserRepo.checkUsername(username)){
+                if(userDataMapper.checkPassword(username, password))
+                    return 0;
+                else
+                    return -1;
+            }
+            else
+                return -2;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return -3;
+        }
+    }
 }
