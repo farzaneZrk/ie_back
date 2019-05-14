@@ -173,6 +173,13 @@ public class UserService {
 
     public static void addUser(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        Map<String, Object> resMap = new LinkedHashMap<>();
+        boolean isValid = validateParameters(request, resMap);
+        if(!isValid){
+            JSONObject json = new JSONObject(resMap);
+            prepareResponse(response, json, HttpServletResponse.SC_OK);
+            return;
+        }
         Random rand = new Random();
         String id = String.valueOf(rand.nextInt(10000000));
 //        String id = "1";
@@ -180,7 +187,6 @@ public class UserService {
         User newUser = new User(id, request.getParameter("firstname"), request.getParameter("lastname"),
                 request.getParameter("username"), password, request.getParameter("jobTitle"),
                 request.getParameter("imageURL"), request.getParameter("bio"));
-        Map<String, Object> resMap = new LinkedHashMap<>();
         if(UserRepo.addUser(newUser) == 0){
             // success
             resMap.put("msg", "ok");
@@ -192,6 +198,36 @@ public class UserService {
         }
         JSONObject json = new JSONObject(resMap);
         prepareResponse(response, json, HttpServletResponse.SC_OK);
+    }
+
+    private static boolean validateParameters(HttpServletRequest request, Map<String, Object> resMap) {
+        String password = request.getParameter("password");
+        String pattern1 = "^[آابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهیa-zA-z]+$";
+        String pattern2 = "(https:[//]|http:[//])(.+)";
+        if(password.matches(".*\\d.*") && password.length() >= 8) {
+            String firstname = request.getParameter("firstname");
+            System.out.println(firstname);
+            System.out.println(firstname.matches(pattern1));
+            if (firstname.length() >= 3 && firstname.matches(pattern1)) {
+                String lastname = request.getParameter("lastname");
+                if (lastname.length() >= 3 && lastname.matches(pattern1)) {
+                    String jobTitle = request.getParameter("jobTitle");
+                    if (jobTitle.length() >= 2 && jobTitle.matches(pattern1)) {
+                        String imageURL = request.getParameter("imageURL");
+                        if (imageURL.length() >= 12 && imageURL.matches(pattern2)) {
+                            return true;
+                        } else
+                            resMap.put("msg", "imageURL is too short or has not the required pattern.");
+                    } else
+                        resMap.put("msg", "jobTitle is too short or contains invalid characters.");
+                } else
+                    resMap.put("msg", "lastname is too short or contains invalid characters.");
+            } else
+                resMap.put("msg", "firstname is too short or contains invalid characters.");
+        }else
+            resMap.put("msg", "password is too short or doesn't have number.");
+        resMap.put("errorCode", "422");
+        return false;
     }
 
     public static void checkUsername(HttpServletRequest request, HttpServletResponse response) throws
