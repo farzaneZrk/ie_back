@@ -1,8 +1,17 @@
 package Model;
 
 import Database.C3poDataSource;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import org.apache.commons.codec.digest.DigestUtils;
 
-import java.sql.*;
+import java.io.UnsupportedEncodingException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Base64;
+import java.util.Date;
 
 public class DataBaseConnectionTest {
 
@@ -97,9 +106,29 @@ public class DataBaseConnectionTest {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-        DataBaseConnectionTest app = new DataBaseConnectionTest();
-        app.selectAll();
+    public static void main(String[] args) throws UnsupportedEncodingException {
+//        DataBaseConnectionTest app = new DataBaseConnectionTest();
+//        app.selectAll();
+//
+        long nowMillis = System.currentTimeMillis();
+        Date now = new Date(nowMillis);
+        Date fiveMinLater = new Date(nowMillis + 5*60*1000);
+        String jws = Jwts.builder()
+                .setIssuer("joboonja.ut.ac.ir")
+                .setIssuedAt(Date.from(now.toInstant()))
+                .setExpiration(Date.from(fiveMinLater.toInstant()))
+                .claim("userId", String.valueOf(10))
+                .signWith(
+                        SignatureAlgorithm.HS256,
+                        Base64.getUrlDecoder().decode(DigestUtils.sha256Hex("joboonja"))
+                )
+                .compact();
+        System.out.println(jws);
 
     }
 }
+
+//eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKb2UifQ.YtqsaMvGe5hFoIhS2DeW_T5r5Ngo5rJjqaXfHQVYUB8
+//eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKb2UifQ.VlkJc2sPo-5zqGRBJTZMzz4PzHF8sFFndpLBgVX4BJ8
+//eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJKb2UifQ.nWJrcPx7OodROHlNqpqO6V_VSeryQ1qmdYPiuV7J_jk=
+//eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJKb2UifQ==.wTJskgVDPY0WUdJR6PZ-BrDwYDOUHJhn_hq4dqGY_nI=

@@ -3,6 +3,8 @@ package Service;
 import Model.Skill;
 import Model.User;
 import Model.UserRepo;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.json.JSONObject;
 
@@ -11,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
 import java.util.*;
 
@@ -187,10 +190,13 @@ public class UserService {
         User newUser = new User(id, request.getParameter("firstname"), request.getParameter("lastname"),
                 request.getParameter("username"), password, request.getParameter("jobTitle"),
                 request.getParameter("imageURL"), request.getParameter("bio"));
-        if(UserRepo.addUser(newUser) == 0){
+        int res = UserRepo.addUser(newUser);
+        if(res != -1){
             // success
             resMap.put("msg", "ok");
             resMap.put("errorCode", "200");
+            String jwt = createJWT(res);
+            resMap.put("jwt", jwt);
         }
         else{
             resMap.put("msg", "this username has been chosen");
@@ -258,9 +264,30 @@ public class UserService {
         }
         else{
             resMap.put("msg", "ok");
+            String jwt = createJWT(res);
+            resMap.put("jwt", jwt);
             // todo: user and pass are ok, handle jwt here
         }
         JSONObject json = new JSONObject(resMap);
         prepareResponse(response, json, HttpServletResponse.SC_OK);
+    }
+
+    private static String createJWT(int userId) throws UnsupportedEncodingException {
+        long nowMillis = System.currentTimeMillis();
+        Date now = new Date(nowMillis);
+        Date fiveMinLater = new Date(nowMillis + 5*60*1000);
+        String jws = Jwts.builder()
+                .setIssuer("joboonja.ut.ac.ir")
+                .setIssuedAt(Date.from(now.toInstant()))
+                .setExpiration(Date.from(fiveMinLater.toInstant()))
+                .claim("userId", String.valueOf(userId))
+                .signWith(
+                        SignatureAlgorithm.HS256,
+                        Base64.getUrlDecoder().decode(DigestUtils.sha256Hex("joboonja"))
+                )
+                .compact();
+
+        return jws;
+
     }
 }

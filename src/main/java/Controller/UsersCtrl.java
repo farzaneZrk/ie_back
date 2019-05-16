@@ -16,6 +16,9 @@ public class UsersCtrl extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String id = request.getParameter("userId");
 
+        String idp = (String) request.getAttribute("userId");
+        System.out.println("id is " + idp);
+
         if (id != null){        //one specific user profile is requested
             System.out.println(request.getParameter("userId"));
             UserService.showUser(request, response, id, "1");

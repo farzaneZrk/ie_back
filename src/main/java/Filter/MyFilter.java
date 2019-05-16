@@ -4,7 +4,7 @@ import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import java.io.IOException;
 
-@WebFilter("/sth")
+@WebFilter("/zz")
 public class MyFilter implements Filter {
     public void destroy() {
     }

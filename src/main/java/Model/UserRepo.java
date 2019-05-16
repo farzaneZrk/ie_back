@@ -50,7 +50,7 @@ public class UserRepo {
 //            e.printStackTrace();
 //            return -1;
 //        }
-        return 0;
+        return Integer.valueOf(id);
     }
 
     public static int endorseUserSkill(String endorserID, String userID, String skillName){
@@ -104,8 +104,9 @@ public class UserRepo {
     public static int checkUserPass(String username, String password) {
         try {
             if(!UserRepo.checkUsername(username)){
-                if(userDataMapper.checkPassword(username, password))
-                    return 0;
+                int res = userDataMapper.checkPassword(username, password);
+                if(res > 0)
+                    return res;
                 else
                     return -1;
             }

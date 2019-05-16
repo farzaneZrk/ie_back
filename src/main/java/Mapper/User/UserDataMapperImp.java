@@ -55,7 +55,7 @@ public class UserDataMapperImp extends DataMapperImp<User, String> implements Us
     }
 
     protected String findByUserPassStmt() {
-        return "SELECT count(*)" +
+        return "SELECT count(*), userId" +
                 " FROM Users" +
                 " WHERE username = ? and password = ?";
     }
@@ -63,7 +63,7 @@ public class UserDataMapperImp extends DataMapperImp<User, String> implements Us
 
     public static final String COLUMNS = "userId, firstname, lastname, jobTitle, imageURL, bio, username, password";
 
-    public boolean checkPassword(String username, String password){
+    public int checkPassword(String username, String password){
         String findByUserPassStmt = this.findByUserPassStmt();
         try (Connection conn = C3poDataSource.getConnection()) {
             PreparedStatement pstmt = conn.prepareStatement(findByUserPassStmt);
@@ -73,13 +73,16 @@ public class UserDataMapperImp extends DataMapperImp<User, String> implements Us
 
             while (rs.next()) {
                 System.out.println(rs.getInt(1));
-                return rs.getInt(1) == 1;
+                if(rs.getInt(1) == 1){
+                    return Integer.valueOf(rs.getString(2));
+                }
+                return -1;
             }
-            return false;
+            return -1;
 
         } catch (SQLException e) {
             e.printStackTrace();
-            return false;
+            return -1;
         }
     }
 
