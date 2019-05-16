@@ -16,15 +16,15 @@ public class UsersCtrl extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String id = request.getParameter("userId");
 
-        String idp = (String) request.getAttribute("userId");
-        System.out.println("id is " + idp);
+        String thisUser = (String) request.getAttribute("loggedInUserId");
+        System.out.println("id is " + thisUser);
 
         if (id != null){        //one specific user profile is requested
             System.out.println(request.getParameter("userId"));
-            UserService.showUser(request, response, id, "1");
+            UserService.showUser(request, response, id, thisUser);
         }
         else                                               //list of users is requested
-            UserService.showUsersList(request, response, "1");
+            UserService.showUsersList(request, response, thisUser);
     }
 
     // users with put method to add skill to the current user

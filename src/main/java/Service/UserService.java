@@ -48,7 +48,7 @@ public class UserService {
 
     public static void endorseUser(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String endorserID = request.getParameter("endorserId");
+        String endorserID = (String) request.getAttribute("loggedInUserId");
         String endorsedID = request.getParameter("endorsedId");
         String skillName = request.getParameter("skillName");
         System.out.println(endorsedID);
@@ -67,7 +67,7 @@ public class UserService {
 
     public static void addSkill(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String userID = request.getParameter("id");
+        String userID = (String) request.getAttribute("loggedInUserId");
         String skillName = request.getParameter("skillName");
         System.out.println(skillName);
         System.out.println(userID);
@@ -101,7 +101,7 @@ public class UserService {
 
     public static void removeSkill(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String userID = request.getParameter("id");
+        String userID = (String) request.getAttribute("loggedInUserId");
         String skillName = request.getParameter("skillName");
         Map<String, Object> resMap = new LinkedHashMap<>();
         if (UserRepo.deleteUserSkill(userID, skillName) == 1)
@@ -161,8 +161,8 @@ public class UserService {
                 continue;
             }
             Map<String, Object> currUser = new LinkedHashMap<>();
-            currUser.put("id", user.getId());
             currUser.put("name",(user.getFirstName() + ' ' + user.getLastName()));
+            currUser.put("id", user.getId());
             currUser.put("job_title", user.getJobTitle());
             users.add(currUser);
         }

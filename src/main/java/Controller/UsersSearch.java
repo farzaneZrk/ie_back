@@ -13,7 +13,7 @@ import java.io.IOException;
 @WebServlet("/searchUsers")
 public class UsersSearch extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        UserService.findUserBySearchKey(request,response,"1");
+        UserService.findUserBySearchKey(request,response, (String) request.getAttribute("loggedInUserId"));
         System.out.println("sss");
     }
 }

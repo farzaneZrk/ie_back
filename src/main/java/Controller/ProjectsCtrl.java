@@ -20,7 +20,7 @@ public class ProjectsCtrl extends HttpServlet {
         if (projectId != null)                           //one specific project is requested
             ProjectService.showProject(request, response, projectId);
         else                                             //list of projects is requested
-            ProjectService.showAllProjects(request, response, "1");
+            ProjectService.showAllProjects(request, response);
     }
 
 }

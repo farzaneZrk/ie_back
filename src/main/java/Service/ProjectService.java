@@ -18,7 +18,7 @@ public class ProjectService {
     public static void showProject (HttpServletRequest request, HttpServletResponse response, String id)
             throws ServletException, IOException {
         System.out.println("in showProject");
-        User thisUser = UserRepo.findUser("1");
+        User thisUser = UserRepo.findUser((String) request.getAttribute("loggedInUserId"));
         request.setAttribute("thisUser", thisUser);
         JSONObject json = new JSONObject("{}");
 
@@ -51,20 +51,17 @@ public class ProjectService {
 
     public static void validateBid (HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String bidamount = request.getParameter("bidAmount");
-
+        String bidAmount = request.getParameter("bidAmount");
         String projectId = request.getParameter("projectId");
-        User user = UserRepo.findUser(request.getParameter("userId"));
+        User user = UserRepo.findUser((String) request.getAttribute("loggedInUserId"));
 
         Project project = ProjectRepo.findProject(projectId);
 
         Map<String, Object> resMap = new LinkedHashMap<>();
 
-        if(project.getBudget() >= Integer.valueOf(bidamount)) {
-//            user.addBiddedProject(projectId);
-//            project.addBid(new Bid(Integer.valueOf(bidamount), project, user));
+        if(project.getBudget() >= Integer.valueOf(bidAmount)) {
             UserRepo.addBiddedProject(user, projectId);
-            ProjectRepo.addBid(new Bid(Integer.valueOf(bidamount), project, user));
+            ProjectRepo.addBid(new Bid(Integer.valueOf(bidAmount), project, user));
             resMap.put("msg", "Your bid accepted.");
             JSONObject json = new JSONObject(resMap);
             prepareResponse(response, json, HttpServletResponse.SC_OK);
@@ -75,14 +72,50 @@ public class ProjectService {
         }
     }
 
-    public static void showAllProjects (HttpServletRequest request, HttpServletResponse response, String thisUserId)
+    public static void showAllProjects (HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        System.out.println("in showAllProject");
+        User thisUser = UserRepo.findUser((String) request.getAttribute("loggedInUserId"));
 
         int offset = Integer.valueOf(request.getParameter("pageNumber"));
         int limit = Integer.valueOf(request.getParameter("projectPerPage"));
 
         List<Map<String, Object>> projects = new ArrayList<>();
         for (Project project: ProjectRepo.getProjectList(limit, offset)) {
+//            if (project.qualifyUser(thisUser)) {
+                Map<String, Object> thisProject = new LinkedHashMap<>();
+                thisProject.put("id", (Object) project.getId());
+                thisProject.put("title", (Object) project.getTitle());
+                thisProject.put("imageURL", (Object) project.getImageUrl());
+                thisProject.put("budget", (Object) project.getBudget());
+                thisProject.put("deadline", (Object) project.getDeadline());
+                thisProject.put("skills", project.getSkills());
+                thisProject.put("description", (Object) project.getDescription());
+                projects.add(thisProject);
+//            }
+        }
+        int projectNumber = ProjectRepo.getNumberOfProjects();
+        Map<String, Object> responseMap = new LinkedHashMap<>();
+        responseMap.put("projects", (Object) projects);
+        responseMap.put("projectNumber", projectNumber);
+        responseMap.put("elementsBeginIndex", offset*limit + limit);
+
+        JSONObject json = new JSONObject(responseMap);
+
+        prepareResponse(response, json, HttpServletResponse.SC_OK);
+    }
+
+    public static void findProjectBySearchKey(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        User thisUser = UserRepo.findUser((String) request.getAttribute("loggedInUserId"));
+
+        String searchKey = request.getParameter("searchKey");
+        List<Map<String, Object>> projects = new ArrayList<>();
+
+        int offset = Integer.valueOf(request.getParameter("pageNumber"));
+        int limit = Integer.valueOf(request.getParameter("projectPerPage"));
+        for (Project project: ProjectRepo.searchProjects(searchKey, limit, offset)) {
+//            if (project.qualifyUser(thisUser)) {
                 Map<String, Object> thisProject = new LinkedHashMap<>();
                 thisProject.put("id", (Object) project.getId());
                 thisProject.put("title", (Object) project.getTitle());
@@ -93,34 +126,6 @@ public class ProjectService {
                 thisProject.put("skills", project.getSkills());
                 projects.add(thisProject);
 //            }
-        }
-        int projectNumber = ProjectRepo.getNumberOfProjects();
-        Map<String, Object> responseMap = new LinkedHashMap<>();
-        responseMap.put("projects", (Object) projects);
-        responseMap.put("elementsBeginIndex", offset*limit + limit);
-        responseMap.put("projectNumber", projectNumber);
-
-        JSONObject json = new JSONObject(responseMap);
-
-        prepareResponse(response, json, HttpServletResponse.SC_OK);
-    }
-
-    public static void findProjectBySearchKey(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String searchKey = request.getParameter("searchKey");
-        List<Map<String, Object>> projects = new ArrayList<>();
-
-        int offset = Integer.valueOf(request.getParameter("pageNumber"));
-        int limit = Integer.valueOf(request.getParameter("projectPerPage"));
-        for (Project project: ProjectRepo.searchProjects(searchKey, limit, offset)) {
-            Map<String, Object> thisProject = new LinkedHashMap<>();
-            thisProject.put("id", (Object) project.getId());
-            thisProject.put("title", (Object) project.getTitle());
-            thisProject.put("budget", (Object) project.getBudget());
-            thisProject.put("imageURL", (Object) project.getImageUrl());
-            thisProject.put("deadline", (Object) project.getDeadline());
-            thisProject.put("description", (Object) project.getDescription());
-            thisProject.put("skills", project.getSkills());
-            projects.add(thisProject);
         }
 
 
