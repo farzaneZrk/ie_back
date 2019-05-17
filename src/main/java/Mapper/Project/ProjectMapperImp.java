@@ -31,7 +31,8 @@ public class ProjectMapperImp extends DataMapperImp<Project, String> implements 
 
     protected String selectAllStatement() {
         return "SELECT " + COLUMNS +
-                " FROM Projects";
+                " FROM Projects" +
+                " WHERE winner = 'null'";
     }
 
     protected String findProjectsByOffset(){
@@ -70,6 +71,12 @@ public class ProjectMapperImp extends DataMapperImp<Project, String> implements 
 
     }
 
+    private String updateProjectStatement(){
+        return "UPDATE Projects" +
+                " SET winner = ?" +
+                " WHERE projectId = ?";
+    }
+
     public static final String COLUMNS = "projectId, title, description, imageURL, budget, winner, creationDate, deadline ";
 
     protected Project doLoad(String id, ResultSet rs) throws SQLException {
@@ -78,20 +85,24 @@ public class ProjectMapperImp extends DataMapperImp<Project, String> implements 
         String imageURL = rs.getString(4);
         List<Skill> skills = projectSkillMapper.getProjectSkills(id);
         List<Bid> bids = getProjectBids(id);
+        System.out.println("bids in do load:" + bids);
         int budget = rs.getInt(5);
+        String winnerName = rs.getString(6);
+        User winner = null;
+        if(!winnerName.equals("null"))
+            winner = new User("0", winnerName, "", "", "", "");
         // todo: winner is a string here but in model.project winner is a user, we have to fix it in db or model.
         long creationDate = rs.getLong(7);
         long deadline = rs.getLong(8);
-        return new Project(id, title, description, imageURL, skills, bids, budget, deadline, creationDate, null);
+        return new Project(id, title, description, imageURL, skills, bids, budget, deadline, creationDate, winner);
     }
 
-    private List<Bid> getProjectBids(String id){
+    public List<Bid> getProjectBids(String id){
         String findBidStatement = this.findBidStatement();
         try (Connection conn = C3poDataSource.getConnection()) {
             PreparedStatement pstmt = conn.prepareStatement(findBidStatement);
             pstmt.setString(1, id);
             ResultSet rs = pstmt.executeQuery();
-
             List<Bid> result = new ArrayList<>();
             while (rs.next())
                 result.add((this.loadBid(rs)));
@@ -107,7 +118,8 @@ public class ProjectMapperImp extends DataMapperImp<Project, String> implements 
         String userId = rs.getString(2);
         String projectId = rs.getString(3);
 
-        Project project = abstractFind(projectId);
+        Project project = new Project(projectId);
+        // todo: be careful about the bid's project in bidList of project
 
         UserDataMapperImp userDataMapper = new UserDataMapperImp();
         User user = userDataMapper.abstractFind(userId);
@@ -218,5 +230,20 @@ public class ProjectMapperImp extends DataMapperImp<Project, String> implements 
             e.printStackTrace();
             return null;
         }
+    }
+
+    public void updateProject(Project project){
+        loadedMap.replace(project.getId(), project);
+        String updateProject = this.updateProjectStatement();
+        try (Connection conn = C3poDataSource.getConnection()) {
+            PreparedStatement pstmt = conn.prepareStatement(updateProject);
+            pstmt.setString(1, project.getWinner());
+            pstmt.setString(2, project.getId());
+            pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        System.out.println("at the end of find bid winner " + loadedMap.get(project.getId()));
     }
 }

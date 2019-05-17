@@ -112,12 +112,12 @@ public class DataBaseConnectionTest {
 //
         long nowMillis = System.currentTimeMillis();
         Date now = new Date(nowMillis);
-        Date fiveMinLater = new Date(nowMillis + 5*60*1000);
+        Date fiveMinLater = new Date(nowMillis + 15*60*1000);
         String jws = Jwts.builder()
                 .setIssuer("joboonja.ut.ac.ir")
                 .setIssuedAt(Date.from(now.toInstant()))
                 .setExpiration(Date.from(fiveMinLater.toInstant()))
-                .claim("userId", String.valueOf(10))
+                .claim("userId", String.valueOf(1))
                 .signWith(
                         SignatureAlgorithm.HS256,
                         Base64.getUrlDecoder().decode(DigestUtils.sha256Hex("joboonja"))

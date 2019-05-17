@@ -6,8 +6,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import static Model.SkillRepo.getDataFromServer;
 import static Model.UserRepo.findUser;
@@ -31,6 +31,7 @@ public class ProjectRepo {
     }
 
     public static Project findProject(String id) {
+        System.out.println("project id is: " + id);
         Project res = projectDataMapper.abstractFind(id);
         System.out.println("project in findProject    " + res);
         return res;
@@ -98,4 +99,51 @@ public class ProjectRepo {
         return projectDataMapper.findNumberOfSearchedProjects(searchKey);
     }
 
+
+    private static long calculateBidderScore(User bidder, Long bidAmount, Project project) {
+        long score = project.getBudget() - bidAmount;
+        List<Skill> projectSkillsList = project.getSkills();
+        List<Skill> userSkillsList = bidder.getSkills();
+        for( Skill skill: projectSkillsList) {
+            List<Skill> result = userSkillsList.stream()
+                    .filter(element -> Objects.equals(element.getName(), skill.getName()))
+                    .collect(Collectors.toList());
+            long delta = skill.getPoint() - result.get(0).getPoint();
+            score += 10000 * Math.pow(delta, 2);
+        }
+        return score;
+    }
+
+    private static String findBidWinner(Project project) {
+        List<Bid> projectBids = project.getBids();
+        System.out.println("project bids for " + project.getTitle() + " is " + projectBids);
+        long maxScore = 0;
+        User winner = null;
+        for (Bid bid: projectBids) {
+            long score = calculateBidderScore(bid.getUser(), (long) bid.getAmount(), project);
+            System.out.println("score for " + bid.getUser() + "is " + score + "in " + project.getTitle());
+            if(score > maxScore) {
+                maxScore = score;
+                winner = bid.getUser();
+            }
+        }
+        if(winner != null){
+            System.out.println("winner for  " + project.getTitle() + " is " + winner.getFirstName() + ' ' + winner.getLastName());
+            project.setWinner(winner);
+            projectDataMapper.updateProject(project);
+            return winner.getFirstName() + ' ' + winner.getLastName();
+        }
+        project.setWinner(new User("0", "no one!", "", "", "", ""));
+        projectDataMapper.updateProject(project);
+        return "no one!";
+    }
+
+    public static void doAuctionForExpiredProjects(){
+        List<Project> projects = projectDataMapper.getAll();
+        for (Project project: projects) {
+            if(project.isExpired()){
+                findBidWinner(project);
+            }
+        }
+    }
 }

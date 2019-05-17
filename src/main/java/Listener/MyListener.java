@@ -44,6 +44,7 @@ public class MyListener implements ServletContextListener,
         }
         scheduler = Executors.newSingleThreadScheduledExecutor();
         scheduler.scheduleAtFixedRate(new FiveMinJobTask(), 0, 5, TimeUnit.MINUTES);
+        scheduler.scheduleAtFixedRate(new Auction(), 0, 1, TimeUnit.MINUTES);
 //        scheduler.scheduleAtFixedRate(new FiveMinJobTask(), 0, 1, TimeUnit.SECONDS);
 
 

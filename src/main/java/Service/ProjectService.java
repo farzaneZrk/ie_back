@@ -26,8 +26,8 @@ public class ProjectService {
         if (project == null)
             prepareResponse(response, json, HttpServletResponse.SC_NOT_FOUND); //page not found
 
-//        else if (!project.checkUserForProject(thisUser.getId()))
-//            prepareResponse(response, json, HttpServletResponse.SC_FORBIDDEN);//page is forbidden
+        else if (!project.checkUserForProject(thisUser.getId()))
+            prepareResponse(response, json, HttpServletResponse.SC_FORBIDDEN);//page is forbidden
 
         else {
             Map<String, Object> thisProject = new LinkedHashMap<>();
@@ -85,19 +85,19 @@ public class ProjectService {
         for (Project project: ProjectRepo.getProjectList(limit, offset)) {
 //            if (project.qualifyUser(thisUser)) {
                 Map<String, Object> thisProject = new LinkedHashMap<>();
-                thisProject.put("id", (Object) project.getId());
-                thisProject.put("title", (Object) project.getTitle());
-                thisProject.put("imageURL", (Object) project.getImageUrl());
-                thisProject.put("budget", (Object) project.getBudget());
-                thisProject.put("deadline", (Object) project.getDeadline());
+                thisProject.put("id", project.getId());
+                thisProject.put("title", project.getTitle());
+                thisProject.put("imageURL", project.getImageUrl());
+                thisProject.put("budget", project.getBudget());
+                thisProject.put("deadline", project.getDeadline());
                 thisProject.put("skills", project.getSkills());
-                thisProject.put("description", (Object) project.getDescription());
+                thisProject.put("description", project.getDescription());
                 projects.add(thisProject);
 //            }
         }
         int projectNumber = ProjectRepo.getNumberOfProjects();
         Map<String, Object> responseMap = new LinkedHashMap<>();
-        responseMap.put("projects", (Object) projects);
+        responseMap.put("projects", projects);
         responseMap.put("projectNumber", projectNumber);
         responseMap.put("elementsBeginIndex", offset*limit + limit);
 
@@ -117,22 +117,18 @@ public class ProjectService {
         for (Project project: ProjectRepo.searchProjects(searchKey, limit, offset)) {
 //            if (project.qualifyUser(thisUser)) {
                 Map<String, Object> thisProject = new LinkedHashMap<>();
-                thisProject.put("id", (Object) project.getId());
-                thisProject.put("title", (Object) project.getTitle());
-                thisProject.put("budget", (Object) project.getBudget());
-                thisProject.put("imageURL", (Object) project.getImageUrl());
-                thisProject.put("deadline", (Object) project.getDeadline());
-                thisProject.put("description", (Object) project.getDescription());
+                thisProject.put("id", project.getId());
+                thisProject.put("title", project.getTitle());
+                thisProject.put("deadline", project.getDeadline());
+                thisProject.put("budget", project.getBudget());
+                thisProject.put("imageURL", project.getImageUrl());
+                thisProject.put("description", project.getDescription());
                 thisProject.put("skills", project.getSkills());
                 projects.add(thisProject);
 //            }
         }
 
-
-
         int projectNumber = ProjectRepo.getNumberOfSearchedProjects(searchKey);
-
-
 
         Map<String, Object> responseMap = new LinkedHashMap<>();
         responseMap.put("projects", projects);

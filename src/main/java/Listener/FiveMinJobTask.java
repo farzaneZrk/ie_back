@@ -1,7 +1,6 @@
 package Listener;
 
 import Model.ProjectRepo;
-import Model.SkillRepo;
 
 import java.io.IOException;
 
@@ -10,7 +9,6 @@ public class FiveMinJobTask implements Runnable {
     public void run() {
         // Do your hourly job here.
         System.out.println("Projects have been updated after 5 minutes !\n");
-        String skillsJson = null;
         try {
             ProjectRepo.setUpProjectlist();
             System.out.println("get initial data successfully");

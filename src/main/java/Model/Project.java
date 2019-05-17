@@ -16,6 +16,10 @@ public class Project {
     private long creationTime;
     private User winner;
 
+    public Project(String id) {
+        this.id = id;
+    }
+
     public Project(String id, String title, String description, String imageUrl, List<Skill> skills, List<Bid> bids, int budget, long deadline, long creationTime, User winner) {
         this.id = id;
         this.title = title;
@@ -133,9 +137,8 @@ public class Project {
     }
 
     public String getWinner() {
-        if (winner == null){
-            return "no one!";
-        }
+        if (winner == null)
+            return "null";
         return (winner.getFirstName() + " " + winner.getLastName());
     }
 
@@ -148,12 +151,13 @@ public class Project {
         return "Project{" +
                 "id='" + id + '\n' +
                 ", title='" + title + '\n' +
-                ", description='" + description + '\n' +
-                ", imageUrl='" + imageUrl + '\n' +
-                ", skills=" + skills + '\n' +
+//                ", description='" + description + '\n' +
+//                ", imageUrl='" + imageUrl + '\n' +
+//                ", skills=" + skills + '\n' +
                 ", budget=" + budget + '\n' +
-                ", deadline=" + deadline + '\n' +
+//                ", deadline=" + deadline + '\n' +
                 ", bids=" + bids +
+                ", winner=" + getWinner() +
                 '}';
     }
 

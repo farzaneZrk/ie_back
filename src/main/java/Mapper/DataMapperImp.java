@@ -17,13 +17,14 @@ public abstract class DataMapperImp<T, I> implements DataMapper<T, I> {
     abstract protected String findStatement();
 
     public T abstractFind(String id) {
-        if (loadedMap.containsKey(id)) return loadedMap.get(id);
-
+        if (loadedMap.containsKey(id)) {
+            System.out.println("hit in abstract find");
+            return loadedMap.get(id);
+        }
         T result = loadedMap.get(id);
         if (result != null) return result;
         PreparedStatement findStatement = null;
         try (Connection conn = C3poDataSource.getConnection()) {
-
             findStatement = conn.prepareStatement(findStatement());
             findStatement.setString(1, id);
             ResultSet rs = findStatement.executeQuery();
@@ -59,7 +60,7 @@ public abstract class DataMapperImp<T, I> implements DataMapper<T, I> {
             String id = doInsert(subject, insertStatement);
             System.out.println("oops! in insert with name " + id);
             insertStatement.execute();
-            loadedMap.put((I)id, subject);
+//            loadedMap.put((I)id, subject);
             return id;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -76,9 +77,11 @@ public abstract class DataMapperImp<T, I> implements DataMapper<T, I> {
     }
 
     protected T load(ResultSet rs) throws SQLException {
-        System.out.println();
         String id = rs.getString(1);
-        if (loadedMap.containsKey(id)) return loadedMap.get(id);
+        if (loadedMap.containsKey(id)){
+            System.out.println("hit in load");
+            return loadedMap.get(id);
+        }
         T result = doLoad(id, rs);
         loadedMap.put((I)id, result);
         return result;
