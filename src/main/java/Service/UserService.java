@@ -208,7 +208,7 @@ public class UserService {
 
     private static boolean validateParameters(HttpServletRequest request, Map<String, Object> resMap) {
         String password = request.getParameter("password");
-        String pattern1 = "^[آابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهیa-zA-z]+$";
+        String pattern1 = "^[ ‌آابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهیa-zA-z]+$";
         String pattern2 = "(https:[//]|http:[//])(.+)";
         if(password.matches(".*\\d.*") && password.length() >= 8) {
             String firstname = request.getParameter("firstname");

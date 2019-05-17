@@ -34,7 +34,7 @@ public class ArabicEncodingFilter implements Filter {
             System.out.println(arrOfStr[arrOfStr.length - 1]);
             String servletName = arrOfStr[arrOfStr.length - 1];
 
-            if (servletName.equals("login") || servletName.equals("registerUser"))
+            if (servletName.equals("login") || servletName.equals("registerUser") || servletName.equals("checkUsername"))
                 return true;
             else{
                 return validateJWT(request, response);
