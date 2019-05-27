@@ -31,13 +31,25 @@ public class UserRepo {
     }
 
     public static User findUser(String id) {
-        return userDataMapper.abstractFind(id);
+        User res = userDataMapper.abstractFind(id);
+        System.out.println("user in findUser    " + res);
+        return res;
     }
 
     public static int addUser(User user){
+//        while (findUser(user.getId()) != null) {
+//            Random rand = new Random();
+//            String id = String.valueOf(rand.nextInt(50));
+//            user.setId(id);
+//        }
+//        try {
         String id = userDataMapper.insert(user);
         if (id == null)
             return -1;
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//            return -1;
+//        }
         return Integer.valueOf(id);
     }
 

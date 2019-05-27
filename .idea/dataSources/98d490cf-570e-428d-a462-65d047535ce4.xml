@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="ie_db">
+  <database-model serializer="dbm" dbms="SQLITE" family-id="SQLITE" format-version="4.14">
+    <root id="1">
+      <ServerVersion>3.25.1</ServerVersion>
+    </root>
+    <schema id="2" parent="1" name="main">
+      <Current>1</Current>
+      <Visible>1</Visible>
+    </schema>
+    <collation id="3" parent="1" name="BINARY"/>
+    <collation id="4" parent="1" name="NOCASE"/>
+    <collation id="5" parent="1" name="RTRIM"/>
+    <table id="6" parent="2" name="Bids"/>
+    <table id="7" parent="2" name="Endorses"/>
+    <table id="8" parent="2" name="ProjectSkills"/>
+    <table id="9" parent="2" name="Projects"/>
+    <table id="10" parent="2" name="Skillnames"/>
+    <table id="11" parent="2" name="UserSkills"/>
+    <table id="12" parent="2" name="Users"/>
+    <table id="13" parent="2" name="sqlite_master">
+      <System>1</System>
+    </table>
+    <column id="14" parent="6" name="amount">
+      <Position>1</Position>
+      <DataType>integer|0s</DataType>
+    </column>
+    <column id="15" parent="6" name="userId">
+      <Position>2</Position>
+      <DataType>nvarchar(2047)|0s</DataType>
+    </column>
+    <column id="16" parent="6" name="projectId">
+      <Position>3</Position>
+      <DataType>nvarchar(2047)|0s</DataType>
+    </column>
+    <index id="17" parent="6" name="sqlite_autoindex_Bids_1">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>projectId
+userId</ColNames>
+      <ColumnCollations></ColumnCollations>
+      <Unique>1</Unique>
+    </index>
+    <key id="18" parent="6">
+      <ColNames>projectId
+userId</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>sqlite_autoindex_Bids_1</UnderlyingIndexName>
+    </key>
+    <foreign-key id="19" parent="6">
+      <ColNames>userId</ColNames>
+      <RefTableName>Users</RefTableName>
+      <RefColNames>userId</RefColNames>
+    </foreign-key>
+    <foreign-key id="20" parent="6">
+      <ColNames>projectId</ColNames>
+      <RefTableName>Projects</RefTableName>
+      <RefColNames>projectId</RefColNames>
+    </foreign-key>
+    <column id="21" parent="7" name="skillname">
+      <Position>1</Position>
+      <DataType>varchar(31)|0s</DataType>
+    </column>
+    <column id="22" parent="7" name="endorserId">
+      <Position>2</Position>
+      <DataType>nvarchar(2047)|0s</DataType>
+    </column>
+    <column id="23" parent="7" name="endorsedId">
+      <Position>3</Position>
+      <DataType>nvarchar(2047)|0s</DataType>
+    </column>
+    <index id="24" parent="7" name="sqlite_autoindex_Endorses_1">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>skillname
+endorserId
+endorsedId</ColNames>
+      <ColumnCollations></ColumnCollations>
+      <Unique>1</Unique>
+    </index>
+    <key id="25" parent="7">
+      <ColNames>skillname
+endorserId
+endorsedId</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>sqlite_autoindex_Endorses_1</UnderlyingIndexName>
+    </key>
+    <foreign-key id="26" parent="7">
+      <ColNames>skillname</ColNames>
+      <RefTableName>UserSkills</RefTableName>
+      <RefColNames>skillname</RefColNames>
+    </foreign-key>
+    <foreign-key id="27" parent="7">
+      <ColNames>endorserId</ColNames>
+      <RefTableName>Users</RefTableName>
+      <RefColNames>userId</RefColNames>
+    </foreign-key>
+    <foreign-key id="28" parent="7">
+      <ColNames>endorsedId</ColNames>
+      <RefTableName>Users</RefTableName>
+      <RefColNames>userId</RefColNames>
+    </foreign-key>
+    <column id="29" parent="8" name="name">
+      <Position>1</Position>
+      <DataType>varchar(31)|0s</DataType>
+    </column>
+    <column id="30" parent="8" name="point">
+      <Position>2</Position>
+      <DataType>integer|0s</DataType>
+    </column>
+    <column id="31" parent="8" name="projectId">
+      <Position>3</Position>
+      <DataType>nvarchar(2047)|0s</DataType>
+    </column>
+    <index id="32" parent="8" name="sqlite_autoindex_ProjectSkills_1">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>name
+projectId</ColNames>
+      <ColumnCollations></ColumnCollations>
+      <Unique>1</Unique>
+    </index>
+    <key id="33" parent="8">
+      <ColNames>name
+projectId</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>sqlite_autoindex_ProjectSkills_1</UnderlyingIndexName>
+    </key>
+    <foreign-key id="34" parent="8">
+      <ColNames>name</ColNames>
+      <RefTableName>Skillnamesl</RefTableName>
+      <RefColNames>name</RefColNames>
+    </foreign-key>
+    <foreign-key id="35" parent="8">
+      <ColNames>projectId</ColNames>
+      <RefTableName>Projects</RefTableName>
+      <RefColNames>projectId</RefColNames>
+    </foreign-key>
+    <column id="36" parent="9" name="projectId">
+      <Position>1</Position>
+      <DataType>nvarchar(2047)|0s</DataType>
+    </column>
+    <column id="37" parent="9" name="title">
+      <Position>2</Position>
+      <DataType>varchar(511)|0s</DataType>
+    </column>
+    <column id="38" parent="9" name="description">
+      <Position>3</Position>
+      <DataType>text|0s</DataType>
+    </column>
+    <column id="39" parent="9" name="imageURL">
+      <Position>4</Position>
+      <DataType>varchar(2083)|0s</DataType>
+    </column>
+    <column id="40" parent="9" name="budget">
+      <Position>5</Position>
+      <DataType>integer|0s</DataType>
+    </column>
+    <column id="41" parent="9" name="winner">
+      <Position>6</Position>
+      <DataType>varchar(511)|0s</DataType>
+    </column>
+    <column id="42" parent="9" name="creationDate">
+      <Position>7</Position>
+      <DataType>datetime|0s</DataType>
+    </column>
+    <column id="43" parent="9" name="deadline">
+      <Position>8</Position>
+      <DataType>integer|0s</DataType>
+    </column>
+    <index id="44" parent="9" name="sqlite_autoindex_Projects_1">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>projectId</ColNames>
+      <ColumnCollations></ColumnCollations>
+      <Unique>1</Unique>
+    </index>
+    <key id="45" parent="9">
+      <ColNames>projectId</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>sqlite_autoindex_Projects_1</UnderlyingIndexName>
+    </key>
+    <column id="46" parent="10" name="name">
+      <Position>1</Position>
+      <DataType>varchar(31)|0s</DataType>
+    </column>
+    <index id="47" parent="10" name="sqlite_autoindex_Skillnames_1">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>name</ColNames>
+      <ColumnCollations></ColumnCollations>
+      <Unique>1</Unique>
+    </index>
+    <key id="48" parent="10">
+      <ColNames>name</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>sqlite_autoindex_Skillnames_1</UnderlyingIndexName>
+    </key>
+    <column id="49" parent="11" name="name">
+      <Position>1</Position>
+      <DataType>varchar(31)|0s</DataType>
+    </column>
+    <column id="50" parent="11" name="point">
+      <Position>2</Position>
+      <DataType>integer|0s</DataType>
+    </column>
+    <column id="51" parent="11" name="userId">
+      <Position>3</Position>
+      <DataType>nvarchar(2047)|0s</DataType>
+    </column>
+    <index id="52" parent="11" name="sqlite_autoindex_UserSkills_1">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>name
+userId</ColNames>
+      <ColumnCollations></ColumnCollations>
+      <Unique>1</Unique>
+    </index>
+    <key id="53" parent="11">
+      <ColNames>name
+userId</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>sqlite_autoindex_UserSkills_1</UnderlyingIndexName>
+    </key>
+    <foreign-key id="54" parent="11">
+      <ColNames>name</ColNames>
+      <RefTableName>Skillnames</RefTableName>
+      <RefColNames>name</RefColNames>
+    </foreign-key>
+    <foreign-key id="55" parent="11">
+      <ColNames>userId</ColNames>
+      <RefTableName>Users</RefTableName>
+      <RefColNames>userId</RefColNames>
+    </foreign-key>
+    <column id="56" parent="12" name="userId">
+      <Position>1</Position>
+      <DataType>nvarchar(2047)|0s</DataType>
+    </column>
+    <column id="57" parent="12" name="firstname">
+      <Position>2</Position>
+      <DataType>varchar(255)|0s</DataType>
+    </column>
+    <column id="58" parent="12" name="lastname">
+      <Position>3</Position>
+      <DataType>varchar(255)|0s</DataType>
+    </column>
+    <column id="59" parent="12" name="username">
+      <Position>4</Position>
+      <DataType>varchar(255)|0s</DataType>
+    </column>
+    <column id="60" parent="12" name="jobTitle">
+      <Position>5</Position>
+      <DataType>varchar(255)|0s</DataType>
+    </column>
+    <column id="61" parent="12" name="imageURL">
+      <Position>6</Position>
+      <DataType>varchar(2083)|0s</DataType>
+    </column>
+    <column id="62" parent="12" name="bio">
+      <Position>7</Position>
+      <DataType>text|0s</DataType>
+    </column>
+    <column id="63" parent="12" name="password">
+      <Position>8</Position>
+      <DataType>varchar(511)|0s</DataType>
+    </column>
+    <index id="64" parent="12" name="sqlite_autoindex_Users_1">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>userId</ColNames>
+      <ColumnCollations></ColumnCollations>
+      <Unique>1</Unique>
+    </index>
+    <index id="65" parent="12" name="sqlite_autoindex_Users_2">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>username</ColNames>
+      <ColumnCollations></ColumnCollations>
+      <Unique>1</Unique>
+    </index>
+    <key id="66" parent="12">
+      <ColNames>userId</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>sqlite_autoindex_Users_1</UnderlyingIndexName>
+    </key>
+    <key id="67" parent="12">
+      <ColNames>username</ColNames>
+      <UnderlyingIndexName>sqlite_autoindex_Users_2</UnderlyingIndexName>
+    </key>
+    <column id="68" parent="13" name="type">
+      <Position>1</Position>
+      <DataType>text|0s</DataType>
+    </column>
+    <column id="69" parent="13" name="name">
+      <Position>2</Position>
+      <DataType>text|0s</DataType>
+    </column>
+    <column id="70" parent="13" name="tbl_name">
+      <Position>3</Position>
+      <DataType>text|0s</DataType>
+    </column>
+    <column id="71" parent="13" name="rootpage">
+      <Position>4</Position>
+      <DataType>int|0s</DataType>
+    </column>
+    <column id="72" parent="13" name="sql">
+      <Position>5</Position>
+      <DataType>text|0s</DataType>
+    </column>
+  </database-model>
+</dataSource>

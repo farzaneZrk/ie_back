@@ -21,6 +21,7 @@ public class ArabicEncodingFilter implements Filter {
     private boolean doBeforeProcessing(ServletRequest request, ServletResponse response)
 
             throws IOException, ServletException {
+        System.out.println("in before");
 
         request.setCharacterEncoding("UTF-8");
 
@@ -28,7 +29,9 @@ public class ArabicEncodingFilter implements Filter {
 
         if (request instanceof HttpServletRequest) {
             String url = ((HttpServletRequest)request).getRequestURL().toString();
+            System.out.println(url);
             String [] arrOfStr = url.split("/");
+            System.out.println(arrOfStr[arrOfStr.length - 1]);
             String servletName = arrOfStr[arrOfStr.length - 1];
 
             if (servletName.equals("login") || servletName.equals("registerUser") || servletName.equals("checkUsername"))
@@ -53,11 +56,13 @@ public class ArabicEncodingFilter implements Filter {
             JSONObject json = new JSONObject(resMap);
             prepareResponse((HttpServletResponse) response, json, HttpServletResponse.SC_UNAUTHORIZED);
             return false;
+            // todo: send 401
         }
-
+        System.out.println(jwt);
         try {
 
             Claims claims = Jwts.parser().setSigningKey(DigestUtils.sha256Hex("joboonja")).parseClaimsJws(jwt).getBody();
+            System.out.println("Issuer: " + claims.getIssuer());
             if(!claims.getIssuer().equals("joboonja.ut.ac.ir")){
                 resMap.put("msg", "jwt is not valid");
                 resMap.put("errorCode", "403");
@@ -66,6 +71,7 @@ public class ArabicEncodingFilter implements Filter {
                 return false;
             }
             String userId = (String) claims.get("userId");
+            System.out.println(userId);
             request.setAttribute("loggedInUserId", userId);
             return true;
 
@@ -85,13 +91,16 @@ public class ArabicEncodingFilter implements Filter {
 
     private void doAfterProcessing(ServletRequest request, ServletResponse response)
             throws IOException, ServletException {
+        System.out.println("in after");
 
     }
 
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {
+        System.out.println("hello");
 
         boolean checkJWT = doBeforeProcessing(request, response);
+        System.out.println("///////validation of jwt is " + checkJWT);
 
         Throwable problem = null;
 

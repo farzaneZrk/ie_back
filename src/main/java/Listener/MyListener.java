@@ -34,6 +34,7 @@ public class MyListener implements ServletContextListener,
          You can initialize servlet context related data here.
       */
         try {
+            System.out.println("oops! first of the listener");
             ProjectRepo.setUpProjectlist();
             SkillRepo.setUpSkillList();
 //            UserRepo.testusermapper();

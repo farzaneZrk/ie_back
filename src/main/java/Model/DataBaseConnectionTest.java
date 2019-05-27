@@ -1,9 +1,17 @@
 package Model;
 
 import Database.C3poDataSource;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import org.apache.commons.codec.digest.DigestUtils;
 
 import java.io.UnsupportedEncodingException;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Base64;
+import java.util.Date;
 
 public class DataBaseConnectionTest {
 
@@ -27,29 +35,10 @@ public class DataBaseConnectionTest {
             Connection conn = C3poDataSource.getConnection();
             PreparedStatement pst = conn.prepareStatement(sql);
             ResultSet rs = pst.executeQuery(sql);
-            //-------
-//            rs.next();
 
             while (rs.next()) {
                 System.out.println(rs.getString("firstname") + "\n");
             }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    private void insertTest(){
-        String sql = "insert into Skillnames (name)" +" values (?)";
-
-        try {
-            Connection conn = C3poDataSource.getConnection();
-            PreparedStatement pst = conn.prepareStatement(sql);
-            pst.setString(1, "test skill");
-            pst.executeUpdate();
-
-//            while (rs.next()) {
-//                System.out.println(rs.getString("firstname") + "\n");
-//            }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -117,42 +106,24 @@ public class DataBaseConnectionTest {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) throws UnsupportedEncodingException, ClassNotFoundException, IllegalAccessException, InstantiationException {
-        DataBaseConnectionTest app = new DataBaseConnectionTest();
-        app.insertTest();
-
-//        Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
+    public static void main(String[] args) throws UnsupportedEncodingException {
+//        DataBaseConnectionTest app = new DataBaseConnectionTest();
+//        app.selectAll();
 //
-//        Connection conn = null;
-//        try {
-//            conn = DriverManager.getConnection("jdbc:mysql://localhost/ie_test", "root", "mhmdzrk83");
-//
-//            String sql = "insert into Skillnames(name) values(?)";
-//            PreparedStatement pst = conn.prepareStatement(sql);
-//            pst.setString(1, "test skill");
-//            pst.executeUpdate(sql);
-//
-//        } catch (SQLException ex) {
-//            // handle any errors
-//            System.out.println("SQLException: " + ex.getMessage());
-//            System.out.println("SQLState: " + ex.getSQLState());
-//            System.out.println("VendorError: " + ex.getErrorCode());
-//        }
-//
-//        long nowMillis = System.currentTimeMillis();
-//        Date now = new Date(nowMillis);
-//        Date fiveMinLater = new Date(nowMillis + 15*60*1000);
-//        String jws = Jwts.builder()
-//                .setIssuer("joboonja.ut.ac.ir")
-//                .setIssuedAt(Date.from(now.toInstant()))
-//                .setExpiration(Date.from(fiveMinLater.toInstant()))
-//                .claim("userId", String.valueOf(1))
-//                .signWith(
-//                        SignatureAlgorithm.HS256,
-//                        Base64.getUrlDecoder().decode(DigestUtils.sha256Hex("joboonja"))
-//                )
-//                .compact();
-//        System.out.println(jws);
+        long nowMillis = System.currentTimeMillis();
+        Date now = new Date(nowMillis);
+        Date fiveMinLater = new Date(nowMillis + 15*60*1000);
+        String jws = Jwts.builder()
+                .setIssuer("joboonja.ut.ac.ir")
+                .setIssuedAt(Date.from(now.toInstant()))
+                .setExpiration(Date.from(fiveMinLater.toInstant()))
+                .claim("userId", String.valueOf(1))
+                .signWith(
+                        SignatureAlgorithm.HS256,
+                        Base64.getUrlDecoder().decode(DigestUtils.sha256Hex("joboonja"))
+                )
+                .compact();
+        System.out.println(jws);
 
     }
 }

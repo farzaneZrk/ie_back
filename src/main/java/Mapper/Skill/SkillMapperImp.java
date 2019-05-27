@@ -28,9 +28,9 @@ public class SkillMapperImp extends DataMapperImp<String, String> implements Ski
                 "VALUES (?);";
     }
     protected String doInsert(String abstractSubject, PreparedStatement stmt) throws SQLException {
-        System.out.println("in skill do insert");
+        System.out.println("oops! in skill do insert");
         stmt.setString(1, abstractSubject);
-        System.out.println("in do insert with name " + abstractSubject);
+        System.out.println("oops! in do insert with name " + abstractSubject);
         return abstractSubject;
     }
 }

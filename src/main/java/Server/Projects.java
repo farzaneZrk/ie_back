@@ -51,6 +51,7 @@ public class Projects implements ViewBuilder{
         }
         else {
             Project thisProject = findProject(projectId);
+            //TODO: check for project req and also handle login
             if (thisProject != null) {
                 if(thisProject.checkUserForProject(user.getId())) {
                     dynamicData += "\t\t<li>id: ";

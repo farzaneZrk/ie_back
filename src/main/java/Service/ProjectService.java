@@ -17,7 +17,7 @@ import static Service.UserService.prepareResponse;
 public class ProjectService {
     public static void showProject (HttpServletRequest request, HttpServletResponse response, String id)
             throws ServletException, IOException {
-
+        System.out.println("in showProject");
         User thisUser = UserRepo.findUser((String) request.getAttribute("loggedInUserId"));
         request.setAttribute("thisUser", thisUser);
         JSONObject json = new JSONObject("{}");

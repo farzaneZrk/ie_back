@@ -266,6 +266,7 @@ public class UserService {
             resMap.put("msg", "ok");
             String jwt = createJWT(res);
             resMap.put("jwt", jwt);
+            // todo: user and pass are ok, handle jwt here
         }
         JSONObject json = new JSONObject(resMap);
         prepareResponse(response, json, HttpServletResponse.SC_OK);
