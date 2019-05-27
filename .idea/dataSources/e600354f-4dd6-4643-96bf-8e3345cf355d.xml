@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<dataSource name="ie_test@localhost">
+<dataSource name="ie_db@localhost">
   <database-model serializer="dbm" dbms="MYSQL" family-id="MYSQL" format-version="4.14">
     <root id="1">
-      <ServerVersion>8.0.12</ServerVersion>
+      <ServerVersion>8.0.16</ServerVersion>
       <DefaultEngine>InnoDB</DefaultEngine>
       <DefaultTmpEngine>InnoDB</DefaultTmpEngine>
-      <DefaultCasing>mixed/mixed</DefaultCasing>
+      <DefaultCasing>exact</DefaultCasing>
     </root>
-    <schema id="2" parent="1" name="ie_test">
+    <schema id="2" parent="1" name="ie_db">
       <Current>1</Current>
       <Visible>1</Visible>
       <Collation>utf8mb4_0900_ai_ci</Collation>
@@ -1104,298 +1104,302 @@
       <Charset>utf8mb4</Charset>
       <DefaultForCharset>0</DefaultForCharset>
     </collation>
-    <table id="277" parent="2" name="Bids"/>
-    <table id="278" parent="2" name="Endorses"/>
-    <table id="279" parent="2" name="ProjectSkills"/>
-    <table id="280" parent="2" name="Projects"/>
-    <table id="281" parent="2" name="Skillnames"/>
-    <table id="282" parent="2" name="UserSkills"/>
-    <table id="283" parent="2" name="Users"/>
-    <column id="284" parent="277" name="amount">
+    <collation id="277" parent="1" name="utf8mb4_zh_0900_as_cs">
+      <Charset>utf8mb4</Charset>
+      <DefaultForCharset>0</DefaultForCharset>
+    </collation>
+    <table id="278" parent="2" name="Bids"/>
+    <table id="279" parent="2" name="Endorses"/>
+    <table id="280" parent="2" name="ProjectSkills"/>
+    <table id="281" parent="2" name="Projects"/>
+    <table id="282" parent="2" name="Skillnames"/>
+    <table id="283" parent="2" name="UserSkills"/>
+    <table id="284" parent="2" name="Users"/>
+    <column id="285" parent="278" name="amount">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="285" parent="277" name="userId">
+    <column id="286" parent="278" name="userId">
       <Position>2</Position>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
       <Collation>utf8_general_ci</Collation>
     </column>
-    <column id="286" parent="277" name="projectId">
+    <column id="287" parent="278" name="projectId">
       <Position>3</Position>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
       <Collation>utf8_general_ci</Collation>
     </column>
-    <index id="287" parent="277" name="userId">
+    <index id="288" parent="278" name="userId">
       <ColNames>userId</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="288" parent="277" name="PRIMARY">
+    <key id="289" parent="278" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>projectId
 userId</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="289" parent="277" name="bids_ibfk_1">
+    <foreign-key id="290" parent="278" name="Bids_ibfk_1">
       <ColNames>userId</ColNames>
-      <RefSchemaName>ie_test</RefSchemaName>
+      <RefSchemaName>ie_db</RefSchemaName>
       <RefTableName>Users</RefTableName>
       <RefColNames>userId</RefColNames>
     </foreign-key>
-    <foreign-key id="290" parent="277" name="bids_ibfk_2">
+    <foreign-key id="291" parent="278" name="Bids_ibfk_2">
       <ColNames>projectId</ColNames>
-      <RefSchemaName>ie_test</RefSchemaName>
+      <RefSchemaName>ie_db</RefSchemaName>
       <RefTableName>Projects</RefTableName>
       <RefColNames>projectId</RefColNames>
     </foreign-key>
-    <column id="291" parent="278" name="skillname">
+    <column id="292" parent="279" name="skillname">
       <Position>1</Position>
       <DataType>varchar(31)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="292" parent="278" name="endorserId">
+    <column id="293" parent="279" name="endorserId">
       <Position>2</Position>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
       <Collation>utf8_general_ci</Collation>
     </column>
-    <column id="293" parent="278" name="endorsedId">
+    <column id="294" parent="279" name="endorsedId">
       <Position>3</Position>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
       <Collation>utf8_general_ci</Collation>
     </column>
-    <index id="294" parent="278" name="endorserId">
+    <index id="295" parent="279" name="endorserId">
       <ColNames>endorserId</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="295" parent="278" name="endorsedId">
+    <index id="296" parent="279" name="endorsedId">
       <ColNames>endorsedId</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="296" parent="278" name="PRIMARY">
+    <key id="297" parent="279" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>skillname
 endorserId
 endorsedId</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="297" parent="278" name="endorses_ibfk_1">
+    <foreign-key id="298" parent="279" name="Endorses_ibfk_1">
       <ColNames>skillname</ColNames>
-      <RefSchemaName>ie_test</RefSchemaName>
+      <RefSchemaName>ie_db</RefSchemaName>
       <RefTableName>UserSkills</RefTableName>
       <RefColNames>name</RefColNames>
     </foreign-key>
-    <foreign-key id="298" parent="278" name="endorses_ibfk_2">
+    <foreign-key id="299" parent="279" name="Endorses_ibfk_2">
       <ColNames>endorserId</ColNames>
-      <RefSchemaName>ie_test</RefSchemaName>
+      <RefSchemaName>ie_db</RefSchemaName>
       <RefTableName>Users</RefTableName>
       <RefColNames>userId</RefColNames>
     </foreign-key>
-    <foreign-key id="299" parent="278" name="endorses_ibfk_3">
+    <foreign-key id="300" parent="279" name="Endorses_ibfk_3">
       <ColNames>endorsedId</ColNames>
-      <RefSchemaName>ie_test</RefSchemaName>
+      <RefSchemaName>ie_db</RefSchemaName>
       <RefTableName>Users</RefTableName>
       <RefColNames>userId</RefColNames>
     </foreign-key>
-    <column id="300" parent="279" name="name">
+    <column id="301" parent="280" name="name">
       <Position>1</Position>
       <DataType>varchar(31)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="301" parent="279" name="point">
+    <column id="302" parent="280" name="point">
       <Position>2</Position>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="302" parent="279" name="projectId">
+    <column id="303" parent="280" name="projectId">
       <Position>3</Position>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
       <Collation>utf8_general_ci</Collation>
     </column>
-    <index id="303" parent="279" name="projectId">
+    <index id="304" parent="280" name="projectId">
       <ColNames>projectId</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="304" parent="279" name="PRIMARY">
+    <key id="305" parent="280" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>name
 projectId</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="305" parent="279" name="projectskills_ibfk_2">
+    <foreign-key id="306" parent="280" name="ProjectSkills_ibfk_2">
       <ColNames>name</ColNames>
-      <RefSchemaName>ie_test</RefSchemaName>
+      <RefSchemaName>ie_db</RefSchemaName>
       <RefTableName>Skillnames</RefTableName>
       <RefColNames>name</RefColNames>
     </foreign-key>
-    <foreign-key id="306" parent="279" name="projectskills_ibfk_1">
+    <foreign-key id="307" parent="280" name="ProjectSkills_ibfk_1">
       <ColNames>projectId</ColNames>
-      <RefSchemaName>ie_test</RefSchemaName>
+      <RefSchemaName>ie_db</RefSchemaName>
       <RefTableName>Projects</RefTableName>
       <RefColNames>projectId</RefColNames>
     </foreign-key>
-    <column id="307" parent="280" name="projectId">
+    <column id="308" parent="281" name="projectId">
       <Position>1</Position>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
       <Collation>utf8_general_ci</Collation>
     </column>
-    <column id="308" parent="280" name="title">
+    <column id="309" parent="281" name="title">
       <Position>2</Position>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="309" parent="280" name="description">
+    <column id="310" parent="281" name="description">
       <Position>3</Position>
       <DataType>text|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="310" parent="280" name="imageURL">
+    <column id="311" parent="281" name="imageURL">
       <Position>4</Position>
       <DataType>varchar(2083)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="311" parent="280" name="budget">
+    <column id="312" parent="281" name="budget">
       <Position>5</Position>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="312" parent="280" name="winner">
+    <column id="313" parent="281" name="winner">
       <Position>6</Position>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="313" parent="280" name="creationDate">
+    <column id="314" parent="281" name="creationDate">
       <Position>7</Position>
-      <DataType>int(11)|0s</DataType>
+      <DataType>datetime|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="314" parent="280" name="deadline">
+    <column id="315" parent="281" name="deadline">
       <Position>8</Position>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="315" parent="280" name="PRIMARY">
+    <key id="316" parent="281" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>projectId</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="316" parent="281" name="name">
+    <column id="317" parent="282" name="name">
       <Position>1</Position>
       <DataType>varchar(31)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="317" parent="281" name="PRIMARY">
+    <key id="318" parent="282" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>name</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="318" parent="282" name="name">
+    <column id="319" parent="283" name="name">
       <Position>1</Position>
       <DataType>varchar(31)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="319" parent="282" name="point">
+    <column id="320" parent="283" name="point">
       <Position>2</Position>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="320" parent="282" name="userId">
+    <column id="321" parent="283" name="userId">
       <Position>3</Position>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
       <Collation>utf8_general_ci</Collation>
     </column>
-    <index id="321" parent="282" name="userId">
+    <index id="322" parent="283" name="userId">
       <ColNames>userId</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="322" parent="282" name="PRIMARY">
+    <key id="323" parent="283" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>name
 userId</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="323" parent="282" name="userskills_ibfk_2">
+    <foreign-key id="324" parent="283" name="UserSkills_ibfk_2">
       <ColNames>name</ColNames>
-      <RefSchemaName>ie_test</RefSchemaName>
+      <RefSchemaName>ie_db</RefSchemaName>
       <RefTableName>Skillnames</RefTableName>
       <RefColNames>name</RefColNames>
     </foreign-key>
-    <foreign-key id="324" parent="282" name="userskills_ibfk_1">
+    <foreign-key id="325" parent="283" name="UserSkills_ibfk_1">
       <ColNames>userId</ColNames>
-      <RefSchemaName>ie_test</RefSchemaName>
+      <RefSchemaName>ie_db</RefSchemaName>
       <RefTableName>Users</RefTableName>
       <RefColNames>userId</RefColNames>
     </foreign-key>
-    <column id="325" parent="283" name="userId">
+    <column id="326" parent="284" name="userId">
       <Position>1</Position>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
       <Collation>utf8_general_ci</Collation>
     </column>
-    <column id="326" parent="283" name="firstname">
+    <column id="327" parent="284" name="firstname">
       <Position>2</Position>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="327" parent="283" name="lastname">
+    <column id="328" parent="284" name="lastname">
       <Position>3</Position>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="328" parent="283" name="username">
+    <column id="329" parent="284" name="username">
       <Position>4</Position>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="329" parent="283" name="jobTitle">
+    <column id="330" parent="284" name="jobTitle">
       <Position>5</Position>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="330" parent="283" name="imageURL">
+    <column id="331" parent="284" name="imageURL">
       <Position>6</Position>
       <DataType>varchar(2083)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="331" parent="283" name="bio">
+    <column id="332" parent="284" name="bio">
       <Position>7</Position>
       <DataType>text|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="332" parent="283" name="password">
+    <column id="333" parent="284" name="password">
       <Position>8</Position>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="333" parent="283" name="username">
+    <index id="334" parent="284" name="username">
       <ColNames>username</ColNames>
       <Unique>1</Unique>
       <Type>btree</Type>
     </index>
-    <key id="334" parent="283" name="PRIMARY">
+    <key id="335" parent="284" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>userId</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="335" parent="283" name="username">
+    <key id="336" parent="284" name="username">
       <ColNames>username</ColNames>
       <UnderlyingIndexName>username</UnderlyingIndexName>
     </key>

@@ -17,7 +17,7 @@ public class C3poDataSource {
 //            cpds.setJdbcUrl("jdbc:sqlite:/Users/farzane/Documents/University/IE/IE_joint/ie_db.db");
 
             cpds.setDriverClass("com.mysql.cj.jdbc.Driver");
-            cpds.setJdbcUrl("jdbc:mysql://localhost:3306/ie_test?user=root&password=mhmdzrk83&useSSL=false");
+            cpds.setJdbcUrl("jdbc:mysql://localhost:3307/ie_db?user=root&password=mhmdzrk83&useSSL=false");
             cpds.setMaxPoolSize(10);
         } catch (PropertyVetoException e) {
             // handle the exception

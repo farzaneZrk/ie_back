@@ -8,10 +8,7 @@ import Model.Project;
 import Model.Skill;
 import Model.User;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -92,7 +89,7 @@ public class ProjectMapperImp extends DataMapperImp<Project, String> implements 
         if(!winnerName.equals("null"))
             winner = new User("0", winnerName, "", "", "", "");
         // todo: winner is a string here but in model.project winner is a user, we have to fix it in db or model.
-        long creationDate = rs.getLong(7);
+        long creationDate = rs.getDate(7).getTime();
         long deadline = rs.getLong(8);
         return new Project(id, title, description, imageURL, skills, bids, budget, deadline, creationDate, winner);
     }
@@ -135,7 +132,7 @@ public class ProjectMapperImp extends DataMapperImp<Project, String> implements 
         stmt.setString(4, subject.getImageUrl());
         stmt.setInt(5, subject.getBudget());
         stmt.setString(6, subject.getWinner());
-        stmt.setLong(7, subject.getCreationTime());
+        stmt.setDate(7, new Date(subject.getCreationTime()));
         stmt.setLong(8, subject.getDeadline());
 
         projectSkillMapper.insertProjectSkills(abstractSubject.getId(), abstractSubject.getSkills());
