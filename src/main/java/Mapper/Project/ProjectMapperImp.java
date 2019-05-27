@@ -24,7 +24,7 @@ public class ProjectMapperImp extends DataMapperImp<Project, String> implements 
     }
 
     protected String insertStatement() {
-        return "INSERT OR IGNORE INTO Projects " +
+        return "INSERT IGNORE INTO Projects " +
                 "(projectId,title,description,imageURL,budget,winner,creationDate, deadline)" +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
     }
@@ -85,13 +85,11 @@ public class ProjectMapperImp extends DataMapperImp<Project, String> implements 
         String imageURL = rs.getString(4);
         List<Skill> skills = projectSkillMapper.getProjectSkills(id);
         List<Bid> bids = getProjectBids(id);
-        System.out.println("bids in do load:" + bids);
         int budget = rs.getInt(5);
         String winnerName = rs.getString(6);
         User winner = null;
         if(!winnerName.equals("null"))
             winner = new User("0", winnerName, "", "", "", "");
-        // todo: winner is a string here but in model.project winner is a user, we have to fix it in db or model.
         long creationDate = rs.getLong(7);
         long deadline = rs.getLong(8);
         return new Project(id, title, description, imageURL, skills, bids, budget, deadline, creationDate, winner);
@@ -104,6 +102,9 @@ public class ProjectMapperImp extends DataMapperImp<Project, String> implements 
             pstmt.setString(1, id);
             ResultSet rs = pstmt.executeQuery();
             List<Bid> result = new ArrayList<>();
+
+            //-------
+//            rs.next();
             while (rs.next())
                 result.add((this.loadBid(rs)));
             return result;
@@ -173,7 +174,8 @@ public class ProjectMapperImp extends DataMapperImp<Project, String> implements 
             pstmt.setInt(3, projectPerPage);
             pstmt.setInt(4, (pageNumber-1)*projectPerPage);
             ResultSet rs = pstmt.executeQuery();
-
+            //-------
+//            rs.next();
             return loadAll(rs);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -186,6 +188,8 @@ public class ProjectMapperImp extends DataMapperImp<Project, String> implements 
         try (Connection conn = C3poDataSource.getConnection()) {
             PreparedStatement pstmt = conn.prepareStatement(findProjectsNumber);
             ResultSet rs = pstmt.executeQuery();
+            //-------
+//            rs.next();
 
             int result = 0;
             while (rs.next()){
@@ -202,11 +206,13 @@ public class ProjectMapperImp extends DataMapperImp<Project, String> implements 
         String findSearchedProjectsNumber = this.findSearchedProjectsNumber();
         try (Connection conn = C3poDataSource.getConnection()) {
             PreparedStatement pstmt = conn.prepareStatement(findSearchedProjectsNumber);
-            ResultSet rs = pstmt.executeQuery();
             pstmt.setString(1, '%' + searchKey + '%');
             pstmt.setString(2, '%' + searchKey + '%');
-
             int result = 0;
+            ResultSet rs = pstmt.executeQuery();
+            //-------
+//            rs.next();
+
             while (rs.next()){
                 result = rs.getInt(1);
             }
@@ -224,6 +230,8 @@ public class ProjectMapperImp extends DataMapperImp<Project, String> implements 
             pstmt.setInt(1, projectPerPage);
             pstmt.setInt(2, (pageNumber-1)*projectPerPage);
             ResultSet rs = pstmt.executeQuery();
+            //-------
+//            rs.next();
 
             return loadAll(rs);
         } catch (SQLException e) {

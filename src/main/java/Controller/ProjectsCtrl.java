@@ -14,7 +14,6 @@ public class ProjectsCtrl extends HttpServlet {
 
     // users with get method to get list of all projects or a specific one
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("in /projects controller");
         String projectId = request.getParameter("projectId");
 
         if (projectId != null)                           //one specific project is requested

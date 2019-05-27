@@ -17,7 +17,7 @@ import static Service.UserService.prepareResponse;
 public class ProjectService {
     public static void showProject (HttpServletRequest request, HttpServletResponse response, String id)
             throws ServletException, IOException {
-        System.out.println("in showProject");
+
         User thisUser = UserRepo.findUser((String) request.getAttribute("loggedInUserId"));
         request.setAttribute("thisUser", thisUser);
         JSONObject json = new JSONObject("{}");
@@ -26,8 +26,8 @@ public class ProjectService {
         if (project == null)
             prepareResponse(response, json, HttpServletResponse.SC_NOT_FOUND); //page not found
 
-        else if (!project.checkUserForProject(thisUser.getId()))
-            prepareResponse(response, json, HttpServletResponse.SC_FORBIDDEN);//page is forbidden
+//        else if (!project.checkUserForProject(thisUser.getId()))
+//            prepareResponse(response, json, HttpServletResponse.SC_FORBIDDEN);//page is forbidden
 
         else {
             Map<String, Object> thisProject = new LinkedHashMap<>();

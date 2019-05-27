@@ -18,7 +18,7 @@ public class ProjectSkillMapper {
     }
 
     private String addProjectSkills(){
-        return "INSERT OR IGNORE INTO ProjectSkills (name, point, projectId) " +
+        return "INSERT IGNORE INTO ProjectSkills (name, point, projectId) " +
                 "VALUES (?, ?, ?)";
     }
 
@@ -33,6 +33,8 @@ public class ProjectSkillMapper {
             PreparedStatement pstmt = conn.prepareStatement(findSkills);
             pstmt.setString(1, pid);
             ResultSet rs = pstmt.executeQuery();
+            //-------
+//            rs.next();
             return this.loadAllSkills(rs, pid);
         } catch (SQLException e) {
             e.printStackTrace();

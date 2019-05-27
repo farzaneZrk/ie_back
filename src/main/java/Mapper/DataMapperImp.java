@@ -17,10 +17,8 @@ public abstract class DataMapperImp<T, I> implements DataMapper<T, I> {
     abstract protected String findStatement();
 
     public T abstractFind(String id) {
-        if (loadedMap.containsKey(id)) {
-            System.out.println("hit in abstract find");
+        if (loadedMap.containsKey(id))
             return loadedMap.get(id);
-        }
         T result = loadedMap.get(id);
         if (result != null) return result;
         PreparedStatement findStatement = null;
@@ -28,6 +26,8 @@ public abstract class DataMapperImp<T, I> implements DataMapper<T, I> {
             findStatement = conn.prepareStatement(findStatement());
             findStatement.setString(1, id);
             ResultSet rs = findStatement.executeQuery();
+            //-------
+//            rs.next();
             rs.next();
             result = load(rs);
             return result;
@@ -37,14 +37,14 @@ public abstract class DataMapperImp<T, I> implements DataMapper<T, I> {
         }
     }
 
-    // todo: handle updates;
-
     public List getAll() {
         ResultSet rs = null;
         PreparedStatement selectAllStatement = null;
         try (Connection conn = C3poDataSource.getConnection()) {
             selectAllStatement = conn.prepareStatement(selectAllStatement());
             rs = selectAllStatement.executeQuery();
+            //-------
+//            rs.next();
             return loadAll(rs);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -53,12 +53,11 @@ public abstract class DataMapperImp<T, I> implements DataMapper<T, I> {
     }
 
     public String insert(T subject) {
-        System.out.println("oops! insert called");
         PreparedStatement insertStatement = null;
         try (Connection conn = C3poDataSource.getConnection()) {
             insertStatement = conn.prepareStatement(insertStatement());
             String id = doInsert(subject, insertStatement);
-            System.out.println("oops! in insert with name " + id);
+            System.out.println("in insert with id " + id);
             insertStatement.execute();
 //            loadedMap.put((I)id, subject);
             return id;
@@ -79,7 +78,6 @@ public abstract class DataMapperImp<T, I> implements DataMapper<T, I> {
     protected T load(ResultSet rs) throws SQLException {
         String id = rs.getString(1);
         if (loadedMap.containsKey(id)){
-            System.out.println("hit in load");
             return loadedMap.get(id);
         }
         T result = doLoad(id, rs);

@@ -3,6 +3,7 @@ package Model;
 import Mapper.Skill.SkillDataMapper;
 import Mapper.Skill.SkillMapperImp;
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -42,17 +43,17 @@ public class SkillRepo {
     }
 
     public static void addToSkillList(String skills) throws IOException {
-        System.out.println("oops! at first of addToSkillList");
         JSONArray jsonarray = new JSONArray(skills);
         SkillDataMapper skillDataMapper = new SkillMapperImp();
-//        for (int i = 0; i < jsonarray.length(); i++) {
-//            System.out.println("in for in skill repo");
-//            JSONObject jsonobject = jsonarray.getJSONObject(i);
-//            String name = jsonobject.getString("name");
-//            System.out.println("oops! in for with name " + name);
-////            SkillRepo.addSkillToSkillList(name);
-//        }
-//        System.out.println("oops! end of add to skill list");
+        for (int i = 0; i < jsonarray.length(); i++) {
+            System.out.println("in for in skill repo");
+            JSONObject jsonobject = jsonarray.getJSONObject(i);
+            String name = jsonobject.getString("name");
+            System.out.println("oops! in for with name " + name);
+            ((SkillMapperImp) skillDataMapper).insert(name);
+//            SkillRepo.addSkillToSkillList(name);
+        }
+        System.out.println("oops! end of add to skill list");
         System.out.println(((SkillMapperImp) skillDataMapper).getAll());
     }
 }

@@ -33,7 +33,7 @@ public class ProjectRepo {
     public static Project findProject(String id) {
         System.out.println("project id is: " + id);
         Project res = projectDataMapper.abstractFind(id);
-        System.out.println("project in findProject    " + res);
+
         return res;
     }
 

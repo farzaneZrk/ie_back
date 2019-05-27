@@ -70,6 +70,8 @@ public class UserDataMapperImp extends DataMapperImp<User, String> implements Us
             pstmt.setString(1, username);
             pstmt.setString(2, password);
             ResultSet rs = pstmt.executeQuery();
+            //-------
+//            rs.next();
 
             while (rs.next()) {
                 System.out.println(rs.getInt(1));
@@ -92,6 +94,8 @@ public class UserDataMapperImp extends DataMapperImp<User, String> implements Us
             PreparedStatement pstmt = conn.prepareStatement(findByUsernameSt);
             pstmt.setString(1, username);
             ResultSet rs = pstmt.executeQuery();
+            //-------
+//            rs.next();
 
             while (rs.next()) {
                 System.out.println(rs.getInt(1));
@@ -119,7 +123,7 @@ public class UserDataMapperImp extends DataMapperImp<User, String> implements Us
         List<String> biddedProjects = getUserBidList(id);
 
         User res = new User(id, firstname, lastname, username, password, jobTitle, imageURL, skills, bio, biddedProjects);
-        System.out.println("oops! " + res);
+//        System.out.println("oops! " + res);
 
         return res;
     }
@@ -130,6 +134,8 @@ public class UserDataMapperImp extends DataMapperImp<User, String> implements Us
             PreparedStatement pstmt = conn.prepareStatement(findUserBids);
             pstmt.setString(1, id);
             ResultSet rs = pstmt.executeQuery();
+            //-------
+//            rs.next();
 
             List<String> result = new ArrayList<>();
             while (rs.next())
@@ -144,7 +150,7 @@ public class UserDataMapperImp extends DataMapperImp<User, String> implements Us
     protected String doInsert(User abstractSubject, PreparedStatement stmt) throws SQLException {
         abstractSubject = checkUserId(abstractSubject);
 
-        System.out.println("oops! in user do insert");
+        System.out.println("in user do insert");
         stmt.setString(1, abstractSubject.getId());
         stmt.setString(2, abstractSubject.getFirstName());
         stmt.setString(3, abstractSubject.getLastName());
@@ -166,6 +172,8 @@ public class UserDataMapperImp extends DataMapperImp<User, String> implements Us
             PreparedStatement pstmt = conn.prepareStatement(findByIdStatement);
             pstmt.setString(1, user.getId());
             ResultSet rs = pstmt.executeQuery();
+            //-------
+//            rs.next();
 
             while (rs.next()) {
                 System.out.println(rs.getInt(1));
@@ -216,6 +224,8 @@ public class UserDataMapperImp extends DataMapperImp<User, String> implements Us
             pstmt.setString(1, '%' + searchKey + '%');
             pstmt.setString(2, '%' + searchKey + '%');
             ResultSet rs = pstmt.executeQuery();
+            //-------
+//            rs.next();
 
             return loadAll(rs);
         } catch (SQLException e) {

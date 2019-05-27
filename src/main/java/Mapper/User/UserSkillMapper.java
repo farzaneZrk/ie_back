@@ -55,6 +55,8 @@ public class UserSkillMapper {
             PreparedStatement pstmt = conn.prepareStatement(findSkills);
             pstmt.setString(1, id);
             ResultSet rs = pstmt.executeQuery();
+            //-------
+//            rs.next();
             return this.loadAllSkills(rs, id);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -69,6 +71,8 @@ public class UserSkillMapper {
             pstmt.setString(1, id);
             pstmt.setString(2, name);
             ResultSet rs = pstmt.executeQuery();
+            //-------
+//            rs.next();
 
             List<String> result = new ArrayList<>();
             while (rs.next())
