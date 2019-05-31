@@ -1,0 +1,48 @@
+version: '3.7'
+services:
+
+  database:
+    image: farzane/ie-database:first
+    volumes:
+      - .:/db
+    ports:
+      - "3307:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=mhmdzrk83
+    networks:
+      vpcbr:
+        ipv4_address: 172.19.0.2
+
+  server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+#    image: sinakachoei/ie-backend:first
+    ports:
+      - "8080:8080"
+    depends_on:
+      - database
+    links:
+      - database
+    networks:
+      vpcbr:
+        ipv4_address: 172.19.0.3
+
+  react:
+    build:
+      context: /Users/farzane/Documents/University/IE/secondTry/ie_react
+      dockerfile: Dockerfile
+    volumes:
+      - /app
+      - /app/node_modules
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+
+networks:
+  vpcbr:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.19.0.0/16

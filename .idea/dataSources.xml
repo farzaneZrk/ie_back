@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="ie_db@localhost" uuid="e600354f-4dd6-4643-96bf-8e3345cf355d">
+    <data-source source="LOCAL" name="ie_db@172.19.0.2" uuid="e600354f-4dd6-4643-96bf-8e3345cf355d">
       <driver-ref>mysql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://localhost:3307/ie_db</jdbc-url>
+      <jdbc-url>jdbc:mysql://172.19.0.2:3306/ie_db</jdbc-url>
       <driver-properties>
         <property name="autoReconnect" value="true" />
         <property name="zeroDateTimeBehavior" value="convertToNull" />
